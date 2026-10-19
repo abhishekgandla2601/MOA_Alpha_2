@@ -1,44 +1,118 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Alpa-2</title>
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-    rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+          rel="stylesheet">
+
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+
+    </style>
+
+    
+<style>
+    body {
+        background-image: url("https://i.pinimg.com/736x/27/63/fc/2763fc9c5e9a1a0e91bf8129dd447fba.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+</style>
 
 </head>
+
 <body>
-    
-    <div class="container">
-        <h1><center>Welcome to Alpa-2 Study Materials</center></h1>
-        <br>
-        <div class="contains-inline">
-  <div class="card-group">
-  <div class="card">
-                <img src="https://i.pinimg.com/736x/40/ff/69/40ff6915ce5f65a4c8dab5115626fe04.jpg" style= width="150cm" height="200cm">
-    <div class="card-body">
-      <h4 class="card-title" style="color: blue"><center>Geography</center></h4>
-     <center><a href="geography.html"><button type="button" class="btn btn-success">Open</button></a></center>
-        
+
+    <div class="container py-4">
+
+        <h1 class="text-center mb-4" style="background-color: white;">
+            Welcome to Alpa-2 Study Materials
+        </h1>
+
+        <div class="row g-4">
+
+            <!-- Geography Card -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img
+                        src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
+                        class="card-img-top"
+                        alt="Geography">
+
+                    <div class="card-body text-center">
+                        <h4 class="card-title text-primary">
+                            Geography
+                        </h4>
+
+                        <a href="geography.html"
+                           class="btn btn-success">
+                            Open
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Card -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img
+                        src="https://placehold.co/600x400?text=History"
+                        class="card-img-top"
+                        alt="History">
+
+                    <div class="card-body text-center">
+                        <h4 class="card-title text-primary">
+                            History
+                        </h4>
+
+                        <a href="history.html"
+                           class="btn btn-success">
+                            Open
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Polity Card -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <img
+                        src="https://placehold.co/600x400?text=Polity"
+                        class="card-img-top"
+                        alt="Polity">
+
+                    <div class="card-body text-center">
+                        <h4 class="card-title text-primary">
+                            Polity
+                        </h4>
+
+                        <a href="polity.html"
+                           class="btn btn-success">
+                            Open
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-  </div>
-  <div class="card">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h4 class="card-title"></h4>
-      
-    </div>
-  </div>
-  <div class="card">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h4 class="card-title"></h4>
-    </div>
-  </div>
-  </div>
-</div>
-        
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
