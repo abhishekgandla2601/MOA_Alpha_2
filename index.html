@@ -1,969 +1,864 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Alpha-2 | Subjects</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #fffaf3;
-            --surface: rgba(255,255,255,.88);
-            --text: #172d42;
-            --muted: #718092;
-            --accent: #e87524;
-            --green: #16834b;
-            --border: rgba(23,45,66,.12);
-        }
-
-        body.dark {
-            --bg: #101d29;
-            --surface: rgba(27,43,57,.94);
-            --text: #f5f7fa;
-            --muted: #b2bfca;
-            --accent: #ffad64;
-            --green: #53c58a;
-            --border: rgba(255,255,255,.13);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            transition: background .4s, color .4s;
-            overflow-x: hidden;
-        }
-
-        /* Background */
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background:
-                linear-gradient(rgba(255,250,243,.90), rgba(255,250,243,.94)),
-                url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
-                center/cover no-repeat;
-        }
-
-        body.dark::before {
-            background:
-                linear-gradient(rgba(16,29,41,.91), rgba(16,29,41,.96)),
-                url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
-                center/cover no-repeat;
-        }
-
-        /* Loader */
-
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity .6s, visibility .6s;
-        }
-
-        #loader.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loader-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 65px;
-            font-weight: 800;
-            color: var(--accent);
-            animation: loaderPulse 1.2s infinite alternate;
-        }
-
-        @keyframes loaderPulse {
-            from { transform: scale(.9); opacity: .5; }
-            to { transform: scale(1.1); opacity: 1; }
-        }
-
-        /* Top navigation */
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 7%;
-        }
-
-        .brand {
-            font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            font-size: 25px;
-            color: var(--text);
-            letter-spacing: 2px;
-        }
-
-        .theme-btn {
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text);
-            padding: 9px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 700;
-        }
-
-        /* Hero */
-
-        .hero {
-            min-height: 520px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 45px 20px 25px;
-        }
-
-        .hero-content {
-            max-width: 850px;
-            width: 100%;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(55px, 10vw, 105px);
-            font-weight: 800;
-            letter-spacing: 5px;
-            margin-bottom: 0;
-            color: var(--text);
-        }
-
-        .hero h2 {
-            color: var(--accent);
-            font-size: clamp(23px, 4vw, 36px);
-            font-weight: 800;
-            margin-top: 4px;
-        }
-
-        .hero-description {
-            color: var(--muted);
-            font-size: 16px;
-            margin-top: 12px;
-        }
-
-        /* Animation stage */
-
-        .animation-stage {
-            height: 230px;
-            max-width: 760px;
-            margin: 25px auto 0;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .scene-item {
-            position: absolute;
-            opacity: 0;
-            transform: scale(.2) rotate(-20deg);
-            font-size: clamp(48px, 9vw, 75px);
-            transition: opacity .5s, transform .7s;
-            filter: drop-shadow(0 8px 12px rgba(0,0,0,.12));
-        }
-
-        .scene-item.active {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-            animation: iconFloat 1.6s ease-in-out infinite alternate;
-        }
-
-        @keyframes iconFloat {
-            from { transform: translateY(5px) scale(1); }
-            to { transform: translateY(-12px) scale(1.08); }
-        }
-
-        /* Subject burst */
-
-        .subject-cloud {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-wrap: wrap;
-            align-content: center;
-            align-items: center;
-            justify-content: center;
-            gap: 13px;
-            padding: 15px;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .subject-name {
-            --x: 0px;
-            --y: 0px;
-            --delay: 0s;
-
-            display: inline-block;
-            padding: 11px 17px;
-            border-radius: 30px;
-            font-size: clamp(12px, 2vw, 15px);
-            font-weight: 800;
-            color: white;
-            background: linear-gradient(135deg, #e87524, #c84c1b);
-            box-shadow: 0 7px 20px rgba(200,76,27,.2);
-            opacity: 0;
-            transform: translate(var(--x), var(--y)) scale(.1) rotate(-15deg);
-            white-space: nowrap;
-        }
-
-        .subject-name:nth-child(1) {
-            --x: -180px;
-            --y: -100px;
-            --delay: 0s;
-        }
-
-        .subject-name:nth-child(2) {
-            --x: 150px;
-            --y: -110px;
-            --delay: .12s;
-            background: linear-gradient(135deg, #16834b, #086438);
-        }
-
-        .subject-name:nth-child(3) {
-            --x: -200px;
-            --y: 80px;
-            --delay: .24s;
-            background: linear-gradient(135deg, #315f9c, #173c70);
-        }
-
-        .subject-name:nth-child(4) {
-            --x: 190px;
-            --y: 90px;
-            --delay: .36s;
-            background: linear-gradient(135deg, #a35bb9, #71378a);
-        }
-
-        .subject-name:nth-child(5) {
-            --x: -50px;
-            --y: -150px;
-            --delay: .48s;
-            background: linear-gradient(135deg, #cf9a22, #a56d08);
-        }
-
-        .subject-name:nth-child(6) {
-            --x: 60px;
-            --y: 150px;
-            --delay: .60s;
-            background: linear-gradient(135deg, #168b91, #08636b);
-        }
-
-        .subject-name:nth-child(7) {
-            --x: 220px;
-            --y: -30px;
-            --delay: .72s;
-            background: linear-gradient(135deg, #d65c76, #a92f4b);
-        }
-
-        .subject-cloud.active {
-            opacity: 1;
-        }
-
-        .subject-cloud.active .subject-name {
-            animation:
-                subjectBurst .85s cubic-bezier(.2,.9,.3,1.3) var(--delay) forwards,
-                subjectGlow 2s ease-in-out 1.3s infinite alternate;
-        }
-
-        @keyframes subjectBurst {
-            0% {
-                opacity: 0;
-                transform: translate(var(--x), var(--y)) scale(.1) rotate(-15deg);
-            }
-
-            65% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1.15) rotate(5deg);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1) rotate(0deg);
-            }
-        }
-
-        @keyframes subjectGlow {
-            from {
-                box-shadow: 0 7px 20px rgba(200,76,27,.2);
-            }
-            to {
-                box-shadow: 0 8px 28px rgba(232,117,36,.5);
-            }
-        }
-
-        /* Date and greeting */
-
-        .info-section {
-            text-align: center;
-            padding: 5px 20px 35px;
-        }
-
-        .date-time {
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .greeting {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            margin-top: 8px;
-        }
-
-        /* Daily motivation */
-
-        .quote-box {
-            max-width: 800px;
-            margin: 0 auto 65px;
-            padding: 25px;
-            text-align: center;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.04);
-        }
-
-        .quote-label {
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .quote-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 21px;
-            margin: 12px 0 0;
-            font-weight: 700;
-        }
-
-        /* Subjects section */
-
-        .section-heading {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .section-heading h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 38px;
-            font-weight: 800;
-        }
-
-        .section-heading p {
-            color: var(--muted);
-        }
-
-        .search-box {
-            max-width: 450px;
-            margin: 0 auto 35px;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 14px 20px;
-            border-radius: 30px;
-            border: 1px solid var(--border);
-            background: var(--surface);
-            color: var(--text);
-            outline: none;
-        }
-
-        .search-box input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(232,117,36,.12);
-        }
-
-        /* Subject cards */
-
-        .subject-card {
-            height: 100%;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            background: var(--surface);
-            transition: transform .3s, box-shadow .3s;
-        }
-
-        .subject-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,.10);
-        }
-
-        .subject-card img {
-            width: 100%;
-            height: 210px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 22px;
-        }
-
-        .card-content h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        .card-content p {
-            color: var(--muted);
-            min-height: 25px;
-        }
-
-        .card-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            font-weight: 800;
-            border-radius: 30px;
-            transition: .3s;
-        }
-
-        .card-link:hover {
-            background: var(--green);
-            color: white;
-        }
-
-        /* Reveal animation */
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity .7s, transform .7s;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Footer */
-
-        footer {
-            text-align: center;
-            padding: 45px 20px;
-            margin-top: 70px;
-            border-top: 1px solid var(--border);
-            color: var(--muted);
-        }
-
-        footer h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--text);
-            font-weight: 800;
-            letter-spacing: 3px;
-        }
-
-        /* Scroll progress */
-
-        #scrollProgress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 4px;
-            width: 0;
-            background: var(--accent);
-            z-index: 10000;
-        }
-
-        /* Back to top */
-
-        #backToTop {
-            position: fixed;
-            bottom: 25px;
-            right: 25px;
-            width: 45px;
-            height: 45px;
-            border: none;
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
-            font-size: 20px;
-            font-weight: 800;
-            display: none;
-            cursor: pointer;
-            z-index: 100;
-            box-shadow: 0 5px 15px rgba(0,0,0,.15);
-        }
-
-        /* Responsive */
-
-        @media (max-width: 600px) {
-            .hero {
-                min-height: 460px;
-            }
-
-            .animation-stage {
-                height: 210px;
-            }
-
-            .subject-cloud {
-                gap: 8px;
-                padding: 12px;
-            }
-
-            .subject-name {
-                padding: 8px 11px;
-                font-size: 11px;
-            }
-
-            .quote-box {
-                margin-left: 15px;
-                margin-right: 15px;
-            }
-
-            .section-heading h2 {
-                font-size: 30px;
-            }
-        }
-
-        /* Reduced motion accessibility */
-
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                scroll-behavior: auto !important;
-                animation-duration: .01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: .01ms !important;
-            }
-
-            .scene-item {
-                display: none;
-            }
-
-            .subject-cloud {
-                opacity: 1;
-                position: relative;
-                height: 100%;
-            }
-
-            .subject-name {
-                opacity: 1;
-                transform: none;
-            }
-
-            .reveal {
-                opacity: 1;
-                transform: none;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alpha-2 | Subjects</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #fffaf3;
+    --surface: rgba(255,255,255,.88);
+    --text: #172d42;
+    --muted: #718092;
+    --accent: #e87524;
+    --green: #16834b;
+    --border: rgba(23,45,66,.12);
+}
+
+body.dark {
+    --bg: #101d29;
+    --surface: rgba(27,43,57,.94);
+    --text: #f5f7fa;
+    --muted: #b2bfca;
+    --accent: #ffad64;
+    --green: #53c58a;
+    --border: rgba(255,255,255,.13);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    transition: background .4s, color .4s;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        linear-gradient(rgba(255,250,243,.90), rgba(255,250,243,.94)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
+        center/cover no-repeat;
+}
+
+body.dark::before {
+    background:
+        linear-gradient(rgba(16,29,41,.91), rgba(16,29,41,.96)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
+        center/cover no-repeat;
+}
+
+/* Loader */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity .6s, visibility .6s;
+}
+
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 65px;
+    font-weight: 800;
+    color: var(--accent);
+    animation: loaderPulse 1.2s infinite alternate;
+}
+
+@keyframes loaderPulse {
+    from { transform: scale(.9); opacity: .5; }
+    to { transform: scale(1.1); opacity: 1; }
+}
+
+/* Navigation */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 7%;
+}
+
+.brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: 25px;
+    color: var(--text);
+    letter-spacing: 2px;
+}
+
+.theme-btn {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    padding: 9px 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* Hero */
+.hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 45px 20px 25px;
+}
+
+.hero-content {
+    max-width: 850px;
+    width: 100%;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(55px, 10vw, 105px);
+    font-weight: 800;
+    letter-spacing: 5px;
+    margin-bottom: 0;
+    color: var(--text);
+}
+
+.hero h2 {
+    color: var(--accent);
+    font-size: clamp(23px, 4vw, 36px);
+    font-weight: 800;
+    margin-top: 4px;
+}
+
+.hero-description {
+    color: var(--muted);
+    font-size: 16px;
+    margin-top: 12px;
+}
+
+/* Animation stage */
+.animation-stage {
+    height: 230px;
+    max-width: 760px;
+    margin: 25px auto 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.scene-item {
+    position: absolute;
+    opacity: 0;
+    transform: scale(.2) rotate(-20deg);
+    font-size: clamp(48px, 9vw, 75px);
+    transition: opacity .5s, transform .7s;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,.12));
+}
+
+.scene-item.active {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    animation: iconFloat 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes iconFloat {
+    from { transform: translateY(5px) scale(1); }
+    to { transform: translateY(-12px) scale(1.08); }
+}
+
+/* UPSC subject burst */
+.subject-cloud {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    padding: 15px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.subject-name {
+    --x: 0px;
+    --y: 0px;
+    --delay: 0s;
+
+    display: inline-block;
+    padding: 11px 17px;
+    border-radius: 30px;
+    font-size: clamp(12px, 2vw, 15px);
+    font-weight: 800;
+    color: white;
+    background: linear-gradient(135deg, #e87524, #c84c1b);
+    box-shadow: 0 7px 20px rgba(200,76,27,.2);
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(.1) rotate(-15deg);
+    white-space: nowrap;
+}
+
+.subject-name:nth-child(1) {
+    --x: -180px;
+    --y: -100px;
+    --delay: 0s;
+}
+
+.subject-name:nth-child(2) {
+    --x: 150px;
+    --y: -110px;
+    --delay: .12s;
+    background: linear-gradient(135deg, #16834b, #086438);
+}
+
+.subject-name:nth-child(3) {
+    --x: -200px;
+    --y: 80px;
+    --delay: .24s;
+    background: linear-gradient(135deg, #315f9c, #173c70);
+}
+
+.subject-name:nth-child(4) {
+    --x: 190px;
+    --y: 90px;
+    --delay: .36s;
+    background: linear-gradient(135deg, #a35bb9, #71378a);
+}
+
+.subject-name:nth-child(5) {
+    --x: -50px;
+    --y: -150px;
+    --delay: .48s;
+    background: linear-gradient(135deg, #cf9a22, #a56d08);
+}
+
+.subject-name:nth-child(6) {
+    --x: 60px;
+    --y: 150px;
+    --delay: .60s;
+    background: linear-gradient(135deg, #168b91, #08636b);
+}
+
+.subject-name:nth-child(7) {
+    --x: 220px;
+    --y: -30px;
+    --delay: .72s;
+    background: linear-gradient(135deg, #d65c76, #a92f4b);
+}
+
+.subject-cloud.active {
+    opacity: 1;
+}
+
+.subject-cloud.active .subject-name {
+    animation:
+        subjectBurst .85s cubic-bezier(.2,.9,.3,1.3) var(--delay) forwards,
+        subjectGlow 2s ease-in-out 1.3s infinite alternate;
+}
+
+@keyframes subjectBurst {
+    0% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(.1) rotate(-15deg);
+    }
+    65% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1.15) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+}
+
+@keyframes subjectGlow {
+    from { box-shadow: 0 7px 20px rgba(200,76,27,.2); }
+    to { box-shadow: 0 8px 28px rgba(232,117,36,.5); }
+}
+
+/* Date and greeting */
+.info-section {
+    text-align: center;
+    padding: 5px 20px 35px;
+}
+
+.date-time {
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.greeting {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+/* Daily motivation */
+.quote-box {
+    max-width: 800px;
+    margin: 0 auto 65px;
+    padding: 25px;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.04);
+}
+
+.quote-label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    margin: 12px 0 0;
+    font-weight: 700;
+}
+
+/* Subjects */
+.section-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-heading h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 800;
+}
+
+.section-heading p {
+    color: var(--muted);
+}
+
+.search-box {
+    max-width: 450px;
+    margin: 0 auto 35px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232,117,36,.12);
+}
+
+/* Subject cards */
+.subject-card {
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--surface);
+    transition: transform .3s, box-shadow .3s;
+}
+
+.subject-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.10);
+}
+
+.subject-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 22px;
+}
+
+.card-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.card-content p {
+    color: var(--muted);
+    min-height: 25px;
+}
+
+.card-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    font-weight: 800;
+    border-radius: 30px;
+    transition: .3s;
+}
+
+.card-link:hover {
+    background: var(--green);
+    color: white;
+}
+
+/* Reveal */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .7s, transform .7s;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 45px 20px;
+    margin-top: 70px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+}
+
+footer h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--text);
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+/* Scroll progress */
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0;
+    background: var(--accent);
+    z-index: 10000;
+}
+
+/* Back to top */
+#backToTop {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 20px;
+    font-weight: 800;
+    display: none;
+    cursor: pointer;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .hero { min-height: 460px; }
+    .animation-stage { height: 210px; }
+    .subject-cloud { gap: 8px; padding: 12px; }
+    .subject-name { padding: 8px 11px; font-size: 11px; }
+    .quote-box { margin-left: 15px; margin-right: 15px; }
+    .section-heading h2 { font-size: 30px; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
+
+    .scene-item { display: none; }
+
+    .subject-cloud {
+        opacity: 1;
+        position: relative;
+        height: 100%;
+    }
+
+    .subject-name {
+        opacity: 1;
+        transform: none;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- Loader -->
-    <div id="loader">
-        <div class="loader-logo">A2</div>
-    </div>
+<div id="loader">
+    <div class="loader-logo">A2</div>
+</div>
 
-    <!-- Scroll progress -->
-    <div id="scrollProgress"></div>
+<div id="scrollProgress"></div>
 
-    <!-- Navigation -->
-    <nav class="topbar">
-        <div class="brand">ALPHA-2</div>
-        <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
-    </nav>
+<nav class="topbar">
+    <div class="brand">ALPHA-2</div>
+    <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
+</nav>
 
-    <!-- Hero -->
-    <header class="hero">
-        <div class="hero-content">
-
-            <h1>ALPHA-2</h1>
-            <h2>Learn & Grow</h2>
-
-            <p class="hero-description">
-                Build knowledge. Stay focused. Move forward.
-            </p>
-
-            <!-- Animation stage -->
-            <div class="animation-stage" id="animationStage">
-
-                <div class="scene-item">🌍</div>
-                <div class="scene-item">📚</div>
-                <div class="scene-item">☸️</div>
-                <div class="scene-item">🚀</div>
-                <div class="scene-item">🖊️</div>
-                <div class="scene-item">🏛️</div>
-
-                <!-- UPSC subject burst -->
-                <div class="subject-cloud" id="subjectCloud">
-                    <span class="subject-name">Geography</span>
-                    <span class="subject-name">History</span>
-                    <span class="subject-name">Polity</span>
-                    <span class="subject-name">Economy</span>
-                    <span class="subject-name">Science</span>
-                    <span class="subject-name">Environment</span>
-                    <span class="subject-name">Current Affairs</span>
-                </div>
-
-            </div>
-        </div>
-    </header>
-
-    <!-- Date and greeting -->
-    <section class="info-section">
-        <div class="date-time" id="dateTime"></div>
-        <div class="greeting" id="greeting"></div>
-    </section>
-
-    <!-- Daily motivation -->
-    <section class="container">
-        <div class="quote-box reveal">
-            <div class="quote-label">Daily Motivation</div>
-            <p class="quote-text" id="dailyQuote"></p>
-        </div>
-    </section>
-
-    <!-- Subjects -->
-    <section class="container pb-5">
-
-        <div class="section-heading reveal">
-            <h2>Explore Subjects</h2>
-            <p>Choose a subject and continue your preparation.</p>
-        </div>
-
-        <!-- Search -->
-        <div class="search-box reveal">
-            <input
-                type="text"
-                id="subjectSearch"
-                placeholder="Search your subject..."
-                autocomplete="off">
-        </div>
-
-        <!-- Cards -->
-        <div class="row g-4" id="subjectCards">
-
-            <!-- Geography -->
-            <div class="col-md-6 col-lg-4 subject-column reveal">
-                <div class="subject-card">
-                    <img
-                        src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
-                        alt="Geography">
-                    <div class="card-content">
-                        <h3>Geography</h3>
-                        <p>Earth, environment and India</p>
-                        <a href="geography.html" class="card-link">Explore</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Economy -->
-            <div class="col-md-6 col-lg-4 subject-column reveal">
-                <div class="subject-card">
-                    <img
-                        src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
-                        alt="Economy">
-                    <div class="card-content">
-                        <h3>Economy</h3>
-                        <p>India's economy and development</p>
-                        <a href="economy.html" class="card-link">Explore</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Polity -->
-            <div class="col-md-6 col-lg-4 subject-column reveal">
-                <div class="subject-card">
-                    <img
-                        src="https://placehold.co/600x400?text=Polity"
-                        alt="Polity">
-                    <div class="card-content">
-                        <h3>Polity</h3>
-                        <p>Constitution and governance</p>
-                        <a href="polity.html" class="card-link">Explore</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <p id="noResults" class="text-center mt-4" style="display:none;">
-            No matching subject found.
+<header class="hero">
+    <div class="hero-content">
+        <h1>ALPHA-2</h1>
+        <h2>Learn & Grow</h2>
+        <p class="hero-description">
+            Build knowledge. Stay focused. Move forward.
         </p>
 
-    </section>
+        <div class="animation-stage">
 
-    <!-- Footer -->
-    <footer>
-        <h3>ALPHA-2</h3>
-        <p>Learn • Prepare • Succeed</p>
-    </footer>
+            <!-- Six animations only: no ball animation -->
+            <div class="scene-item">🌍</div>
+            <div class="scene-item">📚</div>
+            <div class="scene-item">☸️</div>
+            <div class="scene-item">🚀</div>
+            <div class="scene-item">🖊️</div>
+            <div class="scene-item">🏛️</div>
 
-    <!-- Back to top -->
-    <button id="backToTop" title="Back to top">↑</button>
+            <!-- UPSC subject burst -->
+            <div class="subject-cloud" id="subjectCloud">
+                <span class="subject-name">Geography</span>
+                <span class="subject-name">History</span>
+                <span class="subject-name">Polity</span>
+                <span class="subject-name">Economy</span>
+                <span class="subject-name">Science</span>
+                <span class="subject-name">Environment</span>
+                <span class="subject-name">Current Affairs</span>
+            </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+    </div>
+</header>
 
-    <script>
-        /* Loader */
+<section class="info-section">
+    <div class="date-time" id="dateTime"></div>
+    <div class="greeting" id="greeting"></div>
+</section>
 
-        window.addEventListener("load", function () {
-            setTimeout(function () {
-                document.getElementById("loader").classList.add("hide");
-            }, 500);
+<section class="container">
+    <div class="quote-box reveal">
+        <div class="quote-label">Daily Motivation</div>
+        <p class="quote-text" id="dailyQuote"></p>
+    </div>
+</section>
+
+<section class="container pb-5">
+
+    <div class="section-heading reveal">
+        <h2>Explore Subjects</h2>
+        <p>Choose a subject and continue your preparation.</p>
+    </div>
+
+    <div class="search-box reveal">
+        <input type="text" id="subjectSearch"
+               placeholder="Search your subject..."
+               autocomplete="off">
+    </div>
+
+    <div class="row g-4" id="subjectCards">
+
+        <div class="col-md-6 col-lg-4 subject-column reveal">
+            <div class="subject-card">
+                <img src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
+                     alt="Geography">
+                <div class="card-content">
+                    <h3>Geography</h3>
+                    <p>Earth, environment and India</p>
+                    <a href="geography.html" class="card-link">Explore</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 subject-column reveal">
+            <div class="subject-card">
+                <img src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
+                     alt="Economy">
+                <div class="card-content">
+                    <h3>Economy</h3>
+                    <p>India's economy and development</p>
+                    <a href="economy.html" class="card-link">Explore</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 subject-column reveal">
+            <div class="subject-card">
+                <img src="https://placehold.co/600x400?text=Polity"
+                     alt="Polity">
+                <div class="card-content">
+                    <h3>Polity</h3>
+                    <p>Constitution and governance</p>
+                    <a href="polity.html" class="card-link">Explore</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <p id="noResults" class="text-center mt-4" style="display:none;">
+        No matching subject found.
+    </p>
+</section>
+
+<footer>
+    <h3>ALPHA-2</h3>
+    <p>Learn • Prepare • Succeed</p>
+</footer>
+
+<button id="backToTop" title="Back to top">↑</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* Loader */
+window.addEventListener("load", function () {
+    setTimeout(function () {
+        document.getElementById("loader").classList.add("hide");
+    }, 500);
+});
+
+/* Dark mode */
+const themeToggle = document.getElementById("themeToggle");
+
+if (localStorage.getItem("alpha2-theme") === "dark") {
+    document.body.classList.add("dark");
+}
+
+function updateThemeButton() {
+    themeToggle.textContent = document.body.classList.contains("dark")
+        ? "☀️ Light Mode"
+        : "🌙 Dark Mode";
+}
+
+updateThemeButton();
+
+themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("dark");
+
+    const theme = document.body.classList.contains("dark")
+        ? "dark"
+        : "light";
+
+    localStorage.setItem("alpha2-theme", theme);
+    updateThemeButton();
+});
+
+/* Date and time */
+function updateDateTime() {
+    const now = new Date();
+
+    document.getElementById("dateTime").textContent =
+        now.toLocaleDateString("en-IN", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        }) + " | " +
+        now.toLocaleTimeString("en-IN", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
         });
 
+    const hour = now.getHours();
 
-        /* Dark mode */
+    let greeting = "Good Evening";
 
-        const themeToggle = document.getElementById("themeToggle");
+    if (hour < 12) {
+        greeting = "Good Morning";
+    } else if (hour < 17) {
+        greeting = "Good Afternoon";
+    }
 
-        const savedTheme = localStorage.getItem("alpha2-theme");
+    document.getElementById("greeting").textContent = greeting;
+}
 
-        if (savedTheme === "dark") {
-            document.body.classList.add("dark");
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+/* Daily motivation */
+const quotes = [
+    "Great things are done by a series of small things brought together.",
+    "Success is the sum of small efforts repeated every day.",
+    "Don't watch the clock; do what it does. Keep going.",
+    "Your future is created by what you do today.",
+    "Dream big. Start small. Act now.",
+    "Discipline is the bridge between goals and accomplishment.",
+    "The secret of getting ahead is getting started."
+];
+
+const today = new Date();
+const dayNumber = Math.floor(
+    new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime()
+    / 86400000
+);
+
+document.getElementById("dailyQuote").textContent =
+    quotes[dayNumber % quotes.length];
+
+/* Subject search */
+const subjectSearch = document.getElementById("subjectSearch");
+const subjectColumns = document.querySelectorAll(".subject-column");
+const noResults = document.getElementById("noResults");
+
+subjectSearch.addEventListener("input", function () {
+    const searchValue = this.value.toLowerCase().trim();
+    let visibleCount = 0;
+
+    subjectColumns.forEach(function (column) {
+        const title = column.querySelector("h3").textContent.toLowerCase();
+
+        if (title.includes(searchValue)) {
+            column.style.display = "";
+            visibleCount++;
+        } else {
+            column.style.display = "none";
         }
+    });
 
-        function updateThemeButton() {
-            themeToggle.textContent = document.body.classList.contains("dark")
-                ? "☀️ Light Mode"
-                : "🌙 Dark Mode";
+    noResults.style.display = visibleCount === 0 ? "block" : "none";
+});
+
+/* Animation sequence: six icons, then UPSC subjects */
+const sceneItems = document.querySelectorAll(".scene-item");
+const subjectCloud = document.getElementById("subjectCloud");
+
+let currentScene = 0;
+let animationTimer = null;
+
+const iconDuration = 1800;
+const subjectsDuration = 4500;
+
+function clearScene() {
+    sceneItems.forEach(function (item) {
+        item.classList.remove("active");
+    });
+
+    subjectCloud.classList.remove("active");
+
+    subjectCloud.querySelectorAll(".subject-name").forEach(function (item) {
+        item.style.animation = "none";
+        void item.offsetWidth;
+        item.style.animation = "";
+    });
+}
+
+function showNextScene() {
+    clearScene();
+
+    if (currentScene < sceneItems.length) {
+        sceneItems[currentScene].classList.add("active");
+        currentScene++;
+
+        animationTimer = setTimeout(showNextScene, iconDuration);
+    } else {
+        subjectCloud.classList.add("active");
+        currentScene = 0;
+
+        animationTimer = setTimeout(showNextScene, subjectsDuration);
+    }
+}
+
+function startAnimation() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+    }
+
+    clearTimeout(animationTimer);
+    currentScene = 0;
+    clearScene();
+    showNextScene();
+}
+
+startAnimation();
+
+/* Reveal cards on scroll */
+const revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            revealObserver.unobserve(entry.target);
         }
+    });
+}, {
+    threshold: 0.12
+});
 
-        updateThemeButton();
+document.querySelectorAll(".reveal").forEach(function (element) {
+    revealObserver.observe(element);
+});
 
-        themeToggle.addEventListener("click", function () {
-            document.body.classList.toggle("dark");
+/* Scroll progress and back to top */
+const progressBar = document.getElementById("scrollProgress");
+const backToTop = document.getElementById("backToTop");
 
-            const theme = document.body.classList.contains("dark")
-                ? "dark"
-                : "light";
+window.addEventListener("scroll", function () {
+    const scrollTop = window.scrollY;
+    const scrollHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
 
-            localStorage.setItem("alpha2-theme", theme);
-            updateThemeButton();
-        });
+    const progress = scrollHeight > 0
+        ? (scrollTop / scrollHeight) * 100
+        : 0;
 
+    progressBar.style.width = progress + "%";
 
-        /* Date and time */
+    backToTop.style.display = scrollTop > 300
+        ? "block"
+        : "none";
+});
 
-        function updateDateTime() {
-            const now = new Date();
-
-            document.getElementById("dateTime").textContent =
-                now.toLocaleDateString("en-IN", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                }) + " | " +
-                now.toLocaleTimeString("en-IN", {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit"
-                });
-
-            const hour = now.getHours();
-
-            let greeting = "Good Evening";
-
-            if (hour < 12) {
-                greeting = "Good Morning";
-            } else if (hour < 17) {
-                greeting = "Good Afternoon";
-            }
-
-            document.getElementById("greeting").textContent = greeting;
-        }
-
-        updateDateTime();
-        setInterval(updateDateTime, 1000);
-
-
-        /* Daily motivation */
-
-        const quotes = [
-            "Great things are done by a series of small things brought together.",
-            "Success is the sum of small efforts repeated every day.",
-            "Don't watch the clock; do what it does. Keep going.",
-            "Your future is created by what you do today.",
-            "Dream big. Start small. Act now.",
-            "Discipline is the bridge between goals and accomplishment.",
-            "The secret of getting ahead is getting started."
-        ];
-
-        const today = new Date();
-        const dayNumber = Math.floor(
-            new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime()
-            / 86400000
-        );
-
-        document.getElementById("dailyQuote").textContent =
-            quotes[dayNumber % quotes.length];
-
-
-        /* Subject search */
-
-        const subjectSearch = document.getElementById("subjectSearch");
-        const subjectColumns = document.querySelectorAll(".subject-column");
-        const noResults = document.getElementById("noResults");
-
-        subjectSearch.addEventListener("input", function () {
-            const searchValue = this.value.toLowerCase().trim();
-            let visibleCount = 0;
-
-            subjectColumns.forEach(function (column) {
-                const title = column.querySelector("h3").textContent.toLowerCase();
-
-                if (title.includes(searchValue)) {
-                    column.style.display = "";
-                    visibleCount++;
-                } else {
-                    column.style.display = "none";
-                }
-            });
-
-            noResults.style.display = visibleCount === 0 ? "block" : "none";
-        });
-
-
-        /* UPSC animation sequence */
-
-        const sceneItems = document.querySelectorAll(".scene-item");
-        const subjectCloud = document.getElementById("subjectCloud");
-
-        let currentScene = 0;
-        let animationTimer = null;
-
-        const iconDuration = 1800;
-        const subjectsDuration = 4500;
-
-        function clearScene() {
-            sceneItems.forEach(function (item) {
-                item.classList.remove("active");
-            });
-
-            subjectCloud.classList.remove("active");
-
-            /* Restart subject animations cleanly */
-            subjectCloud.querySelectorAll(".subject-name").forEach(function (item) {
-                item.style.animation = "none";
-                void item.offsetWidth;
-                item.style.animation = "";
-            });
-        }
-
-        function showNextScene() {
-            clearScene();
-
-            if (currentScene < sceneItems.length) {
-                sceneItems[currentScene].classList.add("active");
-
-                currentScene++;
-
-                animationTimer = setTimeout(
-                    showNextScene,
-                    iconDuration
-                );
-
-            } else {
-                subjectCloud.classList.add("active");
-
-                currentScene = 0;
-
-                animationTimer = setTimeout(
-                    showNextScene,
-                    subjectsDuration
-                );
-            }
-        }
-
-        function startAnimation() {
-            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-                return;
-            }
-
-            clearTimeout(animationTimer);
-
-            currentScene = 0;
-
-            clearScene();
-
-            showNextScene();
-        }
-
-        startAnimation();
-
-
-        /* Reveal cards on scroll */
-
-        const revealObserver = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, {
-            threshold: 0.12
-        });
-
-        document.querySelectorAll(".reveal").forEach(function (element) {
-            revealObserver.observe(element);
-        });
-
-
-        /* Scroll progress and back-to-top */
-
-        const progressBar = document.getElementById("scrollProgress");
-        const backToTop = document.getElementById("backToTop");
-
-        window.addEventListener("scroll", function () {
-            const scrollTop = window.scrollY;
-            const scrollHeight =
-                document.documentElement.scrollHeight - window.innerHeight;
-
-            const progress = scrollHeight > 0
-                ? (scrollTop / scrollHeight) * 100
-                : 0;
-
-            progressBar.style.width = progress + "%";
-
-            backToTop.style.display = scrollTop > 300
-                ? "block"
-                : "none";
-        });
-
-        backToTop.addEventListener("click", function () {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-
-    </script>
+backToTop.addEventListener("click", function () {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+</script>
 
 </body>
 </html>
