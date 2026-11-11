@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,7 +152,7 @@ body.dark::before {
     margin-top: 12px;
 }
 
-/* Animation stage – six icons + subject burst only */
+/* Animation stage */
 .animation-stage {
     height: 230px;
     max-width: 760px;
@@ -550,7 +551,8 @@ footer h3 {
         </p>
 
         <div class="animation-stage">
-            <!-- Six icons only -->
+
+            <!-- Six animations only: no ball animation -->
             <div class="scene-item">🌍</div>
             <div class="scene-item">📚</div>
             <div class="scene-item">☸️</div>
@@ -568,6 +570,7 @@ footer h3 {
                 <span class="subject-name">Environment</span>
                 <span class="subject-name">Current Affairs</span>
             </div>
+
         </div>
     </div>
 </header>
@@ -703,6 +706,7 @@ function updateDateTime() {
         });
 
     const hour = now.getHours();
+
     let greeting = "Good Evening";
 
     if (hour < 12) {
@@ -760,7 +764,7 @@ subjectSearch.addEventListener("input", function () {
     noResults.style.display = visibleCount === 0 ? "block" : "none";
 });
 
-/* Animation sequence: six icons → subject burst → loop */
+/* Animation sequence: six icons, then UPSC subjects */
 const sceneItems = document.querySelectorAll(".scene-item");
 const subjectCloud = document.getElementById("subjectCloud");
 
@@ -779,7 +783,7 @@ function clearScene() {
 
     subjectCloud.querySelectorAll(".subject-name").forEach(function (item) {
         item.style.animation = "none";
-        void item.offsetWidth;          // force reflow
+        void item.offsetWidth;
         item.style.animation = "";
     });
 }
@@ -790,10 +794,12 @@ function showNextScene() {
     if (currentScene < sceneItems.length) {
         sceneItems[currentScene].classList.add("active");
         currentScene++;
+
         animationTimer = setTimeout(showNextScene, iconDuration);
     } else {
         subjectCloud.classList.add("active");
         currentScene = 0;
+
         animationTimer = setTimeout(showNextScene, subjectsDuration);
     }
 }
@@ -811,7 +817,7 @@ function startAnimation() {
 
 startAnimation();
 
-/* Reveal on scroll */
+/* Reveal cards on scroll */
 const revealObserver = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -819,13 +825,15 @@ const revealObserver = new IntersectionObserver(function (entries) {
             revealObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.12 });
+}, {
+    threshold: 0.12
+});
 
 document.querySelectorAll(".reveal").forEach(function (element) {
     revealObserver.observe(element);
 });
 
-/* Scroll progress + back to top */
+/* Scroll progress and back to top */
 const progressBar = document.getElementById("scrollProgress");
 const backToTop = document.getElementById("backToTop");
 
@@ -839,13 +847,20 @@ window.addEventListener("scroll", function () {
         : 0;
 
     progressBar.style.width = progress + "%";
-    backToTop.style.display = scrollTop > 300 ? "block" : "none";
+
+    backToTop.style.display = scrollTop > 300
+        ? "block"
+        : "none";
 });
 
 backToTop.addEventListener("click", function () {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 });
 </script>
 
 </body>
 </html>
+```
