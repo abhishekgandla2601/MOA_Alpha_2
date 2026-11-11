@@ -79,77 +79,242 @@ body.dark-mode::before {
         center/cover no-repeat;
 }
 
-/* ANIMATED INDIAN FLAG */
+/* CRICKET BALL ANIMATION */
 
-.flag-background {
+.cricket-scene {
     position: fixed;
-    top: 18%;
-    right: -95px;
-    width: 430px;
-    height: 285px;
-    z-index: -3;
-    pointer-events: none;
-    opacity: 0.15;
-    transform-origin: left center;
-    animation: flagFloat 7s ease-in-out infinite;
-}
-
-.flag-cloth {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    inset: 0;
+    z-index: 0;
     overflow: hidden;
-    border-radius: 5px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-    animation: flagWave 3s ease-in-out infinite;
-    transform-origin: left center;
-    background: linear-gradient(
-        to bottom,
-        #ff9933 0%,
-        #ff9933 33.33%,
-        #ffffff 33.33%,
-        #ffffff 66.66%,
-        #138808 66.66%,
-        #138808 100%
-    );
+    pointer-events: none;
 }
 
-.ashoka-chakra {
+.cricket-ball {
     position: absolute;
-    width: 75px;
-    height: 75px;
-    left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
-    border: 5px solid #000080;
+    left: -125px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000080;
-    font-size: 65px;
-    line-height: 1;
-    animation: chakraSpin 20s linear infinite;
+    opacity: 0;
+    background:
+        radial-gradient(circle at 30% 25%,
+            #ff7777 0%,
+            #d91e2b 25%,
+            #a90016 65%,
+            #5b0010 100%);
+    box-shadow:
+        inset -9px -9px 18px rgba(0,0,0,0.45),
+        inset 5px 5px 12px rgba(255,255,255,0.22),
+        0 12px 30px rgba(120,0,0,0.28);
+    animation: ballFlight 9s ease-in-out infinite;
 }
 
-@keyframes flagWave {
-    0%,100% {
-        border-radius: 5px 12px 5px 12px;
-        transform: perspective(600px) rotateY(-8deg) skewY(1deg);
+/* Cricket ball stitching */
+
+.cricket-ball::before {
+    content: "";
+    position: absolute;
+    inset: 8px 28px;
+    border-left: 3px dashed rgba(255,255,255,0.9);
+    border-right: 3px dashed rgba(255,255,255,0.9);
+    border-radius: 50%;
+    transform: rotate(38deg);
+}
+
+.cricket-ball::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 14px;
+    left: 17px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    filter: blur(7px);
+}
+
+@keyframes ballFlight {
+    0%, 5% {
+        opacity: 0;
+        transform: translate3d(0,-50%,0) rotate(0deg) scale(0.6);
     }
+
+    12% {
+        opacity: 0.85;
+    }
+
+    43% {
+        opacity: 0.85;
+        transform: translate3d(calc(50vw + 80px),-50%,0)
+                   rotate(650deg) scale(1);
+    }
+
+    47% {
+        opacity: 1;
+        transform: translate3d(calc(50vw + 80px),-50%,0)
+                   rotate(720deg) scale(1.15);
+    }
+
+    54% {
+        opacity: 0;
+        transform: translate3d(calc(115vw + 150px),-50%,0)
+                   rotate(1100deg) scale(0.7);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(calc(115vw + 150px),-50%,0)
+                   rotate(1100deg) scale(0.7);
+    }
+}
+
+/* IMPACT RIPPLE */
+
+.impact-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90px;
+    height: 90px;
+    border: 3px solid rgba(232,117,36,0.7);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(0.2);
+    animation: impactRipple 9s ease-out infinite;
+}
+
+.impact-ring.second {
+    animation-delay: 0.12s;
+    border-color: rgba(22,131,75,0.55);
+}
+
+@keyframes impactRipple {
+    0%, 45% {
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(0.2);
+    }
+
+    48% {
+        opacity: 0.8;
+    }
+
+    65% {
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(5);
+    }
+}
+
+/* SUBJECT NAMES */
+
+.subject-burst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: var(--accent-dark);
+    font-size: clamp(12px,2vw,19px);
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    white-space: nowrap;
+    text-shadow: 0 2px 12px rgba(255,255,255,0.75);
+    opacity: 0;
+    transform: translate(-50%,-50%) scale(0.5);
+    animation: subjectBurst 9s ease-out infinite;
+}
+
+body.dark-mode .subject-burst {
+    color: #ffbd85;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.7);
+}
+
+.subject-burst:nth-of-type(4) {
+    --move-x: -240px;
+    --move-y: -140px;
+    --rotation: -18deg;
+    animation-delay: 0s;
+}
+
+.subject-burst:nth-of-type(5) {
+    --move-x: 230px;
+    --move-y: -145px;
+    --rotation: 16deg;
+    animation-delay: 0.04s;
+    color: var(--green);
+}
+
+.subject-burst:nth-of-type(6) {
+    --move-x: -270px;
+    --move-y: 5px;
+    --rotation: -9deg;
+    animation-delay: 0.08s;
+}
+
+.subject-burst:nth-of-type(7) {
+    --move-x: 265px;
+    --move-y: 10px;
+    --rotation: 12deg;
+    animation-delay: 0.12s;
+    color: var(--green);
+}
+
+.subject-burst:nth-of-type(8) {
+    --move-x: -210px;
+    --move-y: 145px;
+    --rotation: 14deg;
+    animation-delay: 0.16s;
+}
+
+.subject-burst:nth-of-type(9) {
+    --move-x: 210px;
+    --move-y: 145px;
+    --rotation: -15deg;
+    animation-delay: 0.20s;
+    color: var(--green);
+}
+
+.subject-burst:nth-of-type(10) {
+    --move-x: 0px;
+    --move-y: -205px;
+    --rotation: 5deg;
+    animation-delay: 0.24s;
+}
+
+@keyframes subjectBurst {
+    0%, 46% {
+        opacity: 0;
+        transform: translate(-50%,-50%) scale(0.3);
+    }
+
     50% {
-        border-radius: 5px 25px 5px 25px;
-        transform: perspective(600px) rotateY(8deg) skewY(-1deg);
+        opacity: 1;
     }
-}
 
-@keyframes chakraSpin {
-    to { rotate: 360deg; }
-}
+    65% {
+        opacity: 0.9;
+        transform:
+            translate(-50%,-50%)
+            translate(var(--move-x),var(--move-y))
+            rotate(var(--rotation))
+            scale(1);
+    }
 
-@keyframes flagFloat {
-    0%,100% { translate: 0 0; }
-    50% { translate: -15px 15px; }
+    76% {
+        opacity: 0;
+        transform:
+            translate(-50%,-50%)
+            translate(var(--move-x),var(--move-y))
+            rotate(var(--rotation))
+            scale(0.8);
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 /* BACKGROUND GLOW */
@@ -180,7 +345,9 @@ body.dark-mode::before {
 }
 
 @keyframes glowMove {
-    to { transform: translate(70px,60px) scale(1.2); }
+    to {
+        transform: translate(70px,60px) scale(1.2);
+    }
 }
 
 /* LOADER */
@@ -217,7 +384,9 @@ body.dark-mode::before {
 }
 
 @keyframes logoPulse {
-    to { transform: scale(1.08) rotate(4deg); }
+    to {
+        transform: scale(1.08) rotate(4deg);
+    }
 }
 
 .loader-title {
@@ -246,8 +415,12 @@ body.dark-mode::before {
 }
 
 @keyframes loading {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(230%); }
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(230%);
+    }
 }
 
 /* MAIN */
@@ -293,8 +466,14 @@ body.dark-mode::before {
 }
 
 @keyframes heroEntrance {
-    from { opacity: 0; transform: translateY(25px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .main-heading {
@@ -316,7 +495,9 @@ body.dark-mode::before {
 }
 
 @keyframes gradientFlow {
-    to { background-position: 200% center; }
+    to {
+        background-position: 200% center;
+    }
 }
 
 .hero-description {
@@ -651,6 +832,7 @@ input:focus-visible {
 /* RESPONSIVE */
 
 @media(max-width:768px) {
+
     .hero-section {
         padding-top: 25px;
     }
@@ -675,23 +857,59 @@ input:focus-visible {
         margin-top: 45px;
     }
 
-    .flag-background {
-        width: 280px;
-        height: 185px;
-        top: 25%;
-        right: -120px;
-        opacity: 0.11;
+    .cricket-ball {
+        width: 65px;
+        height: 65px;
     }
 
-    .ashoka-chakra {
-        width: 55px;
-        height: 55px;
-        font-size: 47px;
-        border-width: 3px;
+    .cricket-ball::before {
+        inset: 6px 20px;
+        border-width: 2px;
+    }
+
+    .subject-burst {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+    }
+
+    .subject-burst:nth-of-type(4) {
+        --move-x: -115px;
+        --move-y: -105px;
+    }
+
+    .subject-burst:nth-of-type(5) {
+        --move-x: 115px;
+        --move-y: -105px;
+    }
+
+    .subject-burst:nth-of-type(6) {
+        --move-x: -125px;
+        --move-y: -5px;
+    }
+
+    .subject-burst:nth-of-type(7) {
+        --move-x: 125px;
+        --move-y: 5px;
+    }
+
+    .subject-burst:nth-of-type(8) {
+        --move-x: -105px;
+        --move-y: 105px;
+    }
+
+    .subject-burst:nth-of-type(9) {
+        --move-x: 105px;
+        --move-y: 105px;
+    }
+
+    .subject-burst:nth-of-type(10) {
+        --move-x: 0px;
+        --move-y: -155px;
     }
 }
 
 @media(max-width:400px) {
+
     .image-container {
         height: 190px;
     }
@@ -704,6 +922,7 @@ input:focus-visible {
 /* REDUCED MOTION */
 
 @media(prefers-reduced-motion:reduce) {
+
     *,
     *::before,
     *::after {
@@ -717,13 +936,19 @@ input:focus-visible {
         opacity: 1;
         transform: none;
     }
+
+    .cricket-scene {
+        display: none;
+    }
 }
+
 </style>
 </head>
 
 <body>
 
 <!-- LOADER -->
+
 <div id="loader">
     <div class="loader-logo">A2</div>
     <div class="loader-title">ALPHA-2</div>
@@ -732,20 +957,34 @@ input:focus-visible {
 
 <div id="scrollProgress"></div>
 
-<!-- INDIAN FLAG BACKGROUND -->
-<div class="flag-background" aria-hidden="true">
-    <div class="flag-cloth">
-        <div class="ashoka-chakra">☸</div>
-    </div>
+<!-- CRICKET BALL ANIMATION -->
+
+<div class="cricket-scene" aria-hidden="true">
+
+    <div class="cricket-ball"></div>
+
+    <div class="impact-ring"></div>
+    <div class="impact-ring second"></div>
+
+    <span class="subject-burst">GEOGRAPHY</span>
+    <span class="subject-burst">HISTORY</span>
+    <span class="subject-burst">POLITY</span>
+    <span class="subject-burst">ECONOMY</span>
+    <span class="subject-burst">SCIENCE</span>
+    <span class="subject-burst">ENVIRONMENT</span>
+    <span class="subject-burst">CURRENT AFFAIRS</span>
+
 </div>
 
 <!-- BACKGROUND GLOW -->
+
 <div class="glow one"></div>
 <div class="glow two"></div>
 
 <div class="container py-4 main-container">
 
     <!-- THEME -->
+
     <div class="top-actions">
         <button class="theme-button" id="themeToggle" type="button">
             🌙 Dark Mode
@@ -753,6 +992,7 @@ input:focus-visible {
     </div>
 
     <!-- HERO -->
+
     <section class="hero-section">
 
         <h1 class="main-heading">
@@ -770,6 +1010,7 @@ input:focus-visible {
     </section>
 
     <!-- CLOCK -->
+
     <div class="glass-panel clock-panel">
 
         <div class="greeting" id="greeting">
@@ -783,6 +1024,7 @@ input:focus-visible {
     </div>
 
     <!-- DAILY QUOTE -->
+
     <div class="glass-panel quote-panel">
 
         <div class="quote-icon">✦</div>
@@ -800,6 +1042,7 @@ input:focus-visible {
     </div>
 
     <!-- SUBJECTS -->
+
     <div class="section-heading">
 
         <h2>Subjects</h2>
@@ -809,6 +1052,7 @@ input:focus-visible {
     </div>
 
     <!-- SEARCH -->
+
     <div class="search-wrapper">
 
         <span class="search-icon">⌕</span>
@@ -823,9 +1067,11 @@ input:focus-visible {
     </div>
 
     <!-- SUBJECT CARDS -->
+
     <div class="row g-4" id="subjectContainer">
 
         <!-- GEOGRAPHY -->
+
         <div class="col-md-4 subject-column"
              data-search="geography physical geography indian geography">
 
@@ -855,6 +1101,7 @@ input:focus-visible {
         </div>
 
         <!-- ECONOMY -->
+
         <div class="col-md-4 subject-column"
              data-search="economy indian economy finance economics">
 
@@ -884,6 +1131,7 @@ input:focus-visible {
         </div>
 
         <!-- POLITY -->
+
         <div class="col-md-4 subject-column"
              data-search="polity indian polity constitution governance">
 
@@ -915,6 +1163,7 @@ input:focus-visible {
     </div>
 
     <!-- NO RESULTS -->
+
     <div id="noResults">
         <div style="font-size:35px;">🔎</div>
         <div class="mt-2">No subjects found.</div>
@@ -922,6 +1171,7 @@ input:focus-visible {
     </div>
 
     <!-- FOOTER -->
+
     <footer class="footer">
 
         <div class="footer-title">
@@ -937,6 +1187,7 @@ input:focus-visible {
 </div>
 
 <!-- BACK TO TOP -->
+
 <button id="backToTop"
         aria-label="Back to top"
         title="Back to top">
@@ -946,6 +1197,7 @@ input:focus-visible {
 <script>
 
 /* PAGE LOADER */
+
 window.addEventListener("load", function() {
     setTimeout(function() {
         document.getElementById("loader").classList.add("hide");
@@ -953,11 +1205,13 @@ window.addEventListener("load", function() {
 });
 
 /* LOADER FALLBACK */
+
 setTimeout(function() {
     document.getElementById("loader").classList.add("hide");
 }, 5000);
 
 /* LIVE CLOCK */
+
 function updateClock() {
 
     const now = new Date();
@@ -992,6 +1246,7 @@ updateClock();
 setInterval(updateClock, 1000);
 
 /* DARK / LIGHT MODE */
+
 const themeToggle = document.getElementById("themeToggle");
 
 let savedTheme = null;
@@ -1033,6 +1288,7 @@ themeToggle.addEventListener("click", function() {
 });
 
 /* DAILY QUOTE */
+
 const quotes = [
     {
         text: "The secret of getting ahead is getting started.",
@@ -1082,6 +1338,7 @@ document.getElementById("quoteAuthor").textContent =
     "— " + quote.author;
 
 /* SEARCH SUBJECTS */
+
 const searchInput = document.getElementById("searchInput");
 const subjectColumns = document.querySelectorAll(".subject-column");
 const noResults = document.getElementById("noResults");
@@ -1109,6 +1366,7 @@ searchInput.addEventListener("input", function() {
 });
 
 /* CARD REVEAL */
+
 const cards = document.querySelectorAll(".subject-card");
 
 if ("IntersectionObserver" in window) {
@@ -1142,6 +1400,7 @@ if ("IntersectionObserver" in window) {
 }
 
 /* SCROLL PROGRESS AND BACK TO TOP */
+
 const scrollProgress = document.getElementById("scrollProgress");
 const backToTop = document.getElementById("backToTop");
 
