@@ -1,1713 +1,1002 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Geography Study Materials | Alpha-2</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<style>
-
-/* =========================
-   THEME
-========================= */
-
-:root {
-    --card: rgba(255,255,255,0.95);
-    --panel: rgba(255,255,255,0.91);
-    --heading: #172554;
-    --body-text: #334155;
-    --accent: #0284c7;
-}
-
-body.dark-mode {
-    --card: rgba(15,30,48,0.96);
-    --panel: rgba(15,30,48,0.94);
-    --heading: #e0f2fe;
-    --body-text: #cbd5e1;
-    --accent: #38bdf8;
-}
-
-/* =========================
-   GENERAL
-========================= */
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
-
-    background-image:
-        linear-gradient(rgba(4,20,35,0.55),
-                        rgba(4,20,35,0.75)),
-        url("https://i.pinimg.com/1200x/80/3c/c2/803cc24726e912cfdcf79e9b80a60ff0.jpg");
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-
-    font-family: Arial, sans-serif;
-    color: white;
-}
-
-.main-container {
-    position: relative;
-    z-index: 2;
-}
-
-/* =========================
-   LOADER
-========================= */
-
-#loader {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: #071a2b;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: opacity .6s, visibility .6s;
-}
-
-#loader.hide {
-    opacity: 0;
-    visibility: hidden;
-}
-
-.loader-earth {
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
-    background: linear-gradient(135deg,#38bdf8,#075985,#22c55e);
-    box-shadow: 0 0 30px #38bdf8;
-    animation: rotateEarth 3s linear infinite;
-}
-
-@keyframes rotateEarth {
-    to { transform: rotate(360deg); }
-}
-
-/* =========================
-   FLOATING PARTICLES
-========================= */
-
-.particles {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.particle {
-    position: absolute;
-    bottom: -20px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #bae6fd;
-    box-shadow: 0 0 12px #38bdf8;
-    animation: floatUp linear infinite;
-}
-
-.particle:nth-child(1) {left:10%;animation-duration:13s;}
-.particle:nth-child(2) {left:28%;animation-duration:16s;animation-delay:2s;}
-.particle:nth-child(3) {left:48%;animation-duration:12s;animation-delay:4s;}
-.particle:nth-child(4) {left:70%;animation-duration:17s;animation-delay:1s;}
-.particle:nth-child(5) {left:90%;animation-duration:14s;animation-delay:3s;}
-
-@keyframes floatUp {
-    from {transform:translateY(0);opacity:0;}
-    20% {opacity:.8;}
-    to {transform:translateY(-110vh);opacity:0;}
-}
-
-/* =========================
-   MOUSE GLOW
-========================= */
-
-.mouse-glow {
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 1;
-    background: radial-gradient(circle,
-        rgba(56,189,248,.15),transparent 70%);
-    transform: translate(-50%,-50%);
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.back-link {
-    color: white;
-    text-decoration: none;
-    background: rgba(255,255,255,.15);
-    border: 1px solid rgba(255,255,255,.3);
-    padding: 9px 15px;
-    border-radius: 25px;
-    transition: .3s;
-}
-
-.back-link:hover {
-    background: #0284c7;
-    color: white;
-}
-
-.theme-button {
-    border: none;
-    border-radius: 25px;
-    padding: 10px 15px;
-    background: var(--panel);
-    color: var(--heading);
-    font-weight: bold;
-}
-
-.main-heading {
-    font-size: clamp(2rem,5vw,3.5rem);
-    font-weight: 800;
-    text-align: center;
-    color: white;
-    text-shadow: 0 4px 15px black;
-    animation: headingIn 1s ease;
-}
-
-@keyframes headingIn {
-    from {opacity:0;transform:translateY(-30px);}
-    to {opacity:1;transform:translateY(0);}
-}
-
-.heading-line {
-    width: 110px;
-    height: 4px;
-    border-radius: 10px;
-    background: linear-gradient(90deg,#38bdf8,#22c55e);
-    margin: 15px auto 35px;
-}
-
-/* =========================
-   GEOGRAPHY HERO
-========================= */
-
-.hero-panel {
-    background: var(--panel);
-    color: var(--body-text);
-    border-radius: 22px;
-    padding: 28px;
-    margin-bottom: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 12px 35px rgba(0,0,0,.2);
-}
-
-.hero-content {
-    flex: 1;
-}
-
-.hero-content h2 {
-    color: var(--heading);
-    font-weight: 800;
-    font-size: clamp(23px,4vw,34px);
-}
-
-.hero-content p {
-    line-height: 1.7;
-    margin-top: 12px;
-    margin-bottom: 0;
-}
-
-/* CSS animated Earth */
-
-.globe {
-    flex-shrink: 0;
-    width: 155px;
-    height: 155px;
-    position: relative;
-    border-radius: 50%;
-
-    background:
-        radial-gradient(ellipse at 35% 30%,
-            #bbf7d0 0%,
-            #22c55e 22%,
-            #0c766e 45%,
-            #075985 70%,
-            #082f49 100%);
-
-    box-shadow:
-        inset -18px -12px 25px rgba(0,0,0,.55),
-        inset 8px 5px 15px rgba(255,255,255,.35),
-        0 0 30px rgba(56,189,248,.6);
-
-    animation: globeFloat 4s ease-in-out infinite;
-}
-
-.globe::before {
-    content: "";
-    position: absolute;
-    inset: 12px 35px;
-    border: 2px solid rgba(255,255,255,.55);
-    border-radius: 50%;
-    animation: globeSpin 7s linear infinite;
-}
-
-.globe::after {
-    content: "";
-    position: absolute;
-    left: 5px;
-    right: 5px;
-    top: 48%;
-    height: 20px;
-    border-top: 2px solid rgba(255,255,255,.5);
-    border-bottom: 2px solid rgba(255,255,255,.5);
-    border-radius: 50%;
-}
-
-@keyframes globeSpin {
-    to {transform:rotateY(360deg);}
-}
-
-@keyframes globeFloat {
-    0%,100% {transform:translateY(0);}
-    50% {transform:translateY(-12px);}
-}
-
-/* =========================
-   GEOGRAPHY FACT
-========================= */
-
-.fact-panel {
-    background: var(--panel);
-    color: var(--body-text);
-    border-radius: 18px;
-    padding: 22px;
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.fact-label {
-    color: var(--accent);
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-#dailyFact {
-    color: var(--heading);
-    font-size: 17px;
-    font-weight: 600;
-    margin-top: 12px;
-    line-height: 1.6;
-}
-
-.fact-footer {
-    font-size: 12px;
-    margin-top: 10px;
-}
-
-/* =========================
-   STATISTICS
-========================= */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 15px;
-    margin-bottom: 30px;
-}
-
-.stat-box {
-    background: var(--panel);
-    padding: 18px 10px;
-    text-align: center;
-    border-radius: 16px;
-    color: var(--body-text);
-}
-
-.stat-number {
-    color: var(--accent);
-    font-size: 30px;
-    font-weight: 800;
-}
-
-.stat-label {
-    font-size: 13px;
-    font-weight: bold;
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.search-wrapper {
-    max-width: 650px;
-    margin: 0 auto 20px;
-}
-
-.search-input {
-    width: 100%;
-    padding: 15px 20px;
-    border-radius: 30px;
-    border: 2px solid rgba(255,255,255,.5);
-    outline: none;
-    background: var(--panel);
-    color: var(--heading);
-    font-size: 16px;
-}
-
-.search-input::placeholder {
-    color: var(--body-text);
-    opacity: .8;
-}
-
-.search-input:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 15px rgba(56,189,248,.4);
-}
-
-/* =========================
-   FILTER BUTTONS
-========================= */
-
-.filter-area {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-}
-
-.filter-btn {
-    border: 1px solid rgba(255,255,255,.5);
-    color: white;
-    background: rgba(255,255,255,.12);
-    padding: 9px 17px;
-    border-radius: 25px;
-    transition: .3s;
-}
-
-.filter-btn:hover,
-.filter-btn.active {
-    background: #0284c7;
-    border-color: #0284c7;
-    color: white;
-    transform: translateY(-2px);
-}
-
-/* =========================
-   TOPIC CARDS
-========================= */
-
-.subject-card {
-    border: none;
-    border-radius: 17px;
-    overflow: hidden;
-    height: 100%;
-    background: var(--card);
-    box-shadow: 0 10px 28px rgba(0,0,0,.25);
-
-    opacity: 0;
-    transform: translateY(35px);
-
-    transition:
-        opacity .65s ease,
-        transform .4s ease,
-        box-shadow .4s ease,
-        background .3s ease;
-}
-
-.subject-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.subject-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0,0,0,.4);
-}
-
-.image-container {
-    overflow: hidden;
-    position: relative;
-}
-
-.card-img-top {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    transition: transform .6s ease;
-}
-
-.subject-card:hover .card-img-top {
-    transform: scale(1.09);
-}
-
-.topic-category {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: bold;
-    color: #0369a1;
-    background: #e0f2fe;
-    padding: 5px 10px;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-}
-
-.card-title {
-    color: var(--heading);
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 1.5;
-}
-
-.card-body {
-    padding: 19px;
-}
-
-.pdf-hint {
-    font-size: 12px;
-    color: var(--body-text);
-    margin-top: 8px;
-}
-
-#noResults {
-    display: none;
-    background: var(--panel);
-    color: var(--heading);
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-/* =========================
-   PROGRESS BAR
-========================= */
-
-.progress-area {
-    color: white;
-    margin: 20px 0;
-    text-align: center;
-    font-size: 13px;
-}
-
-.progress-track {
-    width: 100%;
-    height: 7px;
-    background: rgba(255,255,255,.25);
-    border-radius: 20px;
-    overflow: hidden;
-    margin-top: 10px;
-}
-
-#progressFill {
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg,#38bdf8,#22c55e);
-    border-radius: 20px;
-    transition: width .2s ease;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-.footer-text {
-    text-align: center;
-    color: white;
-    margin: 55px 0 20px;
-    font-size: 14px;
-    text-shadow: 0 2px 8px black;
-}
-
-/* =========================
-   BACK TO TOP
-========================= */
-
-#backToTop {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    width: 48px;
-    height: 48px;
-    border: none;
-    border-radius: 50%;
-    background: #0284c7;
-    color: white;
-    font-size: 23px;
-    cursor: pointer;
-    display: none;
-    z-index: 100;
-    box-shadow: 0 5px 15px rgba(0,0,0,.3);
-}
-
-#backToTop:hover {
-    transform: translateY(-5px);
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:768px) {
-
-    body {
-        background-attachment: scroll;
-    }
-
-    .hero-panel {
-        flex-direction: column-reverse;
-        text-align: center;
-        padding: 23px;
-    }
-
-    .globe {
-        width: 120px;
-        height: 120px;
-    }
-
-    .stats-grid {
-        gap: 8px;
-    }
-
-    .stat-number {
-        font-size: 23px;
-    }
-
-    .stat-label {
-        font-size: 10px;
-    }
-
-    .mouse-glow {
-        display: none;
-    }
-
-    .card-img-top {
-        height: 190px;
-    }
-
-}
-
-/* =========================
-   ACCESSIBILITY
-========================= */
-
-@media(prefers-reduced-motion:reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: .01ms !important;
-    }
-
-    .subject-card {
-        opacity: 1;
-        transform: none;
-    }
-
-    .mouse-glow {
-        display: none;
-    }
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Geography Study Materials | Alpha-2</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f2f6fa;
+            --card: rgba(255,255,255,0.94);
+            --text: #172033;
+            --muted: #667085;
+            --primary: #176b87;
+            --secondary: #39a9a1;
+            --border: rgba(20,40,60,0.10);
+            --shadow: 0 10px 30px rgba(0,0,0,0.09);
+        }
+
+        body.dark-mode {
+            --bg: #101923;
+            --card: rgba(27,40,54,0.96);
+            --text: #f1f5f9;
+            --muted: #bdc8d5;
+            --primary: #5bc0be;
+            --secondary: #80d0c7;
+            --border: rgba(255,255,255,0.10);
+            --shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* Background */
+        .background-layer {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(rgba(8,25,40,0.75), rgba(8,25,40,0.82)),
+                url("https://i.pinimg.com/1200x/80/3c/c2/803cc24726e912cfdcf79e9b80a60ff0.jpg")
+                center/cover no-repeat;
+        }
+
+        /* Loading screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #102c3a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.6s, visibility 0.6s;
+        }
+
+        #loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-globe {
+            width: 65px;
+            height: 65px;
+            border: 4px solid rgba(255,255,255,0.25);
+            border-top-color: #5bc0be;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        #loader p {
+            color: white;
+            margin-top: 18px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Mouse glow */
+        #mouseGlow {
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(65,190,190,0.15), transparent 70%);
+            transform: translate(-50%, -50%);
+        }
+
+        /* Header */
+        .topbar {
+            padding: 16px 0;
+            background: rgba(8,25,40,0.78);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .brand {
+            color: white;
+            font-weight: 800;
+            font-size: 21px;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .header-btn {
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            background: transparent;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .header-btn:hover {
+            background: white;
+            color: #123;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 65px 15px 45px;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            animation: fadeDown 0.9s ease;
+        }
+
+        .hero p {
+            color: #e0edf2;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.8;
+        }
+
+        .globe {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            margin: 0 auto 22px;
+            background:
+                radial-gradient(circle at 30% 30%, #b7f3ec, #36a6a2 45%, #14506d 75%);
+            box-shadow: 0 0 35px rgba(91,192,190,0.5);
+            position: relative;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .globe::before,
+        .globe::after {
+            content: "";
+            position: absolute;
+            inset: 15px -8px;
+            border: 2px solid rgba(255,255,255,0.65);
+            border-radius: 50%;
+            transform: rotate(-25deg);
+        }
+
+        .globe::after {
+            transform: rotate(65deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main content */
+        .main-content {
+            background: var(--bg);
+            padding: 35px 0 65px;
+            border-radius: 35px 35px 0 0;
+            min-height: 600px;
+        }
+
+        .section-heading {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        /* Clock */
+        .clock-box {
+            color: white;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+        }
+
+        /* Daily fact */
+        .fact-box {
+            background: linear-gradient(120deg, #176b87, #39a9a1);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 18px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .fact-box h5 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .fact-box p {
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* Statistics */
+        .stat-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            height: 100%;
+        }
+
+        .stat-number {
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Search */
+        .search-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 13px 18px;
+            color: var(--text);
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(57,169,161,0.15);
+        }
+
+        /* Category filters */
+        .filter-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            padding: 9px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Study cards */
+        .study-card {
+            height: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.35s, box-shadow 0.35s;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        .study-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .study-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.17);
+        }
+
+        .study-card a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            height: 100%;
+        }
+
+        .study-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .study-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .image-wrap {
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 17px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Intentionally no "Open Study Material" text on cards */
+
+        #noResults {
+            display: none;
+            text-align: center;
+            padding: 40px 15px;
+            color: var(--muted);
+        }
+
+        /* Progress bar */
+        #readingProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: #5bc0be;
+            z-index: 10000;
+        }
+
+        /* Back to top */
+        #backToTop {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 20px;
+            display: none;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            background: #102c3a;
+            color: #d6e4eb;
+            padding: 25px 15px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding-top: 45px;
+            }
+
+            .study-card img {
+                height: 175px;
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- LOADER -->
+<div id="readingProgress"></div>
+<div class="background-layer"></div>
+<div id="mouseGlow"></div>
 
+<!-- Loading Screen -->
 <div id="loader">
-    <div class="loader-earth"></div>
-    <h5 class="text-white mt-4">Geography Study Materials</h5>
-    <small class="text-white-50">Exploring our world...</small>
+    <div class="loader-globe"></div>
+    <p>EXPLORING GEOGRAPHY...</p>
 </div>
 
+<!-- Header -->
+<header class="topbar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <a href="index.html" class="brand">ALPHA-2</a>
 
-<!-- PARTICLES -->
+        <div class="d-flex gap-2">
+            <a href="index.html" class="header-btn">← Home</a>
+            <button class="header-btn" id="themeToggle" type="button">
+                🌙 Dark Mode
+            </button>
+        </div>
+    </div>
+</header>
 
-<div class="particles">
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-    <span class="particle"></span>
-</div>
+<!-- Hero -->
+<section class="hero">
+    <div class="globe"></div>
 
-<div class="mouse-glow" id="mouseGlow"></div>
+    <h1>Geography Study Materials</h1>
 
+    <p>
+        Explore the Earth, physical features, climate, resources and Indian
+        geography through these study materials.
+    </p>
 
-<div class="container py-4 main-container">
+    <div class="clock-box">
+        <span id="dateTime"></span>
+    </div>
+</section>
 
-    <!-- HEADER -->
+<!-- Main -->
+<main class="main-content">
+    <div class="container">
 
-    <div class="top-bar">
+        <!-- Daily Fact -->
+        <div class="fact-box">
+            <h5>🌍 Geography Fact of the Day</h5>
+            <p id="dailyFact"></p>
+        </div>
 
-        <a href="index.html" class="back-link">
-            ← Home
-        </a>
+        <!-- Statistics -->
+        <div class="row g-3 mb-4">
+            <div class="col-4">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="17">0</div>
+                    <div class="stat-label">Study Topics</div>
+                </div>
+            </div>
 
-        <button class="theme-button" id="themeToggle">
-            🌙 Dark Mode
-        </button>
+            <div class="col-4">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-label">Categories</div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="17">0</div>
+                    <div class="stat-label">PDF Materials</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Search -->
+        <div class="mb-4">
+            <input
+                type="text"
+                id="searchInput"
+                class="search-box"
+                placeholder="🔍 Search Geography topics..."
+                aria-label="Search Geography topics">
+        </div>
+
+        <!-- Filters -->
+        <div class="d-flex flex-wrap gap-2 mb-4" id="filterButtons">
+            <button class="filter-btn active" data-category="all">All Topics</button>
+            <button class="filter-btn" data-category="earth">Earth & Geology</button>
+            <button class="filter-btn" data-category="physical">Physical Geography</button>
+            <button class="filter-btn" data-category="india">Indian Geography</button>
+            <button class="filter-btn" data-category="human">Human & Economic</button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="section-heading mb-0">📚 Available Study Materials</h4>
+            <span class="muted small" id="resultCount">17 topics</span>
+        </div>
+
+        <!-- Study Cards -->
+        <div class="row g-4" id="studyGrid">
+
+            <!-- 1 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="earth" data-title="continental drifting">
+                <div class="study-card">
+                    <a href="Continental Drifting.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/9e/25/91/9e25915802d1197a2f69c02963fcfefc.jpg"
+                                 alt="Continental Drifting" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Continental Drifting</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="indian geography">
+                <div class="study-card">
+                    <a href="India Geography.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/17/42/3f/17423fecdadb617e9b714cc94dd1dfd5.jpg"
+                                 alt="Indian Geography" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Indian Geography</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="earth" data-title="geological time scale">
+                <div class="study-card">
+                    <a href="Geological Time Scale or period.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/1200x/50/77/26/50772614269dd44b43e56f5bd128c264.jpg"
+                                 alt="Geological Time Scale" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Geological Time Scale</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="physical" data-title="the himalayas mountain building physiographic divisions">
+                <div class="study-card">
+                    <a href="The Himalayas.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/02/7a/04/027a04605aadeb156f56d1d8a50260fc.jpg"
+                                 alt="The Himalayas" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">The Himalayas / Mountain Building / Physiographic Divisions of India</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="drainage system of india">
+                <div class="study-card">
+                    <a href="Drainage System of India.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/81/7f/0e/817f0eec65771da4b43f9829f7fc84c7.jpg"
+                                 alt="Drainage System of India" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Drainage System of India</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="peninsular rivers of india">
+                <div class="study-card">
+                    <a href="Peninsular Rivers.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/1200x/ab/d5/81/abd58179ea1fcb1063d0c8690cfcafb9.jpg"
+                                 alt="Peninsular Rivers of India" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Peninsular Rivers of India</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 7 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="climate of india">
+                <div class="study-card">
+                    <a href="Climate of india.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/1200x/65/02/d6/6502d6e637d517de525b0798d694c382.jpg"
+                                 alt="Climate of India" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Climate of India</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 8 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="earth" data-title="classification of rocks and rock cycle">
+                <div class="study-card">
+                    <a href="Classification of rocks and rock cycle.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/1200x/8e/7e/da/8e7edad768bb57065493a7ca63ddb9c6.jpg"
+                                 alt="Classification of Rocks and Rock Cycle" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Classification of Rocks and Rock Cycle</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 9 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="soils of india">
+                <div class="study-card">
+                    <a href="Soils of india.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/fa/c2/d5/fac2d5a7ffef22c4dcdbac997926bcf9.jpg"
+                                 alt="Soils of India" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Soils of India</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 10 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="indian minerals">
+                <div class="study-card">
+                    <a href="Indian Minerals.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/e4/3e/44/e43e443c31696b7f69a1219ce9139bcb.jpg"
+                                 alt="Indian Minerals" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Indian Minerals</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 11 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="human" data-title="agriculture of india">
+                <div class="study-card">
+                    <a href="India-Agriculture.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/15/b4/3b/15b43bef4612fdda0bed9708dfa94451.jpg"
+                                 alt="Agriculture of India" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Agriculture of India</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 12 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="india" data-title="natural vegetation">
+                <div class="study-card">
+                    <a href="Natural Vegetation.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/3a/28/d8/3a28d8c0bf706966c338f1687ad74a9e.jpg"
+                                 alt="Natural Vegetation" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Natural Vegetation</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 13 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="human" data-title="india major crops">
+                <div class="study-card">
+                    <a href="India Major Crops.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/d5/5e/14/d55e14db64130cac6845b00c606e6a73.jpg"
+                                 alt="India Major Crops" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">India Major Crops</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 14 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="human" data-title="india industries geographical perspective">
+                <div class="study-card">
+                    <a href="India- Industries -Geographical Perspective.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/ce/46/93/ce46937289f296b605f9acf6f697b8b0.jpg"
+                                 alt="India Industries" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">India Industries – Geographical Perspective</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 15 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="human" data-title="india transport geography">
+                <div class="study-card">
+                    <a href="India Transport Geography.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/1200x/6f/b5/b2/6fb5b2ef7b6c35ea853c7757cca7829f.jpg"
+                                 alt="India Transport Geography" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">India Transport Geography</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 16 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="human" data-title="india population and cultural geography">
+                <div class="study-card">
+                    <a href="India Population -Cultural Geography.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/5d/c9/6b/5dc96b5254e8f5b66b99f5f13b92b773.jpg"
+                                 alt="India Population and Cultural Geography" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">India Population and Cultural Geography</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 17 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-category="earth" data-title="origin of the earth">
+                <div class="study-card">
+                    <a href="The Origin of the Earth.pdf" target="_blank" rel="noopener">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/5c/6c/a2/5c6ca22fcf27643ffe34ef4ad82848a0.jpg"
+                                 alt="The Origin of the Earth" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">The Origin of the Earth</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="noResults">
+            <h5>No topics found!</h5>
+            <p>Try another search term or select a different category.</p>
+        </div>
 
     </div>
+</main>
 
+<!-- Footer -->
+<footer>
+    <p class="mb-1">🌍 Alpha-2 Study Materials</p>
+    <p class="mb-0">Learn • Explore • Understand</p>
+</footer>
 
-    <!-- MAIN TITLE -->
+<button id="backToTop" title="Back to top" aria-label="Back to top">↑</button>
 
-    <h1 class="main-heading">
-        🌍 Geography Study Materials
-    </h1>
-
-    <div class="heading-line"></div>
-
-
-    <!-- GEOGRAPHY HERO -->
-
-    <div class="hero-panel">
-
-        <div class="hero-content">
-
-            <h2>Explore Our Planet</h2>
-
-            <p>
-                Discover the Earth's physical features,
-                climate, rivers, mountains, resources,
-                population and the geographical diversity
-                of India.
-            </p>
-
-            <p class="mt-3">
-                <strong>Observe • Understand • Explore</strong>
-            </p>
-
-        </div>
-
-        <div class="globe" aria-label="Animated Earth illustration"></div>
-
-    </div>
-
-
-    <!-- DAILY GEOGRAPHY FACT -->
-
-    <div class="fact-panel">
-
-        <div class="fact-label">
-            🌎 Geography Fact of the Day
-        </div>
-
-        <div id="dailyFact">
-            Loading geography fact...
-        </div>
-
-        <div class="fact-footer">
-            A new learning fact is selected each day.
-        </div>
-
-    </div>
-
-
-    <!-- STATISTICS -->
-
-    <div class="stats-grid">
-
-        <div class="stat-box">
-            <div class="stat-number" data-target="17">0</div>
-            <div class="stat-label">Topics</div>
-        </div>
-
-        <div class="stat-box">
-            <div class="stat-number" data-target="5">0</div>
-            <div class="stat-label">Categories</div>
-        </div>
-
-        <div class="stat-box">
-            <div class="stat-number" data-target="17">0</div>
-            <div class="stat-label">PDF Resources</div>
-        </div>
-
-    </div>
-
-
-    <!-- SEARCH -->
-
-    <div class="search-wrapper">
-
-        <input
-            type="search"
-            id="searchInput"
-            class="search-input"
-            placeholder="🔍 Search Geography topics..."
-            aria-label="Search geography topics">
-
-    </div>
-
-
-    <!-- CATEGORY FILTERS -->
-
-    <div class="filter-area">
-
-        <button class="filter-btn active" data-filter="all">
-            All Topics
-        </button>
-
-        <button class="filter-btn" data-filter="earth">
-            Earth & Geology
-        </button>
-
-        <button class="filter-btn" data-filter="physical">
-            Physical Geography
-        </button>
-
-        <button class="filter-btn" data-filter="india">
-            Indian Geography
-        </button>
-
-        <button class="filter-btn" data-filter="human">
-            Human & Economic
-        </button>
-
-    </div>
-
-
-    <!-- READING PROGRESS -->
-
-    <div class="progress-area">
-
-        <span id="resultCount">Showing 17 of 17 topics</span>
-
-        <div class="progress-track">
-            <div id="progressFill"></div>
-        </div>
-
-    </div>
-
-
-    <!-- TOPIC CARDS -->
-
-    <div class="row g-4" id="subjectContainer">
-
-
-        <!-- 1 CONTINENTAL DRIFTING -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Continental Drifting"
-             data-category="earth">
-
-            <div class="card subject-card">
-
-                <a href="Continental Drifting.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/9e/25/91/9e25915802d1197a2f69c02963fcfefc.jpg"
-                             class="card-img-top"
-                             alt="Continental Drifting">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Earth & Geology</span>
-                    <h4 class="card-title">Continental Drifting</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 2 INDIAN GEOGRAPHY -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Indian Geography"
-             data-category="india">
-
-            <div class="card subject-card">
-
-                <a href="India Geography.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/17/42/3f/17423fecdadb617e9b714cc94dd1dfd5.jpg"
-                             class="card-img-top"
-                             alt="Indian Geography">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Indian Geography</span>
-                    <h4 class="card-title">Indian Geography</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 3 GEOLOGICAL TIME SCALE -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Geological Time Scale"
-             data-category="earth">
-
-            <div class="card subject-card">
-
-                <a href="Geological Time Scale or period.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/1200x/50/77/26/50772614269dd44b43e56f5bd128c264.jpg"
-                             class="card-img-top"
-                             alt="Geological Time Scale">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Earth & Geology</span>
-                    <h4 class="card-title">Geological Time Scale</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 4 HIMALAYAS -->
-
-        <div class="col-md-4 subject-column"
-             data-title="The Himalayas Mountain Building Physiographic Divisions of India"
-             data-category="india">
-
-            <div class="card subject-card">
-
-                <a href="The Himalayas.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/02/7a/04/027a04605aadeb156f56d1d8a50260fc.jpg"
-                             class="card-img-top"
-                             alt="The Himalayas">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Indian Geography</span>
-                    <h4 class="card-title">
-                        The Himalayas, Mountain Building & Physiographic Divisions of India
-                    </h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 5 DRAINAGE SYSTEM -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Drainage System of India"
-             data-category="india">
-
-            <div class="card subject-card">
-
-                <a href="Drainage System of India.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/81/7f/0e/817f0eec65771da4b43f9829f7fc84c7.jpg"
-                             class="card-img-top"
-                             alt="Drainage System of India">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Indian Geography</span>
-                    <h4 class="card-title">Drainage System of India</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 6 PENINSULAR RIVERS -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Peninsular Rivers of India"
-             data-category="india">
-
-            <div class="card subject-card">
-
-                <a href="Peninsular Rivers.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/1200x/ab/d5/81/abd58179ea1fcb1063d0c8690cfcafb9.jpg"
-                             class="card-img-top"
-                             alt="Peninsular Rivers">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Indian Geography</span>
-                    <h4 class="card-title">Peninsular Rivers of India</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 7 CLIMATE -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Climate of India"
-             data-category="physical">
-
-            <div class="card subject-card">
-
-                <a href="Climate of india.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/1200x/65/02/d6/6502d6e637d517de525b0798d694c382.jpg"
-                             class="card-img-top"
-                             alt="Climate of India">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Physical Geography</span>
-                    <h4 class="card-title">Climate of India</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 8 ROCKS -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Classification of Rocks and Rock Cycle"
-             data-category="earth">
-
-            <div class="card subject-card">
-
-                <a href="Classification of rocks and rock cycle.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/1200x/8e/7e/da/8e7edad768bb57065493a7ca63ddb9c6.jpg"
-                             class="card-img-top"
-                             alt="Classification of Rocks">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Earth & Geology</span>
-                    <h4 class="card-title">Classification of Rocks and Rock Cycle</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 9 SOILS -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Soils of India"
-             data-category="india">
-
-            <div class="card subject-card">
-
-                <a href="Soils of india.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/fa/c2/d5/fac2d5a7ffef22c4dcdbac997926bcf9.jpg"
-                             class="card-img-top"
-                             alt="Soils of India">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Indian Geography</span>
-                    <h4 class="card-title">Soils of India</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 10 MINERALS -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Indian Minerals"
-             data-category="india">
-
-            <div class="card subject-card">
-
-                <a href="Indian Minerals.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/e4/3e/44/e43e443c31696b7f69a1219ce9139bcb.jpg"
-                             class="card-img-top"
-                             alt="Indian Minerals">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Indian Geography</span>
-                    <h4 class="card-title">Indian Minerals</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 11 AGRICULTURE -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Agriculture of India"
-             data-category="human">
-
-            <div class="card subject-card">
-
-                <a href="India-Agriculture.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/15/b4/3b/15b43bef4612fdda0bed9708dfa94451.jpg"
-                             class="card-img-top"
-                             alt="Agriculture of India">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Human & Economic</span>
-                    <h4 class="card-title">Agriculture of India</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 12 NATURAL VEGETATION -->
-
-        <div class="col-md-4 subject-column"
-             data-title="Natural Vegetation"
-             data-category="physical">
-
-            <div class="card subject-card">
-
-                <a href="Natural Vegetation.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/3a/28/d8/3a28d8c0bf706966c338f1687ad74a9e.jpg"
-                             class="card-img-top"
-                             alt="Natural Vegetation">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Physical Geography</span>
-                    <h4 class="card-title">Natural Vegetation</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 13 MAJOR CROPS -->
-
-        <div class="col-md-4 subject-column"
-             data-title="India Major Crops"
-             data-category="human">
-
-            <div class="card subject-card">
-
-                <a href="India Major Crops.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/d5/5e/14/d55e14db64130cac6845b00c606e6a73.jpg"
-                             class="card-img-top"
-                             alt="India Major Crops">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Human & Economic</span>
-                    <h4 class="card-title">India Major Crops</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 14 INDUSTRIES -->
-
-        <div class="col-md-4 subject-column"
-             data-title="India Industries Geographical Perspective"
-             data-category="human">
-
-            <div class="card subject-card">
-
-                <a href="India- Industries -Geographical Perspective.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/ce/46/93/ce46937289f296b605f9acf6f697b8b0.jpg"
-                             class="card-img-top"
-                             alt="India Industries">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Human & Economic</span>
-                    <h4 class="card-title">India Industries - Geographical Perspective</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 15 TRANSPORT -->
-
-        <div class="col-md-4 subject-column"
-             data-title="India Transport Geography"
-             data-category="human">
-
-            <div class="card subject-card">
-
-                <a href="India Transport Geography.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/1200x/6f/b5/b2/6fb5b2ef7b6c35ea853c7757cca7829f.jpg"
-                             class="card-img-top"
-                             alt="India Transport Geography">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Human & Economic</span>
-                    <h4 class="card-title">India Transport Geography</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 16 POPULATION -->
-
-        <div class="col-md-4 subject-column"
-             data-title="India Population and Cultural Geography"
-             data-category="human">
-
-            <div class="card subject-card">
-
-                <a href="India Population -Cultural Geography.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/5d/c9/6b/5dc96b5254e8f5b66b99f5f13b92b773.jpg"
-                             class="card-img-top"
-                             alt="India Population and Cultural Geography">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Human & Economic</span>
-                    <h4 class="card-title">India Population and Cultural Geography</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-        <!-- 17 ORIGIN OF EARTH -->
-
-        <div class="col-md-4 subject-column"
-             data-title="The Origin of the Earth"
-             data-category="earth">
-
-            <div class="card subject-card">
-
-                <a href="The Origin of the Earth.pdf" target="_blank">
-
-                    <div class="image-container">
-                        <img src="https://i.pinimg.com/736x/5c/6c/a2/5c6ca22fcf27643ffe34ef4ad82848a0.jpg"
-                             class="card-img-top"
-                             alt="The Origin of the Earth">
-                    </div>
-
-                </a>
-
-                <div class="card-body text-center">
-                    <span class="topic-category">Earth & Geology</span>
-                    <h4 class="card-title">The Origin of the Earth</h4>
-                    <div class="pdf-hint">📄 Open Study Material</div>
-                </div>
-
-            </div>
-        </div>
-
-
-    </div>
-
-
-    <!-- NO RESULTS -->
-
-    <div id="noResults">
-        <h5>No Geography Topics Found!</h5>
-        <p class="mb-0">Try another search or select a different category.</p>
-    </div>
-
-
-    <!-- FOOTER -->
-
-    <div class="footer-text">
-        🌍 Alpha-2 Study Materials
-        <br>
-        Explore • Learn • Understand
-    </div>
-
-</div>
-
-
-<!-- BACK TO TOP -->
-
-<button id="backToTop" title="Back to top" aria-label="Back to top">
-    ↑
-</button>
-
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
+    // Loading screen
+    window.addEventListener("load", function () {
+        setTimeout(function () {
+            document.getElementById("loader").classList.add("hide");
+        }, 500);
+    });
 
-/* =========================
-   LOADER
-========================= */
+    // Dark / Light mode
+    const themeToggle = document.getElementById("themeToggle");
 
-window.addEventListener("load", () => {
+    if (localStorage.getItem("alpha2-theme") === "dark") {
+        document.body.classList.add("dark-mode");
+        themeToggle.textContent = "☀️ Light Mode";
+    }
 
-    setTimeout(() => {
-        document.getElementById("loader").classList.add("hide");
-    }, 500);
+    themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
 
-});
+        const isDark = document.body.classList.contains("dark-mode");
 
+        localStorage.setItem("alpha2-theme", isDark ? "dark" : "light");
+        themeToggle.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+    });
 
-/* =========================
-   DARK / LIGHT MODE
-========================= */
+    // Date and time
+    function updateClock() {
+        const now = new Date();
 
-const themeToggle = document.getElementById("themeToggle");
+        document.getElementById("dateTime").textContent =
+            now.toLocaleDateString("en-IN", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }) + " | " +
+            now.toLocaleTimeString("en-IN");
+    }
 
-if (localStorage.getItem("alpha2-theme") === "dark") {
-    document.body.classList.add("dark-mode");
-}
+    updateClock();
+    setInterval(updateClock, 1000);
 
-function updateThemeButton() {
+    // Daily Geography Fact
+    const facts = [
+        "The Pacific Ocean is the largest and deepest ocean on Earth.",
+        "The Sahara is the largest hot desert in the world.",
+        "Mount Everest is the highest mountain above sea level.",
+        "The Equator divides Earth into the Northern and Southern Hemispheres.",
+        "The Nile is traditionally regarded as the world's longest river.",
+        "The Indian Ocean is the only ocean named after a country.",
+        "The Himalayas are young fold mountains.",
+        "The Deccan Plateau is located in southern India.",
+        "The Earth's outermost solid layer is called the crust.",
+        "The Amazon rainforest is the world's largest tropical rainforest."
+    ];
 
-    themeToggle.textContent =
-        document.body.classList.contains("dark-mode")
-        ? "☀️ Light Mode"
-        : "🌙 Dark Mode";
-
-}
-
-updateThemeButton();
-
-themeToggle.addEventListener("click", () => {
-
-    document.body.classList.toggle("dark-mode");
-
-    localStorage.setItem(
-        "alpha2-theme",
-        document.body.classList.contains("dark-mode")
-            ? "dark"
-            : "light"
+    const dayNumber = Math.floor(
+        new Date().setHours(0, 0, 0, 0) / 86400000
     );
 
-    updateThemeButton();
+    document.getElementById("dailyFact").textContent =
+        facts[((dayNumber % facts.length) + facts.length) % facts.length];
 
-});
+    // Search and category filters
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const studyItems = document.querySelectorAll(".study-item");
+    const noResults = document.getElementById("noResults");
+    const resultCount = document.getElementById("resultCount");
 
+    let activeCategory = "all";
 
-/* =========================
-   DAILY GEOGRAPHY FACTS
-========================= */
+    function filterCards() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
 
-const facts = [
+        studyItems.forEach(function (item) {
+            const title = item.dataset.title.toLowerCase();
+            const category = item.dataset.category;
 
-    "The Pacific Ocean is the largest and deepest ocean on Earth.",
+            const matchesSearch = title.includes(searchText);
+            const matchesCategory =
+                activeCategory === "all" || category === activeCategory;
 
-    "The Himalayas are young fold mountains formed by the collision of the Indian and Eurasian plates.",
+            const show = matchesSearch && matchesCategory;
 
-    "The Equator divides Earth into the Northern and Southern Hemispheres.",
+            item.style.display = show ? "" : "none";
 
-    "The Ganga and Brahmaputra river systems form one of the world's largest delta regions.",
-
-    "The Deccan Plateau is a major physiographic feature of Peninsular India.",
-
-    "The Earth's outer core is liquid, while its inner core is solid.",
-
-    "The Western Ghats influence the distribution of rainfall over western India.",
-
-    "The Tropic of Cancer passes through eight Indian states.",
-
-    "The Nile is traditionally regarded as one of the world's longest rivers.",
-
-    "The Mariana Trench contains the deepest known point in the world's oceans.",
-
-    "Black soil is particularly suitable for cotton cultivation.",
-
-    "The Coriolis effect influences the direction of moving winds and ocean currents.",
-
-    "The Indian monsoon is an important influence on India's agriculture.",
-
-    "The Himalayas act as a major climatic barrier in South Asia.",
-
-    "The Earth's tectonic plates move slowly over geological time."
-
-];
-
-const currentDate = new Date();
-
-const dateIndex = Math.floor(
-    Date.UTC(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        currentDate.getDate()
-    ) / 86400000
-);
-
-const factIndex =
-    ((dateIndex % facts.length) + facts.length) % facts.length;
-
-document.getElementById("dailyFact").textContent =
-    facts[factIndex];
-
-
-/* =========================
-   SEARCH + CATEGORY FILTER
-========================= */
-
-const searchInput = document.getElementById("searchInput");
-
-const topicColumns =
-    document.querySelectorAll(".subject-column");
-
-const filterButtons =
-    document.querySelectorAll(".filter-btn");
-
-const noResults = document.getElementById("noResults");
-
-const resultCount = document.getElementById("resultCount");
-
-let activeFilter = "all";
-
-function filterTopics() {
-
-    const searchValue =
-        searchInput.value.toLowerCase().trim();
-
-    let visibleCount = 0;
-
-    topicColumns.forEach(column => {
-
-        const title =
-            column.dataset.title.toLowerCase();
-
-        const category =
-            column.dataset.category;
-
-        const matchesSearch =
-            title.includes(searchValue);
-
-        const matchesFilter =
-            activeFilter === "all" ||
-            category === activeFilter;
-
-        const show =
-            matchesSearch && matchesFilter;
-
-        column.style.display = show ? "" : "none";
-
-        if (show) {
-
-            visibleCount++;
-
-            column.querySelector(".subject-card")
-                .classList.add("visible");
-
-        }
-
-    });
-
-    noResults.style.display =
-        visibleCount === 0 ? "block" : "none";
-
-    resultCount.textContent =
-        `Showing ${visibleCount} of ${topicColumns.length} topics`;
-
-}
-
-searchInput.addEventListener("input", filterTopics);
-
-filterButtons.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        filterButtons.forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-        button.classList.add("active");
-
-        activeFilter = button.dataset.filter;
-
-        filterTopics();
-
-    });
-
-});
-
-
-/* =========================
-   CARD SCROLL ANIMATION
-========================= */
-
-const cards =
-    document.querySelectorAll(".subject-card");
-
-if ("IntersectionObserver" in window) {
-
-    const cardObserver = new IntersectionObserver(entries => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.classList.add("visible");
-
-                cardObserver.unobserve(entry.target);
-
+            if (show) {
+                visibleCount++;
             }
-
         });
 
-    }, { threshold: 0.12 });
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
+        resultCount.textContent = visibleCount + " topics";
+    }
 
-    cards.forEach((card, index) => {
+    searchInput.addEventListener("input", filterCards);
 
-        card.style.transitionDelay =
-            `${(index % 3) * 100}ms`;
+    filterButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            filterButtons.forEach(function (btn) {
+                btn.classList.remove("active");
+            });
 
-        cardObserver.observe(card);
+            button.classList.add("active");
+            activeCategory = button.dataset.category;
 
+            filterCards();
+        });
     });
 
-} else {
-
-    cards.forEach(card =>
-        card.classList.add("visible")
-    );
-
-}
-
-
-/* =========================
-   ANIMATED STATISTICS
-========================= */
-
-const counters =
-    document.querySelectorAll(".stat-number");
-
-let statsAnimated = false;
-
-function animateCounters() {
-
-    if (statsAnimated) return;
-
-    statsAnimated = true;
-
-    counters.forEach(counter => {
-
-        const target = Number(counter.dataset.target);
-
-        let current = 0;
-
-        const increment = Math.max(
-            1,
-            Math.ceil(target / 50)
-        );
-
-        const interval = setInterval(() => {
-
-            current += increment;
-
-            if (current >= target) {
-
-                current = target;
-
-                clearInterval(interval);
-
+    // Card reveal animation
+    const cardObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                cardObserver.unobserve(entry.target);
             }
-
-            counter.textContent = current + "+";
-
-        }, 25);
-
+        });
+    }, {
+        threshold: 0.08
     });
 
-}
-
-if ("IntersectionObserver" in window) {
-
-    const statsObserver = new IntersectionObserver(entries => {
-
-        if (entries.some(entry => entry.isIntersecting)) {
-
-            animateCounters();
-
-            statsObserver.disconnect();
-
-        }
-
+    document.querySelectorAll(".study-card").forEach(function (card) {
+        cardObserver.observe(card);
     });
 
-    statsObserver.observe(document.querySelector(".stats-grid"));
+    // Animated statistics
+    const statNumbers = document.querySelectorAll(".stat-number");
 
-} else {
+    const statsObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                const element = entry.target;
+                const target = Number(element.dataset.target);
+                let current = 0;
 
-    animateCounters();
+                const increment = Math.max(1, Math.ceil(target / 35));
 
-}
+                const timer = setInterval(function () {
+                    current += increment;
 
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
 
-/* =========================
-   MOUSE GLOW
-========================= */
+                    element.textContent = current;
+                }, 35);
 
-const mouseGlow =
-    document.getElementById("mouseGlow");
+                statsObserver.unobserve(element);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
 
-if (
-    window.matchMedia("(pointer: fine)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-) {
+    statNumbers.forEach(function (number) {
+        statsObserver.observe(number);
+    });
 
-    document.addEventListener("mousemove", event => {
+    // Mouse-following glow
+    const mouseGlow = document.getElementById("mouseGlow");
 
+    document.addEventListener("mousemove", function (event) {
         mouseGlow.style.left = event.clientX + "px";
-
         mouseGlow.style.top = event.clientY + "px";
-
     });
 
-} else {
+    // Scroll progress and Back to top
+    const progress = document.getElementById("readingProgress");
+    const backToTop = document.getElementById("backToTop");
 
-    mouseGlow.style.display = "none";
+    window.addEventListener("scroll", function () {
+        const scrollTop = window.scrollY;
+        const scrollHeight =
+            document.documentElement.scrollHeight - window.innerHeight;
 
-}
+        const percentage = scrollHeight > 0
+            ? (scrollTop / scrollHeight) * 100
+            : 0;
 
+        progress.style.width = percentage + "%";
 
-/* =========================
-   READING PROGRESS
-========================= */
-
-function updateProgress() {
-
-    const scrollTop =
-        window.scrollY;
-
-    const scrollHeight =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-
-    const progress =
-        scrollHeight > 0
-        ? (scrollTop / scrollHeight) * 100
-        : 0;
-
-    document.getElementById("progressFill")
-        .style.width = progress + "%";
-
-}
-
-window.addEventListener("scroll", updateProgress);
-
-
-/* =========================
-   BACK TO TOP
-========================= */
-
-const backToTop =
-    document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-
-    backToTop.style.display =
-        window.scrollY > 300 ? "block" : "none";
-
-});
-
-backToTop.addEventListener("click", () => {
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
+        backToTop.style.display = scrollTop > 350 ? "block" : "none";
     });
 
-});
-
+    backToTop.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
 </script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
