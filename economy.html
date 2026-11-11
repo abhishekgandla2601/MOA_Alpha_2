@@ -1,71 +1,894 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Economy Study Materials</title>
+    <title>Economy Study Materials | Alpha-2</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
     <style>
-        .card-img-top {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        :root {
+            --bg: #f2f7f3;
+            --card: rgba(255,255,255,0.95);
+            --text: #172b22;
+            --muted: #66776d;
+            --primary: #16834a;
+            --secondary: #45b878;
+            --border: rgba(20,60,35,0.10);
+            --shadow: 0 10px 30px rgba(0,0,0,0.09);
         }
 
-        h1 {
-            color: white;
+        body.dark-mode {
+            --bg: #111d18;
+            --card: rgba(29,45,36,0.96);
+            --text: #f1f7f2;
+            --muted: #bdcfc2;
+            --primary: #5bd18c;
+            --secondary: #80dda7;
+            --border: rgba(255,255,255,0.10);
+            --shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-image: url("https://i.pinimg.com/1200x/84/dd/dd/84dddd816ae318e60e6ffc757ba1ae1a.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background: var(--bg);
             min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        /* Background */
+        .background-layer {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(rgba(8,30,20,0.76), rgba(8,30,20,0.84)),
+                url("https://i.pinimg.com/1200x/84/dd/dd/84dddd816ae318e60e6ffc757ba1ae1a.jpg")
+                center/cover no-repeat;
+        }
+
+        /* Loading screen */
+        #loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #102d1d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            transition: opacity 0.6s, visibility 0.6s;
+        }
+
+        #loader.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-icon {
+            font-size: 55px;
+            animation: moneyPulse 1.2s ease-in-out infinite;
+        }
+
+        #loader p {
+            color: white;
+            margin-top: 15px;
+            letter-spacing: 2px;
+            font-size: 13px;
+        }
+
+        @keyframes moneyPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Mouse glow */
+        #mouseGlow {
+            position: fixed;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(69,184,120,0.16), transparent 70%);
+            transform: translate(-50%, -50%);
+        }
+
+        /* Header */
+        .topbar {
+            padding: 16px 0;
+            background: rgba(8,30,20,0.82);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .brand {
+            color: white;
+            font-weight: 800;
+            font-size: 21px;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .header-btn {
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            background: transparent;
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-size: 13px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .header-btn:hover {
+            background: white;
+            color: #123;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 65px 15px 45px;
+        }
+
+        .hero h1 {
+            font-size: clamp(30px, 5vw, 48px);
+            font-weight: 800;
+            margin-bottom: 12px;
+            animation: fadeDown 0.9s ease;
+        }
+
+        .hero p {
+            color: #e0eee4;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.8;
+        }
+
+        .economy-icon {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            margin: 0 auto 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+            background: linear-gradient(135deg, #a5e8b8, #16834a);
+            box-shadow: 0 0 35px rgba(69,184,120,0.5);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Decorative economic bars */
+        .economic-bars {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 9px;
+            height: 45px;
+            margin: 25px auto 0;
+        }
+
+        .economic-bars span {
+            width: 10px;
+            border-radius: 5px 5px 0 0;
+            background: #80dda7;
+            animation: barGrowth 1.5s ease-in-out infinite alternate;
+        }
+
+        .economic-bars span:nth-child(1) { height: 18px; }
+        .economic-bars span:nth-child(2) { height: 28px; animation-delay: .2s; }
+        .economic-bars span:nth-child(3) { height: 23px; animation-delay: .4s; }
+        .economic-bars span:nth-child(4) { height: 40px; animation-delay: .6s; }
+        .economic-bars span:nth-child(5) { height: 32px; animation-delay: .8s; }
+
+        @keyframes barGrowth {
+            from { transform: scaleY(.65); }
+            to { transform: scaleY(1); }
+        }
+
+        /* Main content */
+        .main-content {
+            background: var(--bg);
+            padding: 35px 0 65px;
+            border-radius: 35px 35px 0 0;
+            min-height: 600px;
+        }
+
+        .section-heading {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        /* Clock */
+        .clock-box {
+            color: white;
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+        }
+
+        /* Daily economy fact */
+        .fact-box {
+            background: linear-gradient(120deg, #126c3b, #45b878);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 18px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .fact-box h5 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .fact-box p {
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* Statistics */
+        .stat-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            height: 100%;
+        }
+
+        .stat-number {
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* Search */
+        .search-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 13px 18px;
+            color: var(--text);
+            width: 100%;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(69,184,120,0.15);
+        }
+
+        /* Study card */
+        .study-card {
+            height: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.35s, box-shadow 0.35s;
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        .study-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .study-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.17);
+        }
+
+        .study-card a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            height: 100%;
+        }
+
+        .study-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .study-card:hover img {
+            transform: scale(1.06);
+        }
+
+        .image-wrap {
+            overflow: hidden;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        /* No results */
+        #noResults {
+            display: none;
+            text-align: center;
+            padding: 40px 15px;
+            color: var(--muted);
+        }
+
+        /* Progress bar */
+        #readingProgress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            width: 0%;
+            background: #80dda7;
+            z-index: 10000;
+        }
+
+        /* Back to top */
+        #backToTop {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            width: 45px;
+            height: 45px;
+            border: none;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 20px;
+            display: none;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            background: #102d1d;
+            color: #d6e9dc;
+            padding: 25px 15px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding-top: 45px;
+            }
+
+            .study-card img {
+                height: 190px;
+            }
+
+            .brand {
+                font-size: 17px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
-
 </head>
 
 <body>
 
-    <div class="container py-4">
+<div id="readingProgress"></div>
+<div class="background-layer"></div>
+<div id="mouseGlow"></div>
 
-        <h1 class="text-center mb-4">
-            Economy Study Material
-        </h1>
+<!-- Loading Screen -->
+<div id="loader">
+    <div class="loader-icon">💹</div>
+    <p>LOADING ECONOMY...</p>
+</div>
 
-        <!-- Cards Row -->
-        <div class="row g-4">
+<!-- Header -->
+<header class="topbar">
+    <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
 
-            <!-- GDP Product Method -->
-            <div class="col-md-4">
-                <div class="card h-100">
+        <a href="index.html" class="brand">ALPHA-2</a>
 
-                    <a href="1. GDP Product method.pdf" target="_blank">
-                        <img src="https://i.pinimg.com/736x/3c/16/15/3c16159f5afcda2103a585bbbc997251.jpg"
-                             class="card-img-top"
-                             alt="GDP Product Method">
-                    </a>
+        <div class="d-flex gap-2">
+            <a href="index.html" class="header-btn">← Home</a>
 
-                    <div class="card-body text-center">
-                        <h4 class="card-title">GDP-Product Method</h4>
-                    </div>
+            <button class="header-btn" id="themeToggle" type="button">
+                🌙 Dark Mode
+            </button>
+        </div>
 
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+
+    <div class="economy-icon">💰</div>
+
+    <h1>Economy Study Materials</h1>
+
+    <p>
+        Understand the Indian economy, GDP, national income, banking,
+        inflation, markets and economic development through your study materials.
+    </p>
+
+    <div class="economic-bars">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="clock-box">
+        <span id="dateTime"></span>
+    </div>
+
+</section>
+
+<!-- Main Content -->
+<main class="main-content">
+
+    <div class="container">
+
+        <!-- Daily Economy Fact -->
+        <div class="fact-box">
+            <h5>📈 Economy Fact of the Day</h5>
+            <p id="dailyFact"></p>
+        </div>
+
+        <!-- Statistics -->
+        <div class="row g-3 mb-4">
+
+            <div class="col-4">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="1">0</div>
+                    <div class="stat-label">Study Topics</div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="1">0</div>
+                    <div class="stat-label">PDF Materials</div>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="stat-box">
+                    <div class="stat-number" data-target="1">0</div>
+                    <div class="stat-label">Available</div>
                 </div>
             </div>
 
         </div>
+
+        <!-- Search -->
+        <div class="mb-4">
+
+            <input
+                type="text"
+                id="searchInput"
+                class="search-box"
+                placeholder="🔍 Search Economy topics..."
+                aria-label="Search Economy topics">
+
+        </div>
+
+        <!-- Study Material Heading -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+
+            <h4 class="section-heading mb-0">
+                📚 Available Study Materials
+            </h4>
+
+            <span class="muted small" id="resultCount">
+                1 topic
+            </span>
+
+        </div>
+
+        <!-- Study Cards -->
+        <div class="row g-4" id="studyGrid">
+
+            <!-- GDP Product Method -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item"
+                 data-title="gdp product method gross domestic product national income">
+
+                <div class="study-card">
+
+                    <a href="1. GDP Product method.pdf"
+                       target="_blank"
+                       rel="noopener">
+
+                        <div class="image-wrap">
+
+                            <img
+                                src="https://i.pinimg.com/736x/3c/16/15/3c16159f5afcda2103a585bbbc997251.jpg"
+                                class="card-img-top"
+                                alt="GDP Product Method"
+                                loading="lazy">
+
+                        </div>
+
+                        <div class="card-body text-center">
+
+                            <h4 class="card-title">
+                                GDP – Product Method
+                            </h4>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- No Results -->
+        <div id="noResults">
+            <h5>No topics found!</h5>
+            <p>Try another search term.</p>
+        </div>
+
     </div>
 
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</main>
+
+<!-- Footer -->
+<footer>
+
+    <p class="mb-1">💰 Alpha-2 Study Materials</p>
+
+    <p class="mb-0">
+        Learn • Understand • Grow
+    </p>
+
+</footer>
+
+<!-- Back to Top -->
+<button id="backToTop"
+        title="Back to top"
+        aria-label="Back to top">
+    ↑
+</button>
+
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    // Loading Screen
+    window.addEventListener("load", function () {
+
+        setTimeout(function () {
+
+            document.getElementById("loader").classList.add("hide");
+
+        }, 500);
+
+    });
+
+
+    // Dark / Light Mode
+    const themeToggle = document.getElementById("themeToggle");
+
+    if (localStorage.getItem("alpha2-theme") === "dark") {
+
+        document.body.classList.add("dark-mode");
+
+        themeToggle.textContent = "☀️ Light Mode";
+
+    }
+
+    themeToggle.addEventListener("click", function () {
+
+        document.body.classList.toggle("dark-mode");
+
+        const isDark = document.body.classList.contains("dark-mode");
+
+        localStorage.setItem(
+            "alpha2-theme",
+            isDark ? "dark" : "light"
+        );
+
+        themeToggle.textContent = isDark
+            ? "☀️ Light Mode"
+            : "🌙 Dark Mode";
+
+    });
+
+
+    // Live Date and Time
+    function updateClock() {
+
+        const now = new Date();
+
+        document.getElementById("dateTime").textContent =
+
+            now.toLocaleDateString("en-IN", {
+
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+
+            }) + " | " +
+
+            now.toLocaleTimeString("en-IN");
+
+    }
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+
+
+    // Economy Facts of the Day
+    const facts = [
+
+        "GDP measures the monetary value of final goods and services produced within a country's domestic territory during a specific period.",
+
+        "Inflation refers to a sustained increase in the general price level of goods and services.",
+
+        "The Reserve Bank of India is India's central bank and is responsible for monetary policy.",
+
+        "The primary sector includes activities such as agriculture, fishing, forestry and mining.",
+
+        "The secondary sector includes manufacturing and industrial activities.",
+
+        "The tertiary sector includes services such as banking, transport, education and healthcare.",
+
+        "Fiscal policy involves government decisions regarding taxation and public expenditure.",
+
+        "A budget deficit occurs when government expenditure exceeds its revenue, excluding borrowings.",
+
+        "The repo rate is the rate at which the RBI lends short-term funds to eligible banks against securities.",
+
+        "Per capita income is calculated by dividing national income by the population."
+    ];
+
+    const dayNumber = Math.floor(
+
+        new Date().setHours(0, 0, 0, 0) / 86400000
+
+    );
+
+    document.getElementById("dailyFact").textContent =
+
+        facts[((dayNumber % facts.length) + facts.length) % facts.length];
+
+
+    // Search Function
+    const searchInput = document.getElementById("searchInput");
+
+    const studyItems = document.querySelectorAll(".study-item");
+
+    const noResults = document.getElementById("noResults");
+
+    const resultCount = document.getElementById("resultCount");
+
+
+    function filterCards() {
+
+        const searchText = searchInput.value.toLowerCase().trim();
+
+        let visibleCount = 0;
+
+        studyItems.forEach(function (item) {
+
+            const title = item.dataset.title.toLowerCase();
+
+            const show = title.includes(searchText);
+
+            item.style.display = show ? "" : "none";
+
+            if (show) {
+
+                visibleCount++;
+
+            }
+
+        });
+
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
+
+        resultCount.textContent = visibleCount + " topics";
+
+    }
+
+    searchInput.addEventListener("input", filterCards);
+
+
+    // Card Reveal Animation
+    const cardObserver = new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("visible");
+
+                cardObserver.unobserve(entry.target);
+
+            }
+
+        });
+
+    }, {
+
+        threshold: 0.08
+
+    });
+
+    document.querySelectorAll(".study-card").forEach(function (card) {
+
+        cardObserver.observe(card);
+
+    });
+
+
+    // Animated Statistics
+    const statNumbers = document.querySelectorAll(".stat-number");
+
+    const statsObserver = new IntersectionObserver(function (entries) {
+
+        entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+                const element = entry.target;
+
+                const target = Number(element.dataset.target);
+
+                let current = 0;
+
+                const timer = setInterval(function () {
+
+                    current++;
+
+                    if (current >= target) {
+
+                        current = target;
+
+                        clearInterval(timer);
+
+                    }
+
+                    element.textContent = current;
+
+                }, 100);
+
+                statsObserver.unobserve(element);
+
+            }
+
+        });
+
+    }, {
+
+        threshold: 0.5
+
+    });
+
+    statNumbers.forEach(function (number) {
+
+        statsObserver.observe(number);
+
+    });
+
+
+    // Mouse Following Glow
+    const mouseGlow = document.getElementById("mouseGlow");
+
+    document.addEventListener("mousemove", function (event) {
+
+        mouseGlow.style.left = event.clientX + "px";
+
+        mouseGlow.style.top = event.clientY + "px";
+
+    });
+
+
+    // Scroll Progress and Back to Top
+    const progress = document.getElementById("readingProgress");
+
+    const backToTop = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", function () {
+
+        const scrollTop = window.scrollY;
+
+        const scrollHeight =
+
+            document.documentElement.scrollHeight - window.innerHeight;
+
+        const percentage = scrollHeight > 0
+
+            ? (scrollTop / scrollHeight) * 100
+
+            : 0;
+
+        progress.style.width = percentage + "%";
+
+        backToTop.style.display = scrollTop > 350 ? "block" : "none";
+
+    });
+
+
+    // Back to Top Button
+    backToTop.addEventListener("click", function () {
+
+        window.scrollTo({
+
+            top: 0,
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+</script>
 
 </body>
 </html>
