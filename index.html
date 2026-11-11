@@ -54,6 +54,7 @@
             position: fixed;
             inset: 0;
             z-index: -1;
+
             background:
                 linear-gradient(
                     rgba(255,250,243,.91),
@@ -100,7 +101,7 @@
             font-weight: 700;
         }
 
-        /* Hero */
+        /* Hero Section */
 
         .hero {
             min-height: 390px;
@@ -138,7 +139,7 @@
             margin-top: 12px;
         }
 
-        /* Static subject labels */
+        /* Static Subject Labels */
 
         .subject-labels {
             display: flex;
@@ -159,7 +160,7 @@
             font-weight: 700;
         }
 
-        /* Date and greeting */
+        /* Date and Greeting */
 
         .info-section {
             text-align: center;
@@ -179,7 +180,7 @@
             margin-top: 8px;
         }
 
-        /* Daily motivation */
+        /* Daily Motivation */
 
         .quote-box {
             max-width: 800px;
@@ -206,7 +207,7 @@
             font-weight: 700;
         }
 
-        /* Subjects section */
+        /* Subjects Section */
 
         .section-heading {
             text-align: center;
@@ -223,7 +224,7 @@
             color: var(--muted);
         }
 
-        /* Search */
+        /* Search Box */
 
         .search-box {
             max-width: 450px;
@@ -244,17 +245,21 @@
             border-color: var(--accent);
         }
 
-        /* Subject cards */
+        /* Clickable Subject Cards */
 
         .subject-card {
+            display: block;
             height: 100%;
             overflow: hidden;
             border: 1px solid var(--border);
             border-radius: 18px;
             background: var(--surface);
+            text-decoration: none;
+            color: var(--text);
         }
 
         .subject-card img {
+            display: block;
             width: 100%;
             height: 210px;
             object-fit: cover;
@@ -273,22 +278,7 @@
 
         .card-content p {
             color: var(--muted);
-            min-height: 25px;
-        }
-
-        .card-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            font-weight: 800;
-            border-radius: 30px;
-        }
-
-        .card-link:hover {
-            background: var(--green);
-            color: white;
+            margin-bottom: 0;
         }
 
         /* Footer */
@@ -308,9 +298,10 @@
             letter-spacing: 3px;
         }
 
-        /* Responsive design */
+        /* Responsive Design */
 
         @media (max-width: 600px) {
+
             .hero {
                 min-height: 350px;
             }
@@ -336,7 +327,9 @@
             .quote-text {
                 font-size: 18px;
             }
+
         }
+
     </style>
 </head>
 
@@ -345,16 +338,22 @@
     <!-- Navigation -->
 
     <nav class="topbar">
-        <div class="brand">ALPHA-2</div>
+
+        <div class="brand">
+            ALPHA-2
+        </div>
 
         <button class="theme-btn" id="themeToggle">
             🌙 Dark Mode
         </button>
+
     </nav>
+
 
     <!-- Hero Section -->
 
     <header class="hero">
+
         <div class="hero-content">
 
             <h1>ALPHA-2</h1>
@@ -365,20 +364,30 @@
                 Build knowledge. Stay focused. Move forward.
             </p>
 
-            <!-- Static UPSC Subjects -->
+            <!-- UPSC Subjects -->
 
             <div class="subject-labels">
+
                 <span class="subject-label">Geography</span>
+
                 <span class="subject-label">History</span>
+
                 <span class="subject-label">Polity</span>
+
                 <span class="subject-label">Economy</span>
+
                 <span class="subject-label">Science</span>
+
                 <span class="subject-label">Environment</span>
+
                 <span class="subject-label">Current Affairs</span>
+
             </div>
 
         </div>
+
     </header>
+
 
     <!-- Date and Greeting -->
 
@@ -389,6 +398,7 @@
         <div class="greeting" id="greeting"></div>
 
     </section>
+
 
     <!-- Daily Motivation -->
 
@@ -406,7 +416,8 @@
 
     </section>
 
-    <!-- Subjects -->
+
+    <!-- Explore Subjects -->
 
     <section class="container pb-5">
 
@@ -419,6 +430,7 @@
             </p>
 
         </div>
+
 
         <!-- Search -->
 
@@ -433,15 +445,17 @@
 
         </div>
 
+
         <!-- Subject Cards -->
 
         <div class="row g-4" id="subjectCards">
 
-            <!-- Geography -->
+
+            <!-- Geography Card -->
 
             <div class="col-md-6 col-lg-4 subject-column">
 
-                <div class="subject-card">
+                <a href="geography.html" class="subject-card">
 
                     <img
                         src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
@@ -456,21 +470,18 @@
                             Earth, environment and India
                         </p>
 
-                        <a href="geography.html" class="card-link">
-                            Explore
-                        </a>
-
                     </div>
 
-                </div>
+                </a>
 
             </div>
 
-            <!-- Economy -->
+
+            <!-- Economy Card -->
 
             <div class="col-md-6 col-lg-4 subject-column">
 
-                <div class="subject-card">
+                <a href="economy.html" class="subject-card">
 
                     <img
                         src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
@@ -485,21 +496,18 @@
                             India's economy and development
                         </p>
 
-                        <a href="economy.html" class="card-link">
-                            Explore
-                        </a>
-
                     </div>
 
-                </div>
+                </a>
 
             </div>
 
-            <!-- Polity -->
+
+            <!-- Polity Card -->
 
             <div class="col-md-6 col-lg-4 subject-column">
 
-                <div class="subject-card">
+                <a href="polity.html" class="subject-card">
 
                     <img
                         src="https://placehold.co/600x400?text=Polity"
@@ -514,17 +522,15 @@
                             Constitution and governance
                         </p>
 
-                        <a href="polity.html" class="card-link">
-                            Explore
-                        </a>
-
                     </div>
 
-                </div>
+                </a>
 
             </div>
 
+
         </div>
+
 
         <!-- No Search Results -->
 
@@ -538,15 +544,19 @@
 
     </section>
 
+
     <!-- Footer -->
 
     <footer>
 
         <h3>ALPHA-2</h3>
 
-        <p>Learn • Prepare • Succeed</p>
+        <p>
+            Learn • Prepare • Succeed
+        </p>
 
     </footer>
+
 
     <!-- JavaScript -->
 
@@ -554,10 +564,13 @@
 
         /* Dark and Light Mode */
 
-        const themeToggle = document.getElementById("themeToggle");
+        const themeToggle =
+            document.getElementById("themeToggle");
 
         if (localStorage.getItem("alpha2-theme") === "dark") {
+
             document.body.classList.add("dark");
+
         }
 
         function updateThemeButton() {
@@ -596,16 +609,20 @@
             document.getElementById("dateTime").textContent =
 
                 now.toLocaleDateString("en-IN", {
+
                     weekday: "long",
                     day: "numeric",
                     month: "long",
                     year: "numeric"
+
                 }) + " | " +
 
                 now.toLocaleTimeString("en-IN", {
+
                     hour: "2-digit",
                     minute: "2-digit",
                     second: "2-digit"
+
                 });
 
 
@@ -614,11 +631,15 @@
             let greeting = "Good Evening";
 
             if (hour < 12) {
+
                 greeting = "Good Morning";
+
             }
 
             else if (hour < 17) {
+
                 greeting = "Good Afternoon";
+
             }
 
             document.getElementById("greeting").textContent =
@@ -656,9 +677,11 @@
         const dayNumber = Math.floor(
 
             new Date(
+
                 today.getFullYear(),
                 today.getMonth(),
                 today.getDate()
+
             ).getTime() / 86400000
 
         );
