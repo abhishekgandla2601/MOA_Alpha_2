@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,71 +9,186 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 
-/* =========================
+/* =================================
    THEME VARIABLES
-========================= */
+================================= */
 
 :root {
-    --bg-card: rgba(255,255,255,0.94);
-    --text-main: #172554;
-    --text-body: #334155;
-    --accent: #7c3aed;
-    --panel: rgba(255,255,255,0.90);
-    --border: rgba(255,255,255,0.3);
-}
-
-body.dark-mode {
-    --bg-card: rgba(20,27,45,0.95);
-    --text-main: #f1f5f9;
-    --text-body: #cbd5e1;
-    --accent: #a78bfa;
-    --panel: rgba(15,23,42,0.94);
+    --bg: #07111f;
+    --panel: rgba(16, 29, 51, 0.78);
+    --panel-solid: #101d33;
+    --text: #f8fafc;
+    --muted: #a8b6cc;
+    --accent: #9b8cff;
+    --accent2: #42d9f5;
     --border: rgba(255,255,255,0.12);
+    --shadow: 0 20px 55px rgba(0,0,0,0.25);
 }
 
-/* =========================
+body.light-mode {
+    --bg: #edf2ff;
+    --panel: rgba(255,255,255,0.78);
+    --panel-solid: #ffffff;
+    --text: #172554;
+    --muted: #52627a;
+    --accent: #7047e8;
+    --accent2: #0891b2;
+    --border: rgba(30,41,59,0.12);
+    --shadow: 0 20px 50px rgba(42,55,90,0.12);
+}
+
+/* =================================
    GENERAL
-========================= */
+================================= */
 
 * {
     box-sizing: border-box;
 }
 
-body {
-    background-image:
-        linear-gradient(rgba(8,18,35,0.48),
-                        rgba(8,18,35,0.68)),
-        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg");
-
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    min-height: 100vh;
-    overflow-x: hidden;
-    font-family: Arial, sans-serif;
-    color: white;
-
-    transition: background-color 0.3s ease;
+html {
+    scroll-behavior: smooth;
 }
 
-/* =========================
-   LOADING SCREEN
-========================= */
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Background image and overlay */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+        linear-gradient(rgba(5,12,27,0.86), rgba(5,12,27,0.92)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
+        center/cover no-repeat;
+}
+
+body.light-mode::after {
+    background:
+        linear-gradient(rgba(226,235,255,0.88), rgba(238,243,255,0.94)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
+        center/cover no-repeat;
+}
+
+/* =================================
+   ANIMATED AURORA BACKGROUND
+================================= */
+
+.aurora {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.aurora span {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.25;
+    animation: auroraMove 14s ease-in-out infinite alternate;
+}
+
+.aurora span:nth-child(1) {
+    background: #6546ff;
+    top: -150px;
+    left: -100px;
+}
+
+.aurora span:nth-child(2) {
+    background: #00c9e8;
+    right: -150px;
+    top: 25%;
+    animation-delay: -5s;
+}
+
+.aurora span:nth-child(3) {
+    background: #a43cff;
+    bottom: -200px;
+    left: 35%;
+    animation-delay: -8s;
+}
+
+@keyframes auroraMove {
+    from {
+        transform: translate(0,0) scale(0.9);
+    }
+    to {
+        transform: translate(100px,70px) scale(1.25);
+    }
+}
+
+/* =================================
+   PARTICLES
+================================= */
+
+.particles {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #a5eaff;
+    box-shadow: 0 0 12px #42d9f5;
+    animation: particleFloat 15s linear infinite;
+}
+
+.particle:nth-child(1) { left: 8%; animation-duration: 17s; }
+.particle:nth-child(2) { left: 23%; animation-duration: 21s; animation-delay: 3s; }
+.particle:nth-child(3) { left: 43%; animation-duration: 16s; animation-delay: 5s; }
+.particle:nth-child(4) { left: 67%; animation-duration: 20s; animation-delay: 2s; }
+.particle:nth-child(5) { left: 88%; animation-duration: 18s; animation-delay: 6s; }
+
+@keyframes particleFloat {
+    from {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.5; }
+    to {
+        transform: translateY(-20vh);
+        opacity: 0;
+    }
+}
+
+/* =================================
+   LOADER
+================================= */
 
 #loader {
     position: fixed;
     inset: 0;
-    background: #10172a;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     z-index: 9999;
-    transition: opacity 0.6s ease, visibility 0.6s ease;
+    background: #07111f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.7s ease, visibility 0.7s ease;
 }
 
 #loader.hide {
@@ -82,318 +196,396 @@ body {
     visibility: hidden;
 }
 
-.loader-ring {
-    width: 60px;
-    height: 60px;
-    border: 5px solid rgba(255,255,255,0.2);
-    border-top-color: #a78bfa;
-    border-radius: 50%;
-    animation: spin 0.9s linear infinite;
+.loader-logo {
+    width: 75px;
+    height: 75px;
+    border-radius: 22px;
+    display: grid;
+    place-items: center;
+    font-size: 35px;
+    color: white;
+    background: linear-gradient(135deg,#7047e8,#00c9e8);
+    box-shadow: 0 0 40px rgba(112,71,232,0.6);
+    animation: logoPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes logoPulse {
+    to {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 0 65px rgba(0,201,232,0.6);
+    }
 }
 
 .loader-title {
-    margin-top: 20px;
-    color: white;
+    margin-top: 22px;
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 1px;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* =========================
-   BACKGROUND GLOW
-========================= */
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-
-    background:
-        radial-gradient(circle at 15% 20%,
-            rgba(0,200,255,0.15), transparent 35%),
-        radial-gradient(circle at 85% 75%,
-            rgba(150,80,255,0.18), transparent 35%);
-
-    animation: backgroundGlow 8s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: -1;
-}
-
-@keyframes backgroundGlow {
-    from { opacity: 0.5; transform: scale(1); }
-    to { opacity: 1; transform: scale(1.12); }
-}
-
-/* =========================
-   FLOATING PARTICLES
-========================= */
-
-.particles {
-    position: fixed;
-    inset: 0;
+.loader-line {
+    width: 150px;
+    height: 4px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
     overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
 }
 
-.particle {
-    position: absolute;
-    bottom: -30px;
-    width: 7px;
-    height: 7px;
-    background: rgba(255,255,255,0.7);
-    border-radius: 50%;
-    box-shadow: 0 0 12px white;
-    animation: floatUp linear infinite;
+.loader-line::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 45%;
+    background: linear-gradient(90deg,#7047e8,#42d9f5);
+    animation: loading 1.2s ease-in-out infinite;
 }
 
-.particle:nth-child(1) { left:10%; animation-duration:12s; }
-.particle:nth-child(2) { left:25%; animation-duration:16s; animation-delay:2s; }
-.particle:nth-child(3) { left:45%; animation-duration:13s; animation-delay:4s; }
-.particle:nth-child(4) { left:65%; animation-duration:17s; animation-delay:1s; }
-.particle:nth-child(5) { left:85%; animation-duration:14s; animation-delay:3s; }
-
-@keyframes floatUp {
-    0% { transform:translateY(0) scale(0.5); opacity:0; }
-    20% { opacity:0.8; }
-    80% { opacity:0.6; }
-    100% { transform:translateY(-110vh) scale(1.5); opacity:0; }
+@keyframes loading {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(230%); }
 }
 
-/* =========================
-   MOUSE GLOW
-========================= */
-
-.mouse-glow {
-    position: fixed;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    pointer-events: none;
-    background: radial-gradient(circle,
-        rgba(125,211,252,0.13), transparent 70%);
-    transform: translate(-50%,-50%);
-    z-index: 0;
-    left: 50%;
-    top: 50%;
-}
-
-/* =========================
-   MAIN CONTENT
-========================= */
+/* =================================
+   MAIN CONTAINER
+================================= */
 
 .main-container {
     position: relative;
     z-index: 1;
+    max-width: 1180px;
 }
 
-.main-heading {
-    color: white;
-    font-size: clamp(2rem,5vw,3.5rem);
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    animation: headingEntrance 1.2s ease forwards;
-}
-
-@keyframes headingEntrance {
-    from { opacity:0; transform:translateY(-40px); }
-    to { opacity:1; transform:translateY(0); }
-}
-
-.heading-line {
-    width: 100px;
-    height: 4px;
-    margin: 15px auto 35px;
-    background: linear-gradient(90deg,#00d4ff,#a855f7);
-    border-radius: 10px;
-    animation: lineExpand 1.5s ease forwards;
-}
-
-@keyframes lineExpand {
-    from { width:0; }
-    to { width:100px; }
-}
-
-/* =========================
-   GENERAL PANELS
-========================= */
-
-.glass-panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: var(--text-body);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.16);
-}
-
-/* =========================
-   CLOCK
-========================= */
-
-.clock-panel {
-    text-align: center;
-    padding: 18px;
-    margin-bottom: 25px;
-}
-
-#liveClock {
-    font-size: clamp(26px,5vw,38px);
-    font-weight: bold;
-    color: var(--text-main);
-    letter-spacing: 2px;
-}
-
-#liveDate {
-    color: var(--text-body);
-    font-size: 15px;
-}
-
-.greeting {
-    font-size: 17px;
-    color: var(--accent);
-    font-weight: bold;
-}
-
-/* =========================
-   TOP ACTIONS
-========================= */
+/* =================================
+   THEME BUTTON
+================================= */
 
 .top-actions {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
 }
 
 .theme-button {
-    border: none;
-    padding: 10px 16px;
-    border-radius: 30px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 11px 19px;
+    color: var(--text);
     background: var(--panel);
-    color: var(--text-main);
-    font-weight: bold;
-    cursor: pointer;
+    backdrop-filter: blur(15px);
+    font-weight: 700;
+    font-size: 13px;
     transition: 0.3s;
 }
 
 .theme-button:hover {
-    transform: scale(1.06);
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 0 25px rgba(155,140,255,0.2);
 }
 
-/* =========================
-   SEARCH
-========================= */
+/* =================================
+   HERO SECTION
+================================= */
 
-.search-wrapper {
-    max-width: 600px;
-    margin: 0 auto 25px;
+.hero-section {
+    text-align: center;
+    padding: 45px 15px 35px;
+    animation: heroEntrance 1s ease both;
 }
 
-.search-input {
-    width: 100%;
-    padding: 15px 20px;
-    border-radius: 30px;
-    border: 2px solid rgba(255,255,255,0.5);
+@keyframes heroEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-tag {
+    display: inline-block;
+    padding: 8px 17px;
+    margin-bottom: 22px;
+    border: 1px solid rgba(155,140,255,0.35);
+    border-radius: 50px;
+    background: rgba(155,140,255,0.1);
+    color: #c5baff;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.main-heading {
+    font-size: clamp(2.3rem,6vw,4.7rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.12;
+    color: var(--text);
+}
+
+.gradient-text {
+    background: linear-gradient(90deg,#a78bfa,#42d9f5,#a78bfa);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientFlow 5s linear infinite;
+}
+
+@keyframes gradientFlow {
+    to { background-position: 200% center; }
+}
+
+.hero-description {
+    max-width: 620px;
+    margin: 20px auto 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.heading-line {
+    width: 90px;
+    height: 4px;
+    margin: 25px auto 0;
+    border-radius: 20px;
+    background: linear-gradient(90deg,#a78bfa,#42d9f5);
+    box-shadow: 0 0 20px rgba(66,217,245,0.5);
+}
+
+/* =================================
+   GLASS PANELS
+================================= */
+
+.glass-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 22px;
     background: var(--panel);
-    color: var(--text-main);
-    outline: none;
-    font-size: 16px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow);
+    transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.search-input:focus {
-    border-color: #a78bfa;
-    box-shadow: 0 0 15px rgba(167,139,250,0.5);
+.glass-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);
 }
 
-.search-input::placeholder {
-    color: var(--text-body);
-    opacity: 0.8;
+/* =================================
+   CLOCK
+================================= */
+
+.clock-panel {
+    max-width: 650px;
+    margin: 15px auto 25px;
+    padding: 25px 15px;
+    text-align: center;
 }
 
-/* =========================
-   QUOTE
-========================= */
+.greeting {
+    color: var(--accent);
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+#liveClock {
+    font-size: clamp(32px,7vw,49px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    text-shadow: 0 0 25px rgba(155,140,255,0.2);
+}
+
+#liveDate {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* =================================
+   DAILY MOTIVATION
+================================= */
 
 .quote-panel {
-    padding: 22px;
-    margin-bottom: 25px;
+    max-width: 850px;
+    margin: 0 auto 30px;
+    padding: 30px 25px;
     text-align: center;
+    border-color: rgba(155,140,255,0.25);
+}
+
+.quote-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
 .quote-label {
     color: var(--accent);
-    font-weight: bold;
-    text-transform: uppercase;
     font-size: 12px;
-    letter-spacing: 2px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
 }
 
 #dailyQuote {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text-main);
-    margin-top: 10px;
+    max-width: 700px;
+    margin: 17px auto 10px;
+    color: var(--text);
+    font-size: clamp(17px,3vw,22px);
+    font-weight: 700;
+    line-height: 1.6;
 }
 
 #quoteAuthor {
-    font-size: 14px;
-    color: var(--text-body);
-    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
 }
 
-/* =========================
+/* =================================
    STATISTICS
-========================= */
+================================= */
 
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap: 15px;
-    margin-bottom: 30px;
+    gap: 18px;
+    margin-bottom: 35px;
 }
 
 .stat-box {
-    padding: 18px 10px;
+    padding: 23px 12px;
     text-align: center;
+    transition: 0.35s ease;
+}
+
+.stat-box:hover {
+    transform: translateY(-7px);
+    border-color: var(--accent);
+    box-shadow: 0 15px 35px rgba(112,71,232,0.18);
+}
+
+.stat-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .stat-number {
-    font-size: 30px;
-    font-weight: 800;
+    font-size: clamp(26px,4vw,36px);
+    font-weight: 900;
     color: var(--accent);
+    font-variant-numeric: tabular-nums;
 }
 
 .stat-label {
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--text-body);
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
-/* =========================
+/* =================================
+   SECTION HEADING
+================================= */
+
+.section-heading {
+    text-align: center;
+    margin: 55px 0 25px;
+}
+
+.section-heading h2 {
+    color: var(--text);
+    font-size: clamp(25px,4vw,32px);
+    font-weight: 900;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* =================================
+   SEARCH
+================================= */
+
+.search-wrapper {
+    max-width: 650px;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 17px 23px 17px 52px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    outline: none;
+    color: var(--text);
+    background: var(--panel);
+    backdrop-filter: blur(15px);
+    font-size: 14px;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+.search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(155,140,255,0.13);
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-icon {
+    position: absolute;
+    left: 21px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+/* =================================
    SUBJECT CARDS
-========================= */
+================================= */
+
+.subject-column {
+    transition: opacity 0.3s ease;
+}
 
 .subject-card {
-    border: none;
-    border-radius: 18px;
+    height: 100%;
     overflow: hidden;
-    background: var(--bg-card);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-
+    border: 1px solid var(--border);
+    border-radius: 23px;
+    background: var(--panel);
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow);
     opacity: 0;
-    transform: translateY(50px);
-
+    transform: translateY(35px);
     transition:
-        transform 0.4s ease,
-        box-shadow 0.4s ease,
         opacity 0.7s ease,
-        background 0.3s ease;
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
 .subject-card.visible {
@@ -402,28 +594,47 @@ body::before {
 }
 
 .subject-card:hover {
-    transform: translateY(-14px) scale(1.02);
-    box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+    transform: translateY(-10px);
+    border-color: rgba(155,140,255,0.65);
+    box-shadow: 0 25px 55px rgba(0,0,0,0.35),
+                0 0 25px rgba(112,71,232,0.15);
+}
+
+.image-container {
+    height: 230px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-container::after {
+    content: "";
+    position: absolute;
+    inset: 40% 0 0;
+    background: linear-gradient(transparent,rgba(5,12,27,0.5));
+    pointer-events: none;
 }
 
 .card-img-top {
     width: 100%;
-    height: 220px;
+    height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-.image-container {
-    overflow: hidden;
+    transition: transform 0.8s cubic-bezier(.2,.8,.2,1);
 }
 
 .subject-card:hover .card-img-top {
-    transform: scale(1.1);
+    transform: scale(1.12);
+}
+
+.card-body {
+    padding: 23px 15px;
+    text-align: center;
 }
 
 .card-title {
-    font-weight: 700;
-    color: var(--text-main);
+    margin: 0;
+    color: var(--text);
+    font-size: 20px;
+    font-weight: 800;
     transition: color 0.3s ease;
 }
 
@@ -431,147 +642,221 @@ body::before {
     color: var(--accent);
 }
 
-.card-body {
-    padding: 22px;
+.card-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 8px;
 }
 
-/* Search empty message */
+/* =================================
+   EMPTY SEARCH
+================================= */
 
 #noResults {
     display: none;
+    padding: 35px 15px;
     text-align: center;
-    padding: 25px;
-    color: white;
-    font-weight: bold;
+    color: var(--muted);
+    font-weight: 700;
 }
 
-/* =========================
+/* =================================
    POMODORO TIMER
-========================= */
+================================= */
 
 .timer-panel {
-    padding: 25px;
+    max-width: 650px;
+    margin: 65px auto 0;
+    padding: 35px 20px;
     text-align: center;
-    margin-top: 30px;
+}
+
+.timer-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
 }
 
 .timer-heading {
-    color: var(--text-main);
-    font-weight: bold;
+    color: var(--text);
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.timer-description {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 8px;
 }
 
 #timerDisplay {
-    font-size: clamp(42px,8vw,60px);
-    font-weight: 800;
+    margin: 25px 0 10px;
     color: var(--accent);
+    font-size: clamp(48px,10vw,70px);
+    font-weight: 900;
+    letter-spacing: 3px;
     font-variant-numeric: tabular-nums;
-    margin: 15px 0;
 }
 
 .timer-status {
-    color: var(--text-body);
-    font-size: 14px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.timer-buttons {
+    margin-top: 22px;
 }
 
 .timer-btn {
     border: none;
-    border-radius: 25px;
-    padding: 10px 20px;
+    border-radius: 50px;
+    padding: 12px 22px;
     margin: 5px;
     color: white;
-    background: #7c3aed;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 800;
+    background: linear-gradient(135deg,#7047e8,#9b8cff);
+    box-shadow: 0 7px 20px rgba(112,71,232,0.25);
     transition: 0.3s;
 }
 
 .timer-btn:hover {
-    background: #5b21b6;
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(112,71,232,0.35);
+}
+
+.timer-btn.pause {
+    background: linear-gradient(135deg,#0891b2,#42d9f5);
 }
 
 .timer-btn.reset {
-    background: #64748b;
+    background: #475569;
 }
 
-/* =========================
+/* =================================
+   FOOTER
+================================= */
+
+.footer {
+    margin-top: 65px;
+    padding: 25px 10px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.footer-title {
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.footer-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 7px;
+}
+
+/* =================================
    BACK TO TOP
-========================= */
+================================= */
 
 #backToTop {
     position: fixed;
-    bottom: 25px;
     right: 25px;
+    bottom: 25px;
+    z-index: 100;
     width: 48px;
     height: 48px;
-    border: none;
+    border: 1px solid var(--border);
     border-radius: 50%;
-    background: #7c3aed;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
     display: none;
-    z-index: 100;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: white;
+    background: linear-gradient(135deg,#7047e8,#42d9f5);
+    font-size: 22px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
     transition: 0.3s;
 }
 
 #backToTop:hover {
-    transform: translateY(-5px);
-    background: #5b21b6;
+    transform: translateY(-6px) rotate(5deg);
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* =================================
+   SCROLL PROGRESS
+================================= */
 
-.footer-text {
-    color: white;
-    text-align: center;
-    margin-top: 55px;
-    font-size: 14px;
-    opacity: 0.9;
-    text-shadow: 0 2px 8px black;
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    z-index: 10000;
+    background: linear-gradient(90deg,#9b8cff,#42d9f5);
+    box-shadow: 0 0 12px #42d9f5;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* =================================
+   MOBILE RESPONSIVENESS
+================================= */
 
 @media(max-width:768px) {
 
-    body {
-        background-attachment: scroll;
+    .hero-section {
+        padding-top: 25px;
     }
 
-    .card-img-top {
-        height: 200px;
+    .main-heading {
+        letter-spacing: -1px;
     }
 
     .stats-grid {
-        grid-template-columns: repeat(3,1fr);
-        gap: 8px;
+        gap: 9px;
     }
 
-    .stat-number {
-        font-size: 24px;
+    .stat-box {
+        padding: 17px 5px;
     }
 
     .stat-label {
-        font-size: 11px;
+        font-size: 10px;
+        letter-spacing: 0;
     }
 
-    .mouse-glow {
-        display: none;
+    .stat-icon {
+        font-size: 20px;
+    }
+
+    .image-container {
+        height: 210px;
     }
 
     .top-actions {
         justify-content: center;
     }
+
+    .quote-panel {
+        padding: 25px 17px;
+    }
+
+    .timer-panel {
+        padding: 28px 13px;
+    }
 }
 
-/* =========================
-   ACCESSIBILITY
-========================= */
+@media(max-width:400px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-box {
+        padding: 15px;
+    }
+}
+
+/* =================================
+   REDUCED MOTION
+================================= */
 
 @media(prefers-reduced-motion:reduce) {
 
@@ -581,15 +866,12 @@ body::before {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 
     .subject-card {
         opacity: 1;
         transform: none;
-    }
-
-    .mouse-glow {
-        display: none;
     }
 }
 
@@ -598,16 +880,26 @@ body::before {
 
 <body>
 
-<!-- LOADING SCREEN -->
+<!-- PAGE LOADER -->
 
 <div id="loader">
-    <div class="loader-ring"></div>
-    <div class="loader-title">Alpha-2 Study Materials</div>
-    <small class="text-white mt-2">Preparing your study space...</small>
+    <div class="loader-logo">A2</div>
+    <div class="loader-title">ALPHA-2 STUDY MATERIALS</div>
+    <div class="loader-line"></div>
+    <small class="text-white-50 mt-3">Preparing your learning space...</small>
 </div>
 
+<!-- SCROLL PROGRESS -->
 
-<!-- FLOATING PARTICLES -->
+<div id="scrollProgress"></div>
+
+<!-- BACKGROUND EFFECTS -->
+
+<div class="aurora">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
 
 <div class="particles">
     <span class="particle"></span>
@@ -618,30 +910,40 @@ body::before {
 </div>
 
 
-<!-- MOUSE GLOW -->
-
-<div class="mouse-glow" id="mouseGlow"></div>
-
-
 <div class="container py-4 main-container">
-
 
     <!-- THEME BUTTON -->
 
     <div class="top-actions">
         <button class="theme-button" id="themeToggle">
-            🌙 Dark Mode
+            ☀️ Light Mode
         </button>
     </div>
 
 
-    <!-- MAIN HEADING -->
+    <!-- HERO -->
 
-    <h1 class="text-center main-heading">
-        Alpha-2 Study Materials
-    </h1>
+    <section class="hero-section">
 
-    <div class="heading-line"></div>
+        <div class="hero-tag">
+            ✦ Your Learning Journey Starts Here
+        </div>
+
+        <h1 class="main-heading">
+            ALPHA-2
+            <br>
+            <span class="gradient-text">Study Materials</span>
+        </h1>
+
+        <p class="hero-description">
+            Learn with clarity. Prepare with confidence.
+            Stay consistent, build knowledge and move closer
+            to your goals every day.
+        </p>
+
+        <div class="heading-line"></div>
+
+    </section>
 
 
     <!-- LIVE CLOCK -->
@@ -659,12 +961,14 @@ body::before {
     </div>
 
 
-    <!-- MOTIVATIONAL QUOTE -->
+    <!-- DAILY MOTIVATION -->
 
     <div class="glass-panel quote-panel">
 
+        <div class="quote-icon">✦</div>
+
         <div class="quote-label">
-            ✨ Daily Motivation
+            Daily Motivation
         </div>
 
         <div id="dailyQuote">
@@ -676,37 +980,65 @@ body::before {
     </div>
 
 
-    <!-- ANIMATED STATISTICS -->
+    <!-- STATISTICS -->
 
     <div class="stats-grid">
 
         <div class="glass-panel stat-box">
+
+            <div class="stat-icon">📚</div>
+
             <div class="stat-number" data-target="3">0</div>
+
             <div class="stat-label">Subjects</div>
+
         </div>
 
         <div class="glass-panel stat-box">
+
+            <div class="stat-icon">🎯</div>
+
             <div class="stat-number" data-target="3">0</div>
+
             <div class="stat-label">Study Areas</div>
+
         </div>
 
         <div class="glass-panel stat-box">
+
+            <div class="stat-icon">🚀</div>
+
             <div class="stat-number" data-target="100">0</div>
+
             <div class="stat-label">Learning Goals</div>
+
         </div>
 
     </div>
 
 
-    <!-- SEARCH BAR -->
+    <!-- SUBJECT SECTION -->
+
+    <div class="section-heading">
+
+        <h2>Explore Your Subjects</h2>
+
+        <p>Choose a subject and continue your preparation.</p>
+
+    </div>
+
+
+    <!-- SEARCH -->
 
     <div class="search-wrapper">
+
+        <span class="search-icon">⌕</span>
 
         <input
             type="search"
             id="searchInput"
             class="search-input"
-            placeholder="🔍 Search Geography, Economy, Polity..."
+            placeholder="Search Geography, Economy, Polity..."
             aria-label="Search study subjects">
 
     </div>
@@ -720,26 +1052,34 @@ body::before {
         <!-- GEOGRAPHY -->
 
         <div class="col-md-4 subject-column"
-             data-search="geography">
+             data-search="geography physical geography indian geography">
 
-            <div class="card h-100 subject-card">
+            <div class="subject-card">
 
-                <a href="geography.html" target="_self">
+                <a href="geography.html"
+                   target="_self"
+                   class="text-decoration-none">
 
                     <div class="image-container">
+
                         <img
                             src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
                             class="card-img-top"
                             alt="Geography">
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4 class="card-title">Geography</h4>
+
+                        <div class="card-subtitle">
+                            Explore the world and understand our planet
+                        </div>
+
                     </div>
 
                 </a>
-
-                <div class="card-body text-center">
-
-                    <h4 class="card-title">Geography</h4>
-
-                </div>
 
             </div>
 
@@ -749,26 +1089,34 @@ body::before {
         <!-- ECONOMY -->
 
         <div class="col-md-4 subject-column"
-             data-search="economy">
+             data-search="economy indian economy finance economics">
 
-            <div class="card h-100 subject-card">
+            <div class="subject-card">
 
-                <a href="economy.html" target="_self">
+                <a href="economy.html"
+                   target="_self"
+                   class="text-decoration-none">
 
                     <div class="image-container">
+
                         <img
                             src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
                             class="card-img-top"
                             alt="Economy">
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4 class="card-title">Economy</h4>
+
+                        <div class="card-subtitle">
+                            Understand India's economy and development
+                        </div>
+
                     </div>
 
                 </a>
-
-                <div class="card-body text-center">
-
-                    <h4 class="card-title">Economy</h4>
-
-                </div>
 
             </div>
 
@@ -778,26 +1126,34 @@ body::before {
         <!-- POLITY -->
 
         <div class="col-md-4 subject-column"
-             data-search="polity">
+             data-search="polity indian polity constitution governance">
 
-            <div class="card h-100 subject-card">
+            <div class="subject-card">
 
-                <a href="polity.html" target="_self">
+                <a href="polity.html"
+                   target="_self"
+                   class="text-decoration-none">
 
                     <div class="image-container">
+
                         <img
                             src="https://placehold.co/600x400?text=Polity"
                             class="card-img-top"
                             alt="Polity">
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <h4 class="card-title">Polity</h4>
+
+                        <div class="card-subtitle">
+                            Learn about the Constitution and governance
+                        </div>
+
                     </div>
 
                 </a>
-
-                <div class="card-body text-center">
-
-                    <h4 class="card-title">Polity</h4>
-
-                </div>
 
             </div>
 
@@ -808,7 +1164,9 @@ body::before {
 
 
     <div id="noResults">
-        No matching subject found.
+        <div style="font-size:35px;">🔎</div>
+        <div class="mt-2">No matching subject found.</div>
+        <small>Try searching with another keyword.</small>
     </div>
 
 
@@ -816,30 +1174,40 @@ body::before {
 
     <div class="glass-panel timer-panel">
 
+        <div class="timer-icon">⏳</div>
+
         <h4 class="timer-heading">
-            ⏳ Pomodoro Study Timer
+            Focus & Achieve
         </h4>
 
-        <div class="timer-status" id="timerStatus">
+        <div class="timer-description">
+            Pomodoro Study Timer
+        </div>
+
+        <div class="timer-status mt-3" id="timerStatus">
             Focus Session – 25 Minutes
         </div>
 
         <div id="timerDisplay">25:00</div>
 
-        <button class="timer-btn" id="startTimer">
-            ▶ Start
-        </button>
+        <div class="timer-buttons">
 
-        <button class="timer-btn" id="pauseTimer">
-            ⏸ Pause
-        </button>
+            <button class="timer-btn" id="startTimer">
+                ▶ Start
+            </button>
 
-        <button class="timer-btn reset" id="resetTimer">
-            ↻ Reset
-        </button>
+            <button class="timer-btn pause" id="pauseTimer">
+                ⏸ Pause
+            </button>
 
-        <div class="timer-status mt-3">
-            Focus on your studies. Take a short break after each session!
+            <button class="timer-btn reset" id="resetTimer">
+                ↻ Reset
+            </button>
+
+        </div>
+
+        <div class="timer-description mt-4">
+            Stay focused. Small efforts every day create great results.
         </div>
 
     </div>
@@ -847,45 +1215,52 @@ body::before {
 
     <!-- FOOTER -->
 
-    <div class="footer-text">
-        Alpha-2 Study Materials
-        <br>
-        Learn • Prepare • Succeed
-    </div>
+    <footer class="footer">
 
+        <div class="footer-title">
+            ALPHA-2 STUDY MATERIALS
+        </div>
+
+        <div class="footer-subtitle">
+            Learn • Prepare • Succeed
+        </div>
+
+        <div class="footer-subtitle mt-2">
+            Keep learning. Keep growing.
+        </div>
+
+    </footer>
 
 </div>
 
 
 <!-- BACK TO TOP -->
 
-<button id="backToTop" aria-label="Back to top" title="Back to top">
+<button id="backToTop"
+        aria-label="Back to top"
+        title="Back to top">
     ↑
 </button>
 
 
-<!-- JAVASCRIPT -->
-
 <script>
 
-/* =========================
+/* =================================
    PAGE LOADER
-========================= */
+================================= */
 
 window.addEventListener("load", function() {
 
-    const loader = document.getElementById("loader");
-
     setTimeout(() => {
-        loader.classList.add("hide");
+        document.getElementById("loader").classList.add("hide");
     }, 500);
 
 });
 
 
-/* =========================
-   LIVE CLOCK AND DATE
-========================= */
+/* =================================
+   LIVE CLOCK
+================================= */
 
 function updateClock() {
 
@@ -904,7 +1279,7 @@ function updateClock() {
 
     const hour = now.getHours();
 
-    let greeting = "Welcome, Student!";
+    let greeting;
 
     if (hour < 12) {
         greeting = "🌅 Good Morning, Student!";
@@ -921,29 +1296,28 @@ function updateClock() {
 }
 
 updateClock();
-
 setInterval(updateClock, 1000);
 
 
-/* =========================
+/* =================================
    DARK / LIGHT MODE
-========================= */
+================================= */
 
 const themeToggle = document.getElementById("themeToggle");
 
 const savedTheme = localStorage.getItem("alpha2-theme");
 
-if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
+if (savedTheme === "light") {
+    document.body.classList.add("light-mode");
 }
 
 function updateThemeButton() {
 
-    if (document.body.classList.contains("dark-mode")) {
-        themeToggle.textContent = "☀️ Light Mode";
+    if (document.body.classList.contains("light-mode")) {
+        themeToggle.textContent = "🌙 Dark Mode";
     }
     else {
-        themeToggle.textContent = "🌙 Dark Mode";
+        themeToggle.textContent = "☀️ Light Mode";
     }
 
 }
@@ -952,11 +1326,11 @@ updateThemeButton();
 
 themeToggle.addEventListener("click", function() {
 
-    document.body.classList.toggle("dark-mode");
+    document.body.classList.toggle("light-mode");
 
-    const theme = document.body.classList.contains("dark-mode")
-        ? "dark"
-        : "light";
+    const theme = document.body.classList.contains("light-mode")
+        ? "light"
+        : "dark";
 
     localStorage.setItem("alpha2-theme", theme);
 
@@ -965,9 +1339,9 @@ themeToggle.addEventListener("click", function() {
 });
 
 
-/* =========================
-   DAILY MOTIVATIONAL QUOTE
-========================= */
+/* =================================
+   DAILY MOTIVATION
+================================= */
 
 const quotes = [
 
@@ -1020,20 +1394,19 @@ const quote = quotes[
 ];
 
 document.getElementById("dailyQuote").textContent =
-    '"' + quote.text + '"';
+    "“" + quote.text + "”";
 
 document.getElementById("quoteAuthor").textContent =
     "— " + quote.author;
 
 
-/* =========================
+/* =================================
    SEARCH SUBJECTS
-========================= */
+================================= */
 
 const searchInput = document.getElementById("searchInput");
 
-const subjectColumns =
-    document.querySelectorAll(".subject-column");
+const subjectColumns = document.querySelectorAll(".subject-column");
 
 const noResults = document.getElementById("noResults");
 
@@ -1045,7 +1418,7 @@ searchInput.addEventListener("input", function() {
 
     subjectColumns.forEach(column => {
 
-        const subject = column.dataset.search;
+        const subject = column.dataset.search.toLowerCase();
 
         const match = subject.includes(searchValue);
 
@@ -1063,28 +1436,21 @@ searchInput.addEventListener("input", function() {
 });
 
 
-/* =========================
+/* =================================
    POMODORO TIMER
-========================= */
+================================= */
 
 let totalSeconds = 25 * 60;
-
 let timerInterval = null;
-
 let isRunning = false;
-
 let isBreak = false;
 
-const timerDisplay =
-    document.getElementById("timerDisplay");
-
-const timerStatus =
-    document.getElementById("timerStatus");
+const timerDisplay = document.getElementById("timerDisplay");
+const timerStatus = document.getElementById("timerStatus");
 
 function updateTimerDisplay() {
 
     const minutes = Math.floor(totalSeconds / 60);
-
     const seconds = totalSeconds % 60;
 
     timerDisplay.textContent =
@@ -1095,9 +1461,7 @@ function updateTimerDisplay() {
 
 function startTimer() {
 
-    if (isRunning) return;
-
-    if (totalSeconds <= 0) return;
+    if (isRunning || totalSeconds <= 0) return;
 
     isRunning = true;
 
@@ -1110,7 +1474,6 @@ function startTimer() {
         if (totalSeconds <= 0) {
 
             clearInterval(timerInterval);
-
             isRunning = false;
 
             if (!isBreak) {
@@ -1118,7 +1481,6 @@ function startTimer() {
                 alert("Great work! Your study session is complete. Take a 5-minute break.");
 
                 isBreak = true;
-
                 totalSeconds = 5 * 60;
 
                 timerStatus.textContent = "Break Time – 5 Minutes";
@@ -1129,7 +1491,6 @@ function startTimer() {
                 alert("Break finished! Time to study again.");
 
                 isBreak = false;
-
                 totalSeconds = 25 * 60;
 
                 timerStatus.textContent =
@@ -1148,7 +1509,6 @@ function startTimer() {
 function pauseTimer() {
 
     clearInterval(timerInterval);
-
     isRunning = false;
 
 }
@@ -1158,13 +1518,10 @@ function resetTimer() {
     clearInterval(timerInterval);
 
     isRunning = false;
-
     isBreak = false;
-
     totalSeconds = 25 * 60;
 
-    timerStatus.textContent =
-        "Focus Session – 25 Minutes";
+    timerStatus.textContent = "Focus Session – 25 Minutes";
 
     updateTimerDisplay();
 
@@ -1180,12 +1537,11 @@ document.getElementById("resetTimer")
     .addEventListener("click", resetTimer);
 
 
-/* =========================
+/* =================================
    ANIMATED STATISTICS
-========================= */
+================================= */
 
-const statNumbers =
-    document.querySelectorAll(".stat-number");
+const statNumbers = document.querySelectorAll(".stat-number");
 
 let statsStarted = false;
 
@@ -1203,26 +1559,29 @@ const statsObserver = new IntersectionObserver(entries => {
 
                 let current = 0;
 
-                const increment = Math.max(
-                    1,
-                    Math.ceil(target / 60)
-                );
+                const duration = 1200;
+                const startTime = performance.now();
 
-                const animation = setInterval(() => {
+                function animateCounter(timestamp) {
 
-                    current += increment;
+                    const progress = Math.min(
+                        (timestamp - startTime) / duration,
+                        1
+                    );
 
-                    if (current >= target) {
+                    const easedProgress = 1 - Math.pow(1 - progress, 4);
 
-                        current = target;
+                    current = Math.floor(target * easedProgress);
 
-                        clearInterval(animation);
+                    counter.textContent = current + (progress === 1 ? "+" : "");
 
+                    if (progress < 1) {
+                        requestAnimationFrame(animateCounter);
                     }
 
-                    counter.textContent = current + "+";
+                }
 
-                }, 25);
+                requestAnimationFrame(animateCounter);
 
             });
 
@@ -1232,18 +1591,14 @@ const statsObserver = new IntersectionObserver(entries => {
 
 }, { threshold: 0.3 });
 
-const statsSection =
-    document.querySelector(".stats-grid");
-
-statsObserver.observe(statsSection);
+statsObserver.observe(document.querySelector(".stats-grid"));
 
 
-/* =========================
-   CARD SCROLL ANIMATION
-========================= */
+/* =================================
+   CARD REVEAL ANIMATION
+================================= */
 
-const cards =
-    document.querySelectorAll(".subject-card");
+const cards = document.querySelectorAll(".subject-card");
 
 const cardObserver = new IntersectionObserver(entries => {
 
@@ -1260,7 +1615,7 @@ const cardObserver = new IntersectionObserver(entries => {
     });
 
 }, {
-    threshold: 0.15
+    threshold: 0.12
 });
 
 cards.forEach((card, index) => {
@@ -1272,45 +1627,37 @@ cards.forEach((card, index) => {
 });
 
 
-/* =========================
-   MOUSE FOLLOWING GLOW
-========================= */
-
-const mouseGlow = document.getElementById("mouseGlow");
-
-if (window.matchMedia("(pointer: fine)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-
-    document.addEventListener("mousemove", function(event) {
-
-        mouseGlow.style.left = event.clientX + "px";
-
-        mouseGlow.style.top = event.clientY + "px";
-
-    });
-
-}
-
-
-/* =========================
-   BACK TO TOP
-========================= */
-
-const backToTop =
-    document.getElementById("backToTop");
+/* =================================
+   SCROLL PROGRESS
+================================= */
 
 window.addEventListener("scroll", function() {
 
-    if (window.scrollY > 300) {
+    const scrollTop = document.documentElement.scrollTop;
 
-        backToTop.style.display = "block";
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
 
-    }
-    else {
+    const progress =
+        scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
 
-        backToTop.style.display = "none";
+    document.getElementById("scrollProgress").style.width =
+        progress + "%";
 
-    }
+});
+
+
+/* =================================
+   BACK TO TOP
+================================= */
+
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", function() {
+
+    backToTop.style.display =
+        window.scrollY > 350 ? "block" : "none";
 
 });
 
@@ -1324,9 +1671,6 @@ backToTop.addEventListener("click", function() {
 });
 
 </script>
-
-
-<!-- BOOTSTRAP JAVASCRIPT -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
