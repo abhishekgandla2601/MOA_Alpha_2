@@ -1,26 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Alpha-2 Study Materials</title>
+<title>Alpha-2 | Study Materials</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-
-/* =================================
-   THEME VARIABLES
-================================= */
-
 :root {
     --bg: #07111f;
-    --panel: rgba(16, 29, 51, 0.78);
-    --panel-solid: #101d33;
+    --panel: rgba(16,29,51,0.78);
     --text: #f8fafc;
     --muted: #a8b6cc;
     --accent: #9b8cff;
@@ -31,8 +25,7 @@
 
 body.light-mode {
     --bg: #edf2ff;
-    --panel: rgba(255,255,255,0.78);
-    --panel-solid: #ffffff;
+    --panel: rgba(255,255,255,0.82);
     --text: #172554;
     --muted: #52627a;
     --accent: #7047e8;
@@ -40,10 +33,6 @@ body.light-mode {
     --border: rgba(30,41,59,0.12);
     --shadow: 0 20px 50px rgba(42,55,90,0.12);
 }
-
-/* =================================
-   GENERAL
-================================= */
 
 * {
     box-sizing: border-box;
@@ -60,10 +49,8 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text);
     background: var(--bg);
-    transition: background 0.4s ease, color 0.4s ease;
+    transition: background 0.4s, color 0.4s;
 }
-
-/* Background image and overlay */
 
 body::after {
     content: "";
@@ -71,21 +58,19 @@ body::after {
     inset: 0;
     z-index: -3;
     background:
-        linear-gradient(rgba(5,12,27,0.86), rgba(5,12,27,0.92)),
+        linear-gradient(rgba(5,12,27,0.86),rgba(5,12,27,0.92)),
         url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
         center/cover no-repeat;
 }
 
 body.light-mode::after {
     background:
-        linear-gradient(rgba(226,235,255,0.88), rgba(238,243,255,0.94)),
+        linear-gradient(rgba(226,235,255,0.88),rgba(238,243,255,0.94)),
         url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
         center/cover no-repeat;
 }
 
-/* =================================
-   ANIMATED AURORA BACKGROUND
-================================= */
+/* AURORA BACKGROUND */
 
 .aurora {
     position: fixed;
@@ -126,17 +111,11 @@ body.light-mode::after {
 }
 
 @keyframes auroraMove {
-    from {
-        transform: translate(0,0) scale(0.9);
-    }
-    to {
-        transform: translate(100px,70px) scale(1.25);
-    }
+    from { transform: translate(0,0) scale(0.9); }
+    to { transform: translate(100px,70px) scale(1.25); }
 }
 
-/* =================================
-   PARTICLES
-================================= */
+/* FLOATING PARTICLES */
 
 .particles {
     position: fixed;
@@ -163,21 +142,13 @@ body.light-mode::after {
 .particle:nth-child(5) { left: 88%; animation-duration: 18s; animation-delay: 6s; }
 
 @keyframes particleFloat {
-    from {
-        transform: translateY(110vh);
-        opacity: 0;
-    }
+    from { transform: translateY(110vh); opacity: 0; }
     20% { opacity: 0.8; }
     80% { opacity: 0.5; }
-    to {
-        transform: translateY(-20vh);
-        opacity: 0;
-    }
+    to { transform: translateY(-20vh); opacity: 0; }
 }
 
-/* =================================
-   LOADER
-================================= */
+/* LOADER */
 
 #loader {
     position: fixed;
@@ -188,12 +159,13 @@ body.light-mode::after {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    transition: opacity 0.7s ease, visibility 0.7s ease;
+    transition: opacity 0.7s, visibility 0.7s;
 }
 
 #loader.hide {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
 }
 
 .loader-logo {
@@ -203,6 +175,7 @@ body.light-mode::after {
     display: grid;
     place-items: center;
     font-size: 35px;
+    font-weight: 900;
     color: white;
     background: linear-gradient(135deg,#7047e8,#00c9e8);
     box-shadow: 0 0 40px rgba(112,71,232,0.6);
@@ -218,7 +191,7 @@ body.light-mode::after {
 
 .loader-title {
     margin-top: 22px;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 800;
     color: white;
     letter-spacing: 1px;
@@ -247,9 +220,7 @@ body.light-mode::after {
     to { transform: translateX(230%); }
 }
 
-/* =================================
-   MAIN CONTAINER
-================================= */
+/* MAIN CONTAINER */
 
 .main-container {
     position: relative;
@@ -257,14 +228,12 @@ body.light-mode::after {
     max-width: 1180px;
 }
 
-/* =================================
-   THEME BUTTON
-================================= */
+/* THEME BUTTON */
 
 .top-actions {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .theme-button {
@@ -285,9 +254,7 @@ body.light-mode::after {
     box-shadow: 0 0 25px rgba(155,140,255,0.2);
 }
 
-/* =================================
-   HERO SECTION
-================================= */
+/* HERO */
 
 .hero-section {
     text-align: center;
@@ -296,14 +263,8 @@ body.light-mode::after {
 }
 
 @keyframes heroEntrance {
-    from {
-        opacity: 0;
-        transform: translateY(35px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(35px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-tag {
@@ -358,9 +319,7 @@ body.light-mode::after {
     box-shadow: 0 0 20px rgba(66,217,245,0.5);
 }
 
-/* =================================
-   GLASS PANELS
-================================= */
+/* GLASS PANELS */
 
 .glass-panel {
     position: relative;
@@ -371,7 +330,7 @@ body.light-mode::after {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: var(--shadow);
-    transition: background 0.3s ease, border-color 0.3s ease;
+    transition: background 0.3s, border-color 0.3s;
 }
 
 .glass-panel::before {
@@ -384,9 +343,7 @@ body.light-mode::after {
     background: linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);
 }
 
-/* =================================
-   CLOCK
-================================= */
+/* CLOCK */
 
 .clock-panel {
     max-width: 650px;
@@ -417,13 +374,11 @@ body.light-mode::after {
     font-size: 13px;
 }
 
-/* =================================
-   DAILY MOTIVATION
-================================= */
+/* DAILY MOTIVATION */
 
 .quote-panel {
     max-width: 850px;
-    margin: 0 auto 30px;
+    margin: 0 auto 35px;
     padding: 30px 25px;
     text-align: center;
     border-color: rgba(155,140,255,0.25);
@@ -457,57 +412,11 @@ body.light-mode::after {
     font-weight: 600;
 }
 
-/* =================================
-   STATISTICS
-================================= */
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 18px;
-    margin-bottom: 35px;
-}
-
-.stat-box {
-    padding: 23px 12px;
-    text-align: center;
-    transition: 0.35s ease;
-}
-
-.stat-box:hover {
-    transform: translateY(-7px);
-    border-color: var(--accent);
-    box-shadow: 0 15px 35px rgba(112,71,232,0.18);
-}
-
-.stat-icon {
-    font-size: 24px;
-    margin-bottom: 10px;
-}
-
-.stat-number {
-    font-size: clamp(26px,4vw,36px);
-    font-weight: 900;
-    color: var(--accent);
-    font-variant-numeric: tabular-nums;
-}
-
-.stat-label {
-    margin-top: 5px;
-    color: var(--muted);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-/* =================================
-   SECTION HEADING
-================================= */
+/* SUBJECT SECTION */
 
 .section-heading {
     text-align: center;
-    margin: 55px 0 25px;
+    margin: 55px 0 28px;
 }
 
 .section-heading h2 {
@@ -522,13 +431,11 @@ body.light-mode::after {
     margin-top: 8px;
 }
 
-/* =================================
-   SEARCH
-================================= */
+/* SEARCH */
 
 .search-wrapper {
     max-width: 650px;
-    margin: 0 auto 30px;
+    margin: 0 auto 35px;
     position: relative;
 }
 
@@ -561,14 +468,13 @@ body.light-mode::after {
     top: 50%;
     transform: translateY(-50%);
     font-size: 18px;
+    pointer-events: none;
 }
 
-/* =================================
-   SUBJECT CARDS
-================================= */
+/* SUBJECT CARDS */
 
 .subject-column {
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s;
 }
 
 .subject-card {
@@ -596,8 +502,14 @@ body.light-mode::after {
 .subject-card:hover {
     transform: translateY(-10px);
     border-color: rgba(155,140,255,0.65);
-    box-shadow: 0 25px 55px rgba(0,0,0,0.35),
-                0 0 25px rgba(112,71,232,0.15);
+    box-shadow:
+        0 25px 55px rgba(0,0,0,0.35),
+        0 0 25px rgba(112,71,232,0.15);
+}
+
+.subject-card a {
+    display: block;
+    height: 100%;
 }
 
 .image-container {
@@ -635,7 +547,7 @@ body.light-mode::after {
     color: var(--text);
     font-size: 20px;
     font-weight: 800;
-    transition: color 0.3s ease;
+    transition: color 0.3s;
 }
 
 .subject-card:hover .card-title {
@@ -648,9 +560,7 @@ body.light-mode::after {
     margin-top: 8px;
 }
 
-/* =================================
-   EMPTY SEARCH
-================================= */
+/* EMPTY SEARCH */
 
 #noResults {
     display: none;
@@ -660,13 +570,11 @@ body.light-mode::after {
     font-weight: 700;
 }
 
-/* =================================
-   POMODORO TIMER
-================================= */
+/* POMODORO TIMER */
 
 .timer-panel {
     max-width: 650px;
-    margin: 65px auto 0;
+    margin: 75px auto 0;
     padding: 35px 20px;
     text-align: center;
 }
@@ -733,9 +641,17 @@ body.light-mode::after {
     background: #475569;
 }
 
-/* =================================
-   FOOTER
-================================= */
+/* TIMER COMPLETION MESSAGE */
+
+#timerMessage {
+    min-height: 22px;
+    color: var(--accent2);
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+/* FOOTER */
 
 .footer {
     margin-top: 65px;
@@ -756,9 +672,7 @@ body.light-mode::after {
     margin-top: 7px;
 }
 
-/* =================================
-   BACK TO TOP
-================================= */
+/* BACK TO TOP */
 
 #backToTop {
     position: fixed;
@@ -781,9 +695,7 @@ body.light-mode::after {
     transform: translateY(-6px) rotate(5deg);
 }
 
-/* =================================
-   SCROLL PROGRESS
-================================= */
+/* SCROLL PROGRESS */
 
 #scrollProgress {
     position: fixed;
@@ -796,35 +708,15 @@ body.light-mode::after {
     box-shadow: 0 0 12px #42d9f5;
 }
 
-/* =================================
-   MOBILE RESPONSIVENESS
-================================= */
+/* RESPONSIVE */
 
 @media(max-width:768px) {
-
     .hero-section {
         padding-top: 25px;
     }
 
     .main-heading {
         letter-spacing: -1px;
-    }
-
-    .stats-grid {
-        gap: 9px;
-    }
-
-    .stat-box {
-        padding: 17px 5px;
-    }
-
-    .stat-label {
-        font-size: 10px;
-        letter-spacing: 0;
-    }
-
-    .stat-icon {
-        font-size: 20px;
     }
 
     .image-container {
@@ -845,21 +737,18 @@ body.light-mode::after {
 }
 
 @media(max-width:400px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
+    .image-container {
+        height: 185px;
     }
 
-    .stat-box {
-        padding: 15px;
+    .card-title {
+        font-size: 18px;
     }
 }
 
-/* =================================
-   REDUCED MOTION
-================================= */
+/* REDUCED MOTION */
 
 @media(prefers-reduced-motion:reduce) {
-
     *,
     *::before,
     *::after {
@@ -874,14 +763,12 @@ body.light-mode::after {
         transform: none;
     }
 }
-
 </style>
 </head>
 
 <body>
 
 <!-- PAGE LOADER -->
-
 <div id="loader">
     <div class="loader-logo">A2</div>
     <div class="loader-title">ALPHA-2 STUDY MATERIALS</div>
@@ -889,12 +776,9 @@ body.light-mode::after {
     <small class="text-white-50 mt-3">Preparing your learning space...</small>
 </div>
 
-<!-- SCROLL PROGRESS -->
-
 <div id="scrollProgress"></div>
 
 <!-- BACKGROUND EFFECTS -->
-
 <div class="aurora">
     <span></span>
     <span></span>
@@ -909,20 +793,16 @@ body.light-mode::after {
     <span class="particle"></span>
 </div>
 
-
 <div class="container py-4 main-container">
 
     <!-- THEME BUTTON -->
-
     <div class="top-actions">
-        <button class="theme-button" id="themeToggle">
+        <button class="theme-button" id="themeToggle" type="button">
             ☀️ Light Mode
         </button>
     </div>
 
-
     <!-- HERO -->
-
     <section class="hero-section">
 
         <div class="hero-tag">
@@ -945,9 +825,7 @@ body.light-mode::after {
 
     </section>
 
-
     <!-- LIVE CLOCK -->
-
     <div class="glass-panel clock-panel">
 
         <div class="greeting" id="greeting">
@@ -960,9 +838,7 @@ body.light-mode::after {
 
     </div>
 
-
     <!-- DAILY MOTIVATION -->
-
     <div class="glass-panel quote-panel">
 
         <div class="quote-icon">✦</div>
@@ -979,46 +855,7 @@ body.light-mode::after {
 
     </div>
 
-
-    <!-- STATISTICS -->
-
-    <div class="stats-grid">
-
-        <div class="glass-panel stat-box">
-
-            <div class="stat-icon">📚</div>
-
-            <div class="stat-number" data-target="3">0</div>
-
-            <div class="stat-label">Subjects</div>
-
-        </div>
-
-        <div class="glass-panel stat-box">
-
-            <div class="stat-icon">🎯</div>
-
-            <div class="stat-number" data-target="3">0</div>
-
-            <div class="stat-label">Study Areas</div>
-
-        </div>
-
-        <div class="glass-panel stat-box">
-
-            <div class="stat-icon">🚀</div>
-
-            <div class="stat-number" data-target="100">0</div>
-
-            <div class="stat-label">Learning Goals</div>
-
-        </div>
-
-    </div>
-
-
     <!-- SUBJECT SECTION -->
-
     <div class="section-heading">
 
         <h2>Explore Your Subjects</h2>
@@ -1027,9 +864,7 @@ body.light-mode::after {
 
     </div>
 
-
     <!-- SEARCH -->
-
     <div class="search-wrapper">
 
         <span class="search-icon">⌕</span>
@@ -1043,135 +878,109 @@ body.light-mode::after {
 
     </div>
 
-
     <!-- SUBJECT CARDS -->
-
     <div class="row g-4" id="subjectContainer">
 
-
         <!-- GEOGRAPHY -->
-
         <div class="col-md-4 subject-column"
              data-search="geography physical geography indian geography">
 
             <div class="subject-card">
 
-                <a href="geography.html"
-                   target="_self"
+                <a href="geography.html" target="_self"
                    class="text-decoration-none">
 
                     <div class="image-container">
-
                         <img
                             src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
                             class="card-img-top"
-                            alt="Geography">
-
+                            alt="Geography"
+                            loading="lazy">
                     </div>
 
                     <div class="card-body">
-
                         <h4 class="card-title">Geography</h4>
 
                         <div class="card-subtitle">
                             Explore the world and understand our planet
                         </div>
-
                     </div>
 
                 </a>
 
             </div>
-
         </div>
 
-
         <!-- ECONOMY -->
-
         <div class="col-md-4 subject-column"
              data-search="economy indian economy finance economics">
 
             <div class="subject-card">
 
-                <a href="economy.html"
-                   target="_self"
+                <a href="economy.html" target="_self"
                    class="text-decoration-none">
 
                     <div class="image-container">
-
                         <img
                             src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
                             class="card-img-top"
-                            alt="Economy">
-
+                            alt="Economy"
+                            loading="lazy">
                     </div>
 
                     <div class="card-body">
-
                         <h4 class="card-title">Economy</h4>
 
                         <div class="card-subtitle">
                             Understand India's economy and development
                         </div>
-
                     </div>
 
                 </a>
 
             </div>
-
         </div>
 
-
         <!-- POLITY -->
-
         <div class="col-md-4 subject-column"
              data-search="polity indian polity constitution governance">
 
             <div class="subject-card">
 
-                <a href="polity.html"
-                   target="_self"
+                <a href="polity.html" target="_self"
                    class="text-decoration-none">
 
                     <div class="image-container">
-
                         <img
                             src="https://placehold.co/600x400?text=Polity"
                             class="card-img-top"
-                            alt="Polity">
-
+                            alt="Polity"
+                            loading="lazy">
                     </div>
 
                     <div class="card-body">
-
                         <h4 class="card-title">Polity</h4>
 
                         <div class="card-subtitle">
                             Learn about the Constitution and governance
                         </div>
-
                     </div>
 
                 </a>
 
             </div>
-
         </div>
-
 
     </div>
 
-
+    <!-- NO SEARCH RESULTS -->
     <div id="noResults">
         <div style="font-size:35px;">🔎</div>
         <div class="mt-2">No matching subject found.</div>
         <small>Try searching with another keyword.</small>
     </div>
 
-
     <!-- POMODORO TIMER -->
-
     <div class="glass-panel timer-panel">
 
         <div class="timer-icon">⏳</div>
@@ -1192,29 +1001,29 @@ body.light-mode::after {
 
         <div class="timer-buttons">
 
-            <button class="timer-btn" id="startTimer">
+            <button class="timer-btn" id="startTimer" type="button">
                 ▶ Start
             </button>
 
-            <button class="timer-btn pause" id="pauseTimer">
+            <button class="timer-btn pause" id="pauseTimer" type="button">
                 ⏸ Pause
             </button>
 
-            <button class="timer-btn reset" id="resetTimer">
+            <button class="timer-btn reset" id="resetTimer" type="button">
                 ↻ Reset
             </button>
 
         </div>
 
-        <div class="timer-description mt-4">
+        <div id="timerMessage" aria-live="polite"></div>
+
+        <div class="timer-description mt-3">
             Stay focused. Small efforts every day create great results.
         </div>
 
     </div>
 
-
     <!-- FOOTER -->
-
     <footer class="footer">
 
         <div class="footer-title">
@@ -1233,37 +1042,23 @@ body.light-mode::after {
 
 </div>
 
-
 <!-- BACK TO TOP -->
-
 <button id="backToTop"
         aria-label="Back to top"
         title="Back to top">
     ↑
 </button>
 
-
 <script>
-
-/* =================================
-   PAGE LOADER
-================================= */
-
+/* PAGE LOADER */
 window.addEventListener("load", function() {
-
-    setTimeout(() => {
+    setTimeout(function() {
         document.getElementById("loader").classList.add("hide");
     }, 500);
-
 });
 
-
-/* =================================
-   LIVE CLOCK
-================================= */
-
+/* LIVE CLOCK */
 function updateClock() {
-
     const now = new Date();
 
     document.getElementById("liveClock").textContent =
@@ -1283,26 +1078,19 @@ function updateClock() {
 
     if (hour < 12) {
         greeting = "🌅 Good Morning, Student!";
-    }
-    else if (hour < 17) {
+    } else if (hour < 17) {
         greeting = "☀️ Good Afternoon, Student!";
-    }
-    else {
+    } else {
         greeting = "🌙 Good Evening, Student!";
     }
 
     document.getElementById("greeting").textContent = greeting;
-
 }
 
 updateClock();
 setInterval(updateClock, 1000);
 
-
-/* =================================
-   DARK / LIGHT MODE
-================================= */
-
+/* DARK / LIGHT MODE */
 const themeToggle = document.getElementById("themeToggle");
 
 const savedTheme = localStorage.getItem("alpha2-theme");
@@ -1312,20 +1100,15 @@ if (savedTheme === "light") {
 }
 
 function updateThemeButton() {
-
-    if (document.body.classList.contains("light-mode")) {
-        themeToggle.textContent = "🌙 Dark Mode";
-    }
-    else {
-        themeToggle.textContent = "☀️ Light Mode";
-    }
-
+    themeToggle.textContent =
+        document.body.classList.contains("light-mode")
+            ? "🌙 Dark Mode"
+            : "☀️ Light Mode";
 }
 
 updateThemeButton();
 
 themeToggle.addEventListener("click", function() {
-
     document.body.classList.toggle("light-mode");
 
     const theme = document.body.classList.contains("light-mode")
@@ -1335,51 +1118,38 @@ themeToggle.addEventListener("click", function() {
     localStorage.setItem("alpha2-theme", theme);
 
     updateThemeButton();
-
 });
 
-
-/* =================================
-   DAILY MOTIVATION
-================================= */
-
+/* DAILY MOTIVATION */
 const quotes = [
-
     {
         text: "The secret of getting ahead is getting started.",
         author: "Mark Twain"
     },
-
     {
         text: "It always seems impossible until it's done.",
         author: "Nelson Mandela"
     },
-
     {
         text: "Success is the sum of small efforts repeated day in and day out.",
         author: "Robert Collier"
     },
-
     {
         text: "Dream big. Start small. Act now.",
         author: "Robin Sharma"
     },
-
     {
         text: "Education is the most powerful weapon which you can use to change the world.",
         author: "Nelson Mandela"
     },
-
     {
         text: "Great things are done by a series of small things brought together.",
         author: "Vincent van Gogh"
     },
-
     {
         text: "The future depends on what you do today.",
         author: "Mahatma Gandhi"
     }
-
 ];
 
 const today = new Date();
@@ -1399,27 +1169,18 @@ document.getElementById("dailyQuote").textContent =
 document.getElementById("quoteAuthor").textContent =
     "— " + quote.author;
 
-
-/* =================================
-   SEARCH SUBJECTS
-================================= */
-
+/* SEARCH SUBJECTS */
 const searchInput = document.getElementById("searchInput");
-
 const subjectColumns = document.querySelectorAll(".subject-column");
-
 const noResults = document.getElementById("noResults");
 
 searchInput.addEventListener("input", function() {
-
     const searchValue = this.value.toLowerCase().trim();
 
     let visibleCount = 0;
 
-    subjectColumns.forEach(column => {
-
+    subjectColumns.forEach(function(column) {
         const subject = column.dataset.search.toLowerCase();
-
         const match = subject.includes(searchValue);
 
         column.style.display = match ? "" : "none";
@@ -1427,19 +1188,13 @@ searchInput.addEventListener("input", function() {
         if (match) {
             visibleCount++;
         }
-
     });
 
     noResults.style.display =
         visibleCount === 0 ? "block" : "none";
-
 });
 
-
-/* =================================
-   POMODORO TIMER
-================================= */
-
+/* POMODORO TIMER */
 let totalSeconds = 25 * 60;
 let timerInterval = null;
 let isRunning = false;
@@ -1447,74 +1202,57 @@ let isBreak = false;
 
 const timerDisplay = document.getElementById("timerDisplay");
 const timerStatus = document.getElementById("timerStatus");
+const timerMessage = document.getElementById("timerMessage");
 
 function updateTimerDisplay() {
-
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
 
     timerDisplay.textContent =
         String(minutes).padStart(2, "0") + ":" +
         String(seconds).padStart(2, "0");
-
 }
 
 function startTimer() {
-
     if (isRunning || totalSeconds <= 0) return;
 
     isRunning = true;
+    timerMessage.textContent = "Stay focused. You've got this!";
 
-    timerInterval = setInterval(() => {
-
+    timerInterval = setInterval(function() {
         totalSeconds--;
-
         updateTimerDisplay();
 
         if (totalSeconds <= 0) {
-
             clearInterval(timerInterval);
             isRunning = false;
 
             if (!isBreak) {
-
-                alert("Great work! Your study session is complete. Take a 5-minute break.");
-
                 isBreak = true;
                 totalSeconds = 5 * 60;
-
                 timerStatus.textContent = "Break Time – 5 Minutes";
-
-            }
-            else {
-
-                alert("Break finished! Time to study again.");
-
+                timerMessage.textContent =
+                    "🎉 Great work! Your focus session is complete. Enjoy your break.";
+            } else {
                 isBreak = false;
                 totalSeconds = 25 * 60;
-
-                timerStatus.textContent =
-                    "Focus Session – 25 Minutes";
-
+                timerStatus.textContent = "Focus Session – 25 Minutes";
+                timerMessage.textContent =
+                    "✨ Break finished! You're ready for another focus session.";
             }
 
             updateTimerDisplay();
-
         }
-
     }, 1000);
-
 }
 
 function pauseTimer() {
-
     clearInterval(timerInterval);
     isRunning = false;
-
+    timerMessage.textContent = "Timer paused. Resume when you're ready.";
 }
 
 function resetTimer() {
-
     clearInterval(timerInterval);
 
     isRunning = false;
@@ -1522,9 +1260,9 @@ function resetTimer() {
     totalSeconds = 25 * 60;
 
     timerStatus.textContent = "Focus Session – 25 Minutes";
+    timerMessage.textContent = "Ready for a fresh focus session.";
 
     updateTimerDisplay();
-
 }
 
 document.getElementById("startTimer")
@@ -1536,140 +1274,60 @@ document.getElementById("pauseTimer")
 document.getElementById("resetTimer")
     .addEventListener("click", resetTimer);
 
-
-/* =================================
-   ANIMATED STATISTICS
-================================= */
-
-const statNumbers = document.querySelectorAll(".stat-number");
-
-let statsStarted = false;
-
-const statsObserver = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting && !statsStarted) {
-
-            statsStarted = true;
-
-            statNumbers.forEach(counter => {
-
-                const target = Number(counter.dataset.target);
-
-                let current = 0;
-
-                const duration = 1200;
-                const startTime = performance.now();
-
-                function animateCounter(timestamp) {
-
-                    const progress = Math.min(
-                        (timestamp - startTime) / duration,
-                        1
-                    );
-
-                    const easedProgress = 1 - Math.pow(1 - progress, 4);
-
-                    current = Math.floor(target * easedProgress);
-
-                    counter.textContent = current + (progress === 1 ? "+" : "");
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animateCounter);
-                    }
-
-                }
-
-                requestAnimationFrame(animateCounter);
-
-            });
-
-        }
-
-    });
-
-}, { threshold: 0.3 });
-
-statsObserver.observe(document.querySelector(".stats-grid"));
-
-
-/* =================================
-   CARD REVEAL ANIMATION
-================================= */
-
+/* CARD REVEAL ANIMATION */
 const cards = document.querySelectorAll(".subject-card");
 
-const cardObserver = new IntersectionObserver(entries => {
-
-    entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-
-            entry.target.classList.add("visible");
-
-            cardObserver.unobserve(entry.target);
-
-        }
-
+if ("IntersectionObserver" in window) {
+    const cardObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                cardObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12
     });
 
-}, {
-    threshold: 0.12
-});
+    cards.forEach(function(card, index) {
+        card.style.transitionDelay = (index * 120) + "ms";
+        cardObserver.observe(card);
+    });
+} else {
+    cards.forEach(function(card) {
+        card.classList.add("visible");
+    });
+}
 
-cards.forEach((card, index) => {
+/* SCROLL PROGRESS AND BACK TO TOP */
+const scrollProgress = document.getElementById("scrollProgress");
+const backToTop = document.getElementById("backToTop");
 
-    card.style.transitionDelay = `${index * 150}ms`;
-
-    cardObserver.observe(card);
-
-});
-
-
-/* =================================
-   SCROLL PROGRESS
-================================= */
-
-window.addEventListener("scroll", function() {
-
-    const scrollTop = document.documentElement.scrollTop;
+function handleScroll() {
+    const scrollTop = window.scrollY;
 
     const scrollHeight =
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
 
-    const progress =
-        scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    const progress = scrollHeight > 0
+        ? (scrollTop / scrollHeight) * 100
+        : 0;
 
-    document.getElementById("scrollProgress").style.width =
-        progress + "%";
-
-});
-
-
-/* =================================
-   BACK TO TOP
-================================= */
-
-const backToTop = document.getElementById("backToTop");
-
-window.addEventListener("scroll", function() {
+    scrollProgress.style.width = progress + "%";
 
     backToTop.style.display =
-        window.scrollY > 350 ? "block" : "none";
+        scrollTop > 350 ? "block" : "none";
+}
 
-});
+window.addEventListener("scroll", handleScroll, { passive: true });
 
 backToTop.addEventListener("click", function() {
-
     window.scrollTo({
         top: 0,
         behavior: "smooth"
     });
-
 });
-
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
