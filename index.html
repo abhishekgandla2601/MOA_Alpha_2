@@ -1,1260 +1,1278 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Alpha-2 | Study Hub</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
-          rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #f7f8f5;
-            --surface: rgba(255,255,255,0.84);
-            --surface-solid: #ffffff;
-            --text: #172c28;
-            --muted: #71817b;
-            --accent: #138808;
-            --accent-dark: #086b3b;
-            --accent-soft: #e5f3e8;
-            --secondary: #f28c28;
-            --navy: #172f50;
-            --border: rgba(19,136,8,0.15);
-            --shadow: 0 18px 55px rgba(25,65,45,0.09);
-            --hero-gradient: linear-gradient(120deg,#e87520,#138808,#173b65);
-        }
-
-        body.dark-mode {
-            --bg: #101b19;
-            --surface: rgba(28,43,38,0.88);
-            --surface-solid: #1c2b26;
-            --text: #f1f7f1;
-            --muted: #a9bbb0;
-            --accent: #62c66b;
-            --accent-dark: #8cdb91;
-            --accent-soft: rgba(65,160,75,0.15);
-            --secondary: #ffb45e;
-            --navy: #a9c9ed;
-            --border: rgba(130,205,140,0.15);
-            --shadow: 0 18px 55px rgba(0,0,0,0.28);
-            --hero-gradient: linear-gradient(120deg,#ffad55,#69d477,#9bc8f5);
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text);
-            background: var(--bg);
-            transition: background 0.4s, color 0.4s;
-        }
-
-        /* BACKGROUND */
-
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            z-index: -3;
-            background:
-                linear-gradient(rgba(247,248,245,0.91),rgba(247,248,245,0.96)),
-                url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
-                center/cover no-repeat;
-        }
-
-        body.dark-mode::before {
-            background:
-                linear-gradient(rgba(16,27,25,0.92),rgba(16,27,25,0.97)),
-                url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
-                center/cover no-repeat;
-        }
-
-        /* FLOATING BACKGROUND */
-
-        .aurora {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .aurora span {
-            position: absolute;
-            width: 420px;
-            height: 420px;
-            border-radius: 50%;
-            filter: blur(110px);
-            opacity: 0.19;
-            animation: auroraMove 16s ease-in-out infinite alternate;
-        }
-
-        .aurora span:nth-child(1) {
-            background: #f4a45f;
-            top: -150px;
-            left: -100px;
-        }
-
-        .aurora span:nth-child(2) {
-            background: #8bd18d;
-            right: -150px;
-            top: 25%;
-            animation-delay: -5s;
-        }
-
-        .aurora span:nth-child(3) {
-            background: #91b9e5;
-            bottom: -200px;
-            left: 35%;
-            animation-delay: -8s;
-        }
-
-        @keyframes auroraMove {
-            from { transform: translate(0,0) scale(0.9); }
-            to { transform: translate(80px,65px) scale(1.2); }
-        }
-
-        /* PARTICLES */
-
-        .particles {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #72b978;
-            box-shadow: 0 0 12px #9bd7a0;
-            animation: particleFloat 17s linear infinite;
-        }
-
-        .particle:nth-child(1) { left: 8%; animation-duration: 17s; }
-        .particle:nth-child(2) { left: 23%; animation-duration: 21s; animation-delay: 3s; }
-        .particle:nth-child(3) { left: 43%; animation-duration: 16s; animation-delay: 5s; }
-        .particle:nth-child(4) { left: 67%; animation-duration: 20s; animation-delay: 2s; }
-        .particle:nth-child(5) { left: 88%; animation-duration: 18s; animation-delay: 6s; }
-
-        @keyframes particleFloat {
-            from { transform: translateY(110vh); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.5; }
-            to { transform: translateY(-20vh); opacity: 0; }
-        }
-
-        /* LOADER */
-
-        #loader {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: #10251e;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            transition: opacity 0.7s, visibility 0.7s;
-        }
-
-        #loader.hide {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .loader-logo {
-            width: 76px;
-            height: 76px;
-            border-radius: 25px;
-            display: grid;
-            place-items: center;
-            font-size: 32px;
-            font-weight: 900;
-            color: white;
-            background: linear-gradient(135deg,#e87520,#138808);
-            box-shadow: 0 0 40px rgba(90,190,100,0.3);
-            animation: logoPulse 1.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes logoPulse {
-            to { transform: scale(1.08) rotate(4deg); }
-        }
-
-        .loader-title {
-            margin-top: 22px;
-            font-size: 17px;
-            font-weight: 800;
-            color: white;
-            letter-spacing: 2px;
-        }
-
-        .loader-line {
-            width: 150px;
-            height: 4px;
-            margin-top: 20px;
-            border-radius: 20px;
-            background: rgba(255,255,255,0.15);
-            overflow: hidden;
-        }
-
-        .loader-line::after {
-            content: "";
-            display: block;
-            height: 100%;
-            width: 45%;
-            background: linear-gradient(90deg,#f28c28,#ffffff,#138808);
-            animation: loading 1.2s ease-in-out infinite;
-        }
-
-        @keyframes loading {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(230%); }
-        }
-
-        /* MAIN CONTAINER */
-
-        .main-container {
-            position: relative;
-            z-index: 1;
-            max-width: 1180px;
-        }
-
-        /* THEME BUTTON */
-
-        .top-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-
-        .theme-button {
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 11px 19px;
-            color: var(--text);
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            font-weight: 700;
-            font-size: 13px;
-            box-shadow: var(--shadow);
-            transition: 0.3s;
-        }
-
-        .theme-button:hover {
-            transform: translateY(-3px);
-            border-color: var(--accent);
-        }
-
-        /* HERO */
-
-        .hero-section {
-            text-align: center;
-            padding: 38px 15px 35px;
-            animation: heroEntrance 1s ease both;
-        }
-
-        @keyframes heroEntrance {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-tag {
-            display: inline-block;
-            padding: 9px 19px;
-            margin-bottom: 22px;
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            background: var(--accent-soft);
-            color: var(--accent-dark);
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .main-heading {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(2.7rem,7vw,5.2rem);
-            font-weight: 800;
-            letter-spacing: -2px;
-            line-height: 1.12;
-            color: var(--text);
-        }
-
-        .gradient-text {
-            background: var(--hero-gradient);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientFlow 6s linear infinite;
-        }
-
-        @keyframes gradientFlow {
-            to { background-position: 200% center; }
-        }
-
-        .hero-description {
-            max-width: 550px;
-            margin: 18px auto 0;
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-        .heading-line {
-            width: 85px;
-            height: 4px;
-            margin: 25px auto 0;
-            border-radius: 20px;
-            background: var(--hero-gradient);
-        }
-
-        /* INDIAN FLAG */
-
-        .flag-area {
-            display: flex;
-            justify-content: center;
-            margin: 10px auto 28px;
-            perspective: 500px;
-        }
-
-        .indian-flag {
-            position: relative;
-            width: 150px;
-            height: 100px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border-radius: 3px;
-            transform-origin: left center;
-            animation: flagWave 3s ease-in-out infinite;
-            box-shadow: 0 12px 28px rgba(20,45,35,0.2);
-        }
-
-        .flag-stripe {
-            flex: 1;
-            width: 100%;
-        }
-
-        .flag-saffron { background: #ff9933; }
-        .flag-white { background: #ffffff; }
-        .flag-green { background: #138808; }
-
-        .ashoka-chakra {
-            position: absolute;
-            width: 29px;
-            height: 29px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            border: 2px solid #000080;
-            border-radius: 50%;
-            background: repeating-conic-gradient(
-                #000080 0deg 2deg,
-                transparent 2deg 15deg
-            );
-        }
-
-        .ashoka-chakra::before {
-            content: "";
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
-            border-radius: 50%;
-            background: #000080;
-        }
-
-        @keyframes flagWave {
-            0%, 100% {
-                transform: rotateY(-12deg) skewY(-1deg);
-            }
-            50% {
-                transform: rotateY(12deg) skewY(1deg);
-            }
-        }
-
-        /* GLASS PANELS */
-
-        .glass-panel {
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: var(--shadow);
-            transition: background 0.3s, border-color 0.3s;
-        }
-
-        .glass-panel::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 10%;
-            width: 80%;
-            height: 1px;
-            background: linear-gradient(90deg,transparent,var(--accent),transparent);
-            opacity: 0.5;
-        }
-
-        /* CLOCK */
-
-        .clock-panel {
-            max-width: 650px;
-            margin: 20px auto 28px;
-            padding: 30px 15px;
-            text-align: center;
-        }
-
-        .greeting {
-            color: var(--accent-dark);
-            font-size: 15px;
-            font-weight: 800;
-            margin-bottom: 12px;
-        }
-
-        #liveClock {
-            font-size: clamp(34px,7vw,52px);
-            font-weight: 800;
-            letter-spacing: 3px;
-            font-variant-numeric: tabular-nums;
-            color: var(--text);
-        }
-
-        #liveDate {
-            margin-top: 9px;
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        /* DAILY MOTIVATION */
-
-        .quote-panel {
-            max-width: 850px;
-            margin: 0 auto 45px;
-            padding: 30px 25px;
-            text-align: center;
-            border-color: rgba(19,136,8,0.2);
-            background:
-                linear-gradient(135deg,rgba(255,153,51,0.09),rgba(19,136,8,0.08)),
-                var(--surface);
-        }
-
-        .quote-icon {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: var(--secondary);
-        }
-
-        .quote-label {
-            color: var(--accent-dark);
-            font-size: 11px;
-            font-weight: 900;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        #dailyQuote {
-            max-width: 700px;
-            margin: 17px auto 12px;
-            color: var(--text);
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(18px,3vw,24px);
-            font-weight: 700;
-            line-height: 1.6;
-        }
-
-        #quoteAuthor {
-            color: var(--muted);
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        /* SUBJECT SECTION */
-
-        .section-heading {
-            text-align: center;
-            margin: 60px 0 28px;
-        }
-
-        .section-heading h2 {
-            color: var(--text);
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(27px,4vw,35px);
-            font-weight: 800;
-        }
-
-        .section-heading p {
-            color: var(--muted);
-            font-size: 14px;
-            margin-top: 8px;
-        }
-
-        /* SEARCH */
-
-        .search-wrapper {
-            max-width: 650px;
-            margin: 0 auto 38px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 17px 23px 17px 53px;
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            outline: none;
-            color: var(--text);
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            font-size: 14px;
-            box-shadow: var(--shadow);
-            transition: 0.3s;
-        }
-
-        .search-input:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(19,136,8,0.12);
-        }
-
-        .search-input::placeholder {
-            color: var(--muted);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 21px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            color: var(--accent);
-            pointer-events: none;
-        }
-
-        /* SUBJECT CARDS */
-
-        .subject-column {
-            transition: opacity 0.3s;
-        }
-
-        .subject-card {
-            height: 100%;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            box-shadow: var(--shadow);
-            opacity: 0;
-            transform: translateY(30px);
-            transition:
-                opacity 0.7s ease,
-                transform 0.4s ease,
-                border-color 0.4s ease,
-                box-shadow 0.4s ease;
-        }
-
-        .subject-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .subject-card:hover {
-            transform: translateY(-9px);
-            border-color: var(--accent);
-            box-shadow: 0 25px 55px rgba(30,90,45,0.16);
-        }
-
-        .subject-card a {
-            display: block;
-            height: 100%;
-        }
-
-        .image-container {
-            height: 235px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .image-container::after {
-            content: "";
-            position: absolute;
-            inset: 45% 0 0;
-            background: linear-gradient(transparent,rgba(20,35,25,0.35));
-            pointer-events: none;
-        }
-
-        .card-img-top {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(.2,.8,.2,1);
-        }
-
-        .subject-card:hover .card-img-top {
-            transform: scale(1.1);
-        }
-
-        .card-body {
-            padding: 25px 15px 28px;
-            text-align: center;
-        }
-
-        .card-title {
-            margin: 0;
-            color: var(--text);
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            font-weight: 800;
-            transition: color 0.3s;
-        }
-
-        .subject-card:hover .card-title {
-            color: var(--accent-dark);
-        }
-
-        .card-subtitle {
-            color: var(--muted);
-            font-size: 12px;
-            margin-top: 10px;
-            line-height: 1.7;
-        }
-
-        /* EMPTY SEARCH */
-
-        #noResults {
-            display: none;
-            padding: 40px 15px;
-            text-align: center;
-            color: var(--muted);
-            font-weight: 700;
-        }
-
-        /* FOOTER */
-
-        .footer {
-            margin-top: 85px;
-            padding: 30px 10px;
-            border-top: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .footer-title {
-            color: var(--text);
-            font-family: 'Playfair Display', serif;
-            font-size: 18px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .footer-subtitle {
-            color: var(--muted);
-            font-size: 12px;
-            margin-top: 9px;
-        }
-
-        /* BACK TO TOP */
-
-        #backToTop {
-            position: fixed;
-            right: 25px;
-            bottom: 25px;
-            z-index: 100;
-            width: 48px;
-            height: 48px;
-            border: 1px solid var(--border);
-            border-radius: 50%;
-            display: none;
-            color: white;
-            background: linear-gradient(135deg,#e87520,#138808);
-            font-size: 22px;
-            box-shadow: 0 8px 25px rgba(30,70,40,0.2);
-            transition: 0.3s;
-        }
-
-        #backToTop:hover {
-            transform: translateY(-5px);
-        }
-
-        /* SCROLL PROGRESS */
-
-        #scrollProgress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            width: 0;
-            z-index: 10000;
-            background: linear-gradient(90deg,#ff9933,#ffffff,#138808);
-        }
-
-        /* ACCESSIBILITY */
-
-        button:focus-visible,
-        a:focus-visible,
-        input:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 4px;
-        }
-
-        /* RESPONSIVE */
-
-        @media(max-width:768px) {
-            .hero-section {
-                padding-top: 25px;
-            }
-
-            .main-heading {
-                letter-spacing: -1px;
-            }
-
-            .image-container {
-                height: 215px;
-            }
-
-            .top-actions {
-                justify-content: center;
-            }
-
-            .quote-panel {
-                padding: 27px 17px;
-            }
-
-            .section-heading {
-                margin-top: 50px;
-            }
-        }
-
-        @media(max-width:400px) {
-            .image-container {
-                height: 190px;
-            }
-
-            .card-title {
-                font-size: 20px;
-            }
-
-            .hero-tag {
-                font-size: 10px;
-                letter-spacing: 1px;
-            }
-
-            .indian-flag {
-                width: 125px;
-                height: 84px;
-            }
-        }
-
-        /* REDUCED MOTION */
-
-        @media(prefers-reduced-motion:reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
-
-            .subject-card {
-                opacity: 1;
-                transform: none;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Alpha-2 | Study Materials</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #f7f9f7;
+    --surface: rgba(255,255,255,0.84);
+    --surface-solid: #ffffff;
+    --text: #243329;
+    --muted: #748078;
+    --accent: #e87524;
+    --accent-dark: #c45a12;
+    --accent-soft: #fff0e3;
+    --green: #16834a;
+    --navy: #17345b;
+    --border: rgba(39,105,66,0.14);
+    --shadow: 0 18px 50px rgba(30,75,48,0.09);
+    --hero-gradient: linear-gradient(120deg,#e87524,#ffffff,#16834a);
+}
+
+body.dark-mode {
+    --bg: #111b17;
+    --surface: rgba(29,43,35,0.88);
+    --surface-solid: #1d2b23;
+    --text: #f0f6f1;
+    --muted: #aab9ae;
+    --accent: #ffad69;
+    --accent-dark: #ffbd83;
+    --accent-soft: rgba(232,117,36,0.13);
+    --green: #64c88b;
+    --navy: #a9c9f0;
+    --border: rgba(180,220,190,0.13);
+    --shadow: 0 18px 50px rgba(0,0,0,0.25);
+    --hero-gradient: linear-gradient(120deg,#ffad69,#ffffff,#64c88b);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    transition: background 0.4s, color 0.4s;
+}
+
+/* BACKGROUND */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+    background:
+        linear-gradient(rgba(247,249,247,0.91),rgba(247,249,247,0.96)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
+        center/cover no-repeat;
+}
+
+body.dark-mode::before {
+    background:
+        linear-gradient(rgba(17,27,23,0.92),rgba(17,27,23,0.97)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
+        center/cover no-repeat;
+}
+
+/* WAVING INDIAN FLAG */
+
+.flag-background {
+    position: fixed;
+    top: 15%;
+    right: -90px;
+    width: 480px;
+    height: 300px;
+    z-index: -4;
+    opacity: 0.13;
+    pointer-events: none;
+    transform-origin: left center;
+    animation: flagWave 5s ease-in-out infinite alternate;
+    filter: blur(0.2px);
+}
+
+.flag {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    transform: perspective(700px) rotateY(-13deg);
+}
+
+.flag-stripe {
+    height: 33.333%;
+    width: 100%;
+}
+
+.flag-saffron {
+    background: #ff9933;
+}
+
+.flag-white {
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flag-green {
+    background: #138808;
+}
+
+.chakra {
+    width: 66px;
+    height: 66px;
+    border: 4px solid #000080;
+    border-radius: 50%;
+    position: relative;
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            #000080 0deg 2deg,
+            transparent 2deg 15deg
+        );
+}
+
+.chakra::before {
+    content: "";
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    background: #000080;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+@keyframes flagWave {
+    0% {
+        transform: perspective(800px) rotateY(-8deg) skewY(1deg);
+    }
+    50% {
+        transform: perspective(800px) rotateY(10deg) skewY(-2deg);
+    }
+    100% {
+        transform: perspective(800px) rotateY(-12deg) skewY(2deg);
+    }
+}
+
+/* AURORA */
+
+.aurora {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.aurora span {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.15;
+    animation: auroraMove 16s ease-in-out infinite alternate;
+}
+
+.aurora span:nth-child(1) {
+    background: #ff9933;
+    top: -150px;
+    left: -100px;
+}
+
+.aurora span:nth-child(2) {
+    background: #138808;
+    right: -150px;
+    top: 25%;
+    animation-delay: -5s;
+}
+
+.aurora span:nth-child(3) {
+    background: #9db8dc;
+    bottom: -200px;
+    left: 35%;
+    animation-delay: -8s;
+}
+
+@keyframes auroraMove {
+    from { transform: translate(0,0) scale(0.9); }
+    to { transform: translate(80px,65px) scale(1.2); }
+}
+
+/* PARTICLES */
+
+.particles {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #16834a;
+    box-shadow: 0 0 12px rgba(22,131,74,0.4);
+    animation: particleFloat 17s linear infinite;
+}
+
+.particle:nth-child(1) { left: 8%; animation-duration: 17s; }
+.particle:nth-child(2) { left: 23%; animation-duration: 21s; animation-delay: 3s; }
+.particle:nth-child(3) { left: 43%; animation-duration: 16s; animation-delay: 5s; }
+.particle:nth-child(4) { left: 67%; animation-duration: 20s; animation-delay: 2s; }
+.particle:nth-child(5) { left: 88%; animation-duration: 18s; animation-delay: 6s; }
+
+@keyframes particleFloat {
+    from { transform: translateY(110vh); opacity: 0; }
+    20% { opacity: 0.7; }
+    80% { opacity: 0.4; }
+    to { transform: translateY(-20vh); opacity: 0; }
+}
+
+/* LOADER */
+
+#loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #183b2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.7s, visibility 0.7s;
+}
+
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loader-logo {
+    width: 76px;
+    height: 76px;
+    border-radius: 25px;
+    display: grid;
+    place-items: center;
+    font-size: 32px;
+    font-weight: 900;
+    color: white;
+    background: linear-gradient(135deg,#e87524,#16834a);
+    box-shadow: 0 0 40px rgba(255,153,51,0.3);
+    animation: logoPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes logoPulse {
+    to { transform: scale(1.08) rotate(4deg); }
+}
+
+.loader-title {
+    margin-top: 22px;
+    font-size: 17px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: 2px;
+}
+
+.loader-line {
+    width: 150px;
+    height: 4px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    overflow: hidden;
+}
+
+.loader-line::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: 45%;
+    background: linear-gradient(90deg,#ff9933,#ffffff,#138808);
+    animation: loading 1.2s ease-in-out infinite;
+}
+
+@keyframes loading {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(230%); }
+}
+
+/* MAIN */
+
+.main-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+}
+
+/* THEME */
+
+.top-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.theme-button {
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 11px 19px;
+    color: var(--text);
+    background: var(--surface);
+    backdrop-filter: blur(15px);
+    font-weight: 700;
+    font-size: 13px;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+.theme-button:hover {
+    transform: translateY(-3px);
+    border-color: var(--green);
+}
+
+/* HERO */
+
+.hero-section {
+    text-align: center;
+    padding: 48px 15px 35px;
+    animation: heroEntrance 1s ease both;
+}
+
+@keyframes heroEntrance {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-tag {
+    display: inline-block;
+    padding: 9px 19px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.main-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.7rem,7vw,5.2rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.12;
+    color: var(--text);
+}
+
+.gradient-text {
+    background: var(--hero-gradient);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradientFlow 6s linear infinite;
+}
+
+@keyframes gradientFlow {
+    to { background-position: 200% center; }
+}
+
+.hero-description {
+    max-width: 520px;
+    margin: 20px auto 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.heading-line {
+    width: 85px;
+    height: 4px;
+    margin: 27px auto 0;
+    border-radius: 20px;
+    background: linear-gradient(90deg,#ff9933,#ffffff,#138808);
+}
+
+/* GLASS PANELS */
+
+.glass-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    background: var(--surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow);
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.glass-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg,transparent,var(--green),transparent);
+    opacity: 0.5;
+}
+
+/* CLOCK */
+
+.clock-panel {
+    max-width: 650px;
+    margin: 20px auto 28px;
+    padding: 30px 15px;
+    text-align: center;
+}
+
+.greeting {
+    color: var(--green);
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+#liveClock {
+    font-size: clamp(34px,7vw,52px);
+    font-weight: 800;
+    letter-spacing: 3px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+}
+
+#liveDate {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* DAILY QUOTE */
+
+.quote-panel {
+    max-width: 850px;
+    margin: 0 auto 45px;
+    padding: 35px 25px;
+    text-align: center;
+    border-color: rgba(22,131,74,0.18);
+    background:
+        linear-gradient(135deg,rgba(255,153,51,0.10),rgba(19,136,8,0.08)),
+        var(--surface);
+}
+
+.quote-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: var(--accent);
+}
+
+.quote-label {
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+#dailyQuote {
+    max-width: 700px;
+    margin: 19px auto 12px;
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px,3vw,24px);
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+#quoteAuthor {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* SUBJECTS */
+
+.section-heading {
+    text-align: center;
+    margin: 65px 0 30px;
+}
+
+.section-heading h2 {
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(27px,4vw,36px);
+    font-weight: 800;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* SEARCH */
+
+.search-wrapper {
+    max-width: 650px;
+    margin: 0 auto 38px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 17px 23px 17px 53px;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    outline: none;
+    color: var(--text);
+    background: var(--surface);
+    backdrop-filter: blur(15px);
+    font-size: 14px;
+    box-shadow: var(--shadow);
+    transition: 0.3s;
+}
+
+.search-input:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(22,131,74,0.12);
+}
+
+.search-input::placeholder {
+    color: var(--muted);
+}
+
+.search-icon {
+    position: absolute;
+    left: 21px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--green);
+    pointer-events: none;
+}
+
+/* SUBJECT CARDS */
+
+.subject-column {
+    transition: opacity 0.3s;
+}
+
+.subject-card {
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 25px;
+    background: var(--surface);
+    backdrop-filter: blur(15px);
+    box-shadow: var(--shadow);
+    opacity: 0;
+    transform: translateY(30px);
+    transition:
+        opacity 0.7s ease,
+        transform 0.4s ease,
+        border-color 0.4s ease,
+        box-shadow 0.4s ease;
+}
+
+.subject-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subject-card:hover {
+    transform: translateY(-9px);
+    border-color: var(--green);
+    box-shadow: 0 25px 55px rgba(30,100,55,0.16);
+}
+
+.subject-card a {
+    display: block;
+    height: 100%;
+}
+
+.image-container {
+    height: 235px;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-container::after {
+    content: "";
+    position: absolute;
+    inset: 45% 0 0;
+    background: linear-gradient(transparent,rgba(20,35,25,0.35));
+    pointer-events: none;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(.2,.8,.2,1);
+}
+
+.subject-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.card-body {
+    padding: 25px 15px 28px;
+    text-align: center;
+}
+
+.card-title {
+    margin: 0;
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 800;
+    transition: color 0.3s;
+}
+
+.subject-card:hover .card-title {
+    color: var(--green);
+}
+
+.card-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 10px;
+    line-height: 1.7;
+}
+
+/* NO RESULTS */
+
+#noResults {
+    display: none;
+    padding: 40px 15px;
+    text-align: center;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+/* FOOTER */
+
+.footer {
+    margin-top: 85px;
+    padding: 30px 10px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+.footer-title {
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.footer-subtitle {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 9px;
+}
+
+/* BACK TO TOP */
+
+#backToTop {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    z-index: 100;
+    width: 48px;
+    height: 48px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: none;
+    color: white;
+    background: linear-gradient(135deg,#e87524,#16834a);
+    font-size: 22px;
+    box-shadow: 0 8px 25px rgba(30,75,48,0.2);
+    transition: 0.3s;
+}
+
+#backToTop:hover {
+    transform: translateY(-5px);
+}
+
+/* SCROLL PROGRESS */
+
+#scrollProgress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    z-index: 10000;
+    background: linear-gradient(90deg,#ff9933,#ffffff,#138808);
+}
+
+/* FOCUS */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--green);
+    outline-offset: 4px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px) {
+    .hero-section {
+        padding-top: 25px;
+    }
+
+    .main-heading {
+        letter-spacing: -1px;
+    }
+
+    .image-container {
+        height: 215px;
+    }
+
+    .top-actions {
+        justify-content: center;
+    }
+
+    .quote-panel {
+        padding: 27px 17px;
+    }
+
+    .section-heading {
+        margin-top: 50px;
+    }
+
+    .flag-background {
+        width: 300px;
+        height: 190px;
+        right: -120px;
+        top: 20%;
+        opacity: 0.10;
+    }
+
+    .chakra {
+        width: 43px;
+        height: 43px;
+        border-width: 3px;
+    }
+}
+
+@media(max-width:400px) {
+    .image-container {
+        height: 190px;
+    }
+
+    .card-title {
+        font-size: 20px;
+    }
+
+    .hero-tag {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+}
+
+/* REDUCED MOTION */
+
+@media(prefers-reduced-motion:reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .subject-card {
+        opacity: 1;
+        transform: none;
+    }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- PAGE LOADER -->
-    <div id="loader">
-        <div class="loader-logo">A2</div>
-        <div class="loader-title">ALPHA-2</div>
-        <div class="loader-line"></div>
-        <small class="text-white-50 mt-3">Getting things ready...</small>
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-logo">A2</div>
+    <div class="loader-title">ALPHA-2</div>
+    <div class="loader-line"></div>
+    <small class="text-white-50 mt-3">Loading your study space...</small>
+</div>
+
+<div id="scrollProgress"></div>
+
+<!-- INDIAN FLAG BACKGROUND -->
+<div class="flag-background" aria-hidden="true">
+    <div class="flag">
+        <div class="flag-stripe flag-saffron"></div>
+        <div class="flag-stripe flag-white">
+            <div class="chakra"></div>
+        </div>
+        <div class="flag-stripe flag-green"></div>
+    </div>
+</div>
+
+<!-- BACKGROUND EFFECTS -->
+<div class="aurora">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<div class="particles">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+</div>
+
+<div class="container py-4 main-container">
+
+    <!-- THEME -->
+    <div class="top-actions">
+        <button class="theme-button" id="themeToggle" type="button">
+            🌙 Dark Mode
+        </button>
     </div>
 
-    <div id="scrollProgress"></div>
+    <!-- HERO -->
+    <section class="hero-section">
 
-    <!-- BACKGROUND EFFECTS -->
-    <div class="aurora">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <div class="particles">
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-    </div>
-
-    <div class="container py-4 main-container">
-
-        <!-- THEME BUTTON -->
-        <div class="top-actions">
-            <button class="theme-button" id="themeToggle" type="button">
-                🌙 Dark Mode
-            </button>
+        <div class="hero-tag">
+            🇮🇳 Learn Every Day
         </div>
 
-        <!-- HERO -->
-        <section class="hero-section">
+        <h1 class="main-heading">
+            ALPHA-2
+            <br>
+            <span class="gradient-text">Study Hub</span>
+        </h1>
 
-            <div class="hero-tag">
-                ✦ Learn • Grow • Succeed
-            </div>
+        <p class="hero-description">
+            Study smart. Stay focused. Reach your goals.
+        </p>
 
-            <h1 class="main-heading">
-                ALPHA-2
-                <br>
-                <span class="gradient-text">Study Hub</span>
-            </h1>
+        <div class="heading-line"></div>
 
-            <p class="hero-description">
-                Your space to learn, prepare and achieve your goals.
-            </p>
+    </section>
 
-            <div class="heading-line"></div>
+    <!-- CLOCK -->
+    <div class="glass-panel clock-panel">
 
-        </section>
-
-        <!-- ANIMATED INDIAN FLAG -->
-        <div class="flag-area">
-            <div class="indian-flag" role="img" aria-label="Indian national flag">
-                <div class="flag-stripe flag-saffron"></div>
-                <div class="flag-stripe flag-white"></div>
-                <div class="flag-stripe flag-green"></div>
-                <div class="ashoka-chakra"></div>
-            </div>
+        <div class="greeting" id="greeting">
+            Welcome, Student!
         </div>
 
-        <!-- LIVE CLOCK -->
-        <div class="glass-panel clock-panel">
+        <div id="liveClock">00:00:00</div>
 
-            <div class="greeting" id="greeting">
-                Welcome, Student!
-            </div>
-
-            <div id="liveClock">00:00:00</div>
-
-            <div id="liveDate"></div>
-
-        </div>
-
-        <!-- DAILY MOTIVATION -->
-        <div class="glass-panel quote-panel">
-
-            <div class="quote-icon">✦</div>
-
-            <div class="quote-label">
-                Daily Boost
-            </div>
-
-            <div id="dailyQuote">
-                Loading inspiration...
-            </div>
-
-            <div id="quoteAuthor"></div>
-
-        </div>
-
-        <!-- SUBJECT SECTION -->
-        <div class="section-heading">
-
-            <h2>My Subjects</h2>
-
-            <p>Choose a subject to begin.</p>
-
-        </div>
-
-        <!-- SEARCH -->
-        <div class="search-wrapper">
-
-            <span class="search-icon">⌕</span>
-
-            <input
-                type="search"
-                id="searchInput"
-                class="search-input"
-                placeholder="Search subjects..."
-                aria-label="Search study subjects">
-
-        </div>
-
-        <!-- SUBJECT CARDS -->
-        <div class="row g-4" id="subjectContainer">
-
-            <!-- GEOGRAPHY -->
-            <div class="col-md-4 subject-column"
-                 data-search="geography physical geography indian geography">
-
-                <div class="subject-card">
-
-                    <a href="geography.html" class="text-decoration-none">
-
-                        <div class="image-container">
-                            <img
-                                src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
-                                class="card-img-top"
-                                alt="Geography"
-                                loading="lazy">
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">Geography</h4>
-
-                            <div class="card-subtitle">
-                                Explore our planet.
-                            </div>
-                        </div>
-
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- ECONOMY -->
-            <div class="col-md-4 subject-column"
-                 data-search="economy indian economy finance economics">
-
-                <div class="subject-card">
-
-                    <a href="economy.html" class="text-decoration-none">
-
-                        <div class="image-container">
-                            <img
-                                src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
-                                class="card-img-top"
-                                alt="Economy"
-                                loading="lazy">
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">Economy</h4>
-
-                            <div class="card-subtitle">
-                                Understand India's economy.
-                            </div>
-                        </div>
-
-                    </a>
-
-                </div>
-            </div>
-
-            <!-- POLITY -->
-            <div class="col-md-4 subject-column"
-                 data-search="polity indian polity constitution governance">
-
-                <div class="subject-card">
-
-                    <a href="polity.html" class="text-decoration-none">
-
-                        <div class="image-container">
-                            <img
-                                src="https://placehold.co/600x400?text=Polity"
-                                class="card-img-top"
-                                alt="Polity"
-                                loading="lazy">
-                        </div>
-
-                        <div class="card-body">
-                            <h4 class="card-title">Polity</h4>
-
-                            <div class="card-subtitle">
-                                Learn about India's Constitution.
-                            </div>
-                        </div>
-
-                    </a>
-
-                </div>
-            </div>
-
-        </div>
-
-        <!-- NO SEARCH RESULTS -->
-        <div id="noResults" aria-live="polite">
-            <div style="font-size:35px;">🔎</div>
-            <div class="mt-2">No subject found.</div>
-            <small>Try another keyword.</small>
-        </div>
-
-        <!-- FOOTER -->
-        <footer class="footer">
-
-            <div class="footer-title">
-                ALPHA-2
-            </div>
-
-            <div class="footer-subtitle">
-                Learn • Prepare • Succeed
-            </div>
-
-            <div class="footer-subtitle mt-2">
-                Keep learning. Keep growing.
-            </div>
-
-        </footer>
+        <div id="liveDate"></div>
 
     </div>
 
-    <!-- BACK TO TOP -->
-    <button id="backToTop"
-            aria-label="Back to top"
-            title="Back to top">
-        ↑
-    </button>
+    <!-- DAILY QUOTE -->
+    <div class="glass-panel quote-panel">
 
-    <script>
-        /* PAGE LOADER */
+        <div class="quote-icon">✦</div>
 
-        window.addEventListener("load", function() {
-            setTimeout(function() {
-                document.getElementById("loader").classList.add("hide");
-            }, 500);
+        <div class="quote-label">
+            Daily Boost
+        </div>
+
+        <div id="dailyQuote">
+            Loading inspiration...
+        </div>
+
+        <div id="quoteAuthor"></div>
+
+    </div>
+
+    <!-- SUBJECTS -->
+    <div class="section-heading">
+
+        <h2>Subjects</h2>
+
+        <p>Choose a subject to start.</p>
+
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-wrapper">
+
+        <span class="search-icon">⌕</span>
+
+        <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search subjects..."
+            aria-label="Search study subjects">
+
+    </div>
+
+    <!-- SUBJECT CARDS -->
+    <div class="row g-4" id="subjectContainer">
+
+        <!-- GEOGRAPHY -->
+        <div class="col-md-4 subject-column"
+             data-search="geography physical geography indian geography">
+
+            <div class="subject-card">
+
+                <a href="geography.html" class="text-decoration-none">
+
+                    <div class="image-container">
+                        <img
+                            src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
+                            class="card-img-top"
+                            alt="Geography"
+                            loading="lazy">
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="card-title">Geography</h4>
+
+                        <div class="card-subtitle">
+                            Explore Earth and its features.
+                        </div>
+                    </div>
+
+                </a>
+
+            </div>
+        </div>
+
+        <!-- ECONOMY -->
+        <div class="col-md-4 subject-column"
+             data-search="economy indian economy finance economics">
+
+            <div class="subject-card">
+
+                <a href="economy.html" class="text-decoration-none">
+
+                    <div class="image-container">
+                        <img
+                            src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
+                            class="card-img-top"
+                            alt="Economy"
+                            loading="lazy">
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="card-title">Economy</h4>
+
+                        <div class="card-subtitle">
+                            Understand India's economy.
+                        </div>
+                    </div>
+
+                </a>
+
+            </div>
+        </div>
+
+        <!-- POLITY -->
+        <div class="col-md-4 subject-column"
+             data-search="polity indian polity constitution governance">
+
+            <div class="subject-card">
+
+                <a href="polity.html" class="text-decoration-none">
+
+                    <div class="image-container">
+                        <img
+                            src="https://placehold.co/600x400?text=Polity"
+                            class="card-img-top"
+                            alt="Polity"
+                            loading="lazy">
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="card-title">Polity</h4>
+
+                        <div class="card-subtitle">
+                            Learn the Constitution and government.
+                        </div>
+                    </div>
+
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NO RESULTS -->
+    <div id="noResults">
+        <div style="font-size:35px;">🔎</div>
+        <div class="mt-2">No subject found.</div>
+        <small>Try another search.</small>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-title">
+            ALPHA-2
+        </div>
+
+        <div class="footer-subtitle">
+            Learn • Prepare • Succeed
+        </div>
+
+        <div class="footer-subtitle mt-2">
+            Keep learning. Keep growing.
+        </div>
+
+    </footer>
+
+</div>
+
+<!-- BACK TO TOP -->
+<button id="backToTop"
+        aria-label="Back to top"
+        title="Back to top">
+    ↑
+</button>
+
+<script>
+/* PAGE LOADER */
+
+window.addEventListener("load", function() {
+    setTimeout(function() {
+        document.getElementById("loader").classList.add("hide");
+    }, 500);
+});
+
+/* LOADER FALLBACK */
+
+setTimeout(function() {
+    document.getElementById("loader").classList.add("hide");
+}, 5000);
+
+/* LIVE CLOCK */
+
+function updateClock() {
+    const now = new Date();
+
+    document.getElementById("liveClock").textContent =
+        now.toLocaleTimeString("en-IN");
+
+    document.getElementById("liveDate").textContent =
+        now.toLocaleDateString("en-IN", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
         });
 
-        /* LOADER FALLBACK */
+    const hour = now.getHours();
 
-        setTimeout(function() {
-            document.getElementById("loader").classList.add("hide");
-        }, 5000);
+    let greeting;
 
+    if (hour < 12) {
+        greeting = "🌅 Good Morning!";
+    } else if (hour < 17) {
+        greeting = "☀️ Good Afternoon!";
+    } else {
+        greeting = "🌙 Good Evening!";
+    }
 
-        /* LIVE CLOCK */
+    document.getElementById("greeting").textContent = greeting;
+}
 
-        function updateClock() {
-            const now = new Date();
+updateClock();
+setInterval(updateClock, 1000);
 
-            document.getElementById("liveClock").textContent =
-                now.toLocaleTimeString("en-IN");
+/* DARK / LIGHT MODE */
 
-            document.getElementById("liveDate").textContent =
-                now.toLocaleDateString("en-IN", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                });
+const themeToggle = document.getElementById("themeToggle");
 
-            const hour = now.getHours();
+const savedTheme = localStorage.getItem("alpha2-theme");
 
-            let greeting;
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+}
 
-            if (hour < 12) {
-                greeting = "🌅 Good Morning!";
-            } else if (hour < 17) {
-                greeting = "☀️ Good Afternoon!";
-            } else {
-                greeting = "🌙 Good Evening!";
+function updateThemeButton() {
+    themeToggle.textContent =
+        document.body.classList.contains("dark-mode")
+            ? "☀️ Light Mode"
+            : "🌙 Dark Mode";
+}
+
+updateThemeButton();
+
+themeToggle.addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+
+    const theme = document.body.classList.contains("dark-mode")
+        ? "dark"
+        : "light";
+
+    localStorage.setItem("alpha2-theme", theme);
+
+    updateThemeButton();
+});
+
+/* DAILY QUOTE */
+
+const quotes = [
+    {
+        text: "The secret of getting ahead is getting started.",
+        author: "Mark Twain"
+    },
+    {
+        text: "It always seems impossible until it's done.",
+        author: "Nelson Mandela"
+    },
+    {
+        text: "Success is the sum of small efforts repeated day in and day out.",
+        author: "Robert Collier"
+    },
+    {
+        text: "Dream big. Start small. Act now.",
+        author: "Robin Sharma"
+    },
+    {
+        text: "Education is the most powerful weapon which you can use to change the world.",
+        author: "Nelson Mandela"
+    },
+    {
+        text: "Great things are done by a series of small things brought together.",
+        author: "Vincent van Gogh"
+    },
+    {
+        text: "The future depends on what you do today.",
+        author: "Mahatma Gandhi"
+    }
+];
+
+const today = new Date();
+
+const dayNumber = Math.floor(
+    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+    / 86400000
+);
+
+const quote = quotes[
+    ((dayNumber % quotes.length) + quotes.length) % quotes.length
+];
+
+document.getElementById("dailyQuote").textContent =
+    "“" + quote.text + "”";
+
+document.getElementById("quoteAuthor").textContent =
+    "— " + quote.author;
+
+/* SEARCH SUBJECTS */
+
+const searchInput = document.getElementById("searchInput");
+const subjectColumns = document.querySelectorAll(".subject-column");
+const noResults = document.getElementById("noResults");
+
+searchInput.addEventListener("input", function() {
+    const searchValue = this.value.toLowerCase().trim();
+
+    let visibleCount = 0;
+
+    subjectColumns.forEach(function(column) {
+        const subject = column.dataset.search.toLowerCase();
+        const match = subject.includes(searchValue);
+
+        column.style.display = match ? "" : "none";
+
+        if (match) {
+            visibleCount++;
+        }
+    });
+
+    noResults.style.display =
+        visibleCount === 0 ? "block" : "none";
+});
+
+/* CARD REVEAL */
+
+const cards = document.querySelectorAll(".subject-card");
+
+if ("IntersectionObserver" in window) {
+    const cardObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                cardObserver.unobserve(entry.target);
             }
-
-            document.getElementById("greeting").textContent = greeting;
-        }
-
-        updateClock();
-        setInterval(updateClock, 1000);
-
-
-        /* DARK / LIGHT MODE */
-
-        const themeToggle = document.getElementById("themeToggle");
-
-        const savedTheme = localStorage.getItem("alpha2-theme");
-
-        if (savedTheme === "dark") {
-            document.body.classList.add("dark-mode");
-        }
-
-        function updateThemeButton() {
-            themeToggle.textContent =
-                document.body.classList.contains("dark-mode")
-                    ? "☀️ Light Mode"
-                    : "🌙 Dark Mode";
-        }
-
-        updateThemeButton();
-
-        themeToggle.addEventListener("click", function() {
-            document.body.classList.toggle("dark-mode");
-
-            const theme = document.body.classList.contains("dark-mode")
-                ? "dark"
-                : "light";
-
-            localStorage.setItem("alpha2-theme", theme);
-
-            updateThemeButton();
         });
+    }, {
+        threshold: 0.12
+    });
 
+    cards.forEach(function(card, index) {
+        card.style.transitionDelay = (index * 120) + "ms";
+        cardObserver.observe(card);
+    });
+} else {
+    cards.forEach(function(card) {
+        card.classList.add("visible");
+    });
+}
 
-        /* DAILY MOTIVATION */
+/* SCROLL PROGRESS AND BACK TO TOP */
 
-        const quotes = [
-            {
-                text: "The secret of getting ahead is getting started.",
-                author: "Mark Twain"
-            },
-            {
-                text: "It always seems impossible until it's done.",
-                author: "Nelson Mandela"
-            },
-            {
-                text: "Success is the sum of small efforts repeated day in and day out.",
-                author: "Robert Collier"
-            },
-            {
-                text: "Dream big. Start small. Act now.",
-                author: "Robin Sharma"
-            },
-            {
-                text: "Education is the most powerful weapon which you can use to change the world.",
-                author: "Nelson Mandela"
-            },
-            {
-                text: "Great things are done by a series of small things brought together.",
-                author: "Vincent van Gogh"
-            },
-            {
-                text: "The future depends on what you do today.",
-                author: "Mahatma Gandhi"
-            }
-        ];
+const scrollProgress = document.getElementById("scrollProgress");
+const backToTop = document.getElementById("backToTop");
 
-        const today = new Date();
+function handleScroll() {
+    const scrollTop = window.scrollY;
 
-        const dayNumber = Math.floor(
-            Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
-            / 86400000
-        );
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
 
-        const quote = quotes[
-            ((dayNumber % quotes.length) + quotes.length) % quotes.length
-        ];
+    const progress = scrollHeight > 0
+        ? (scrollTop / scrollHeight) * 100
+        : 0;
 
-        document.getElementById("dailyQuote").textContent =
-            "“" + quote.text + "”";
+    scrollProgress.style.width = progress + "%";
 
-        document.getElementById("quoteAuthor").textContent =
-            "— " + quote.author;
+    backToTop.style.display =
+        scrollTop > 350 ? "block" : "none";
+}
 
+window.addEventListener("scroll", handleScroll, { passive: true });
 
-        /* SEARCH SUBJECTS */
+backToTop.addEventListener("click", function() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+</script>
 
-        const searchInput = document.getElementById("searchInput");
-        const subjectColumns = document.querySelectorAll(".subject-column");
-        const noResults = document.getElementById("noResults");
-
-        searchInput.addEventListener("input", function() {
-            const searchValue = this.value.toLowerCase().trim();
-
-            let visibleCount = 0;
-
-            subjectColumns.forEach(function(column) {
-                const subject = column.dataset.search.toLowerCase();
-                const match = subject.includes(searchValue);
-
-                column.style.display = match ? "" : "none";
-
-                if (match) {
-                    visibleCount++;
-                }
-            });
-
-            noResults.style.display =
-                visibleCount === 0 ? "block" : "none";
-        });
-
-
-        /* CARD REVEAL ANIMATION */
-
-        const cards = document.querySelectorAll(".subject-card");
-
-        if ("IntersectionObserver" in window) {
-            const cardObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("visible");
-                        cardObserver.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.12
-            });
-
-            cards.forEach(function(card, index) {
-                card.style.transitionDelay = (index * 120) + "ms";
-                cardObserver.observe(card);
-            });
-        } else {
-            cards.forEach(function(card) {
-                card.classList.add("visible");
-            });
-        }
-
-
-        /* SCROLL PROGRESS AND BACK TO TOP */
-
-        const scrollProgress = document.getElementById("scrollProgress");
-        const backToTop = document.getElementById("backToTop");
-
-        function handleScroll() {
-            const scrollTop = window.scrollY;
-
-            const scrollHeight =
-                document.documentElement.scrollHeight -
-                document.documentElement.clientHeight;
-
-            const progress = scrollHeight > 0
-                ? (scrollTop / scrollHeight) * 100
-                : 0;
-
-            scrollProgress.style.width = progress + "%";
-
-            backToTop.style.display =
-                scrollTop > 350 ? "block" : "none";
-        }
-
-        window.addEventListener("scroll", handleScroll, { passive: true });
-
-        backToTop.addEventListener("click", function() {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
