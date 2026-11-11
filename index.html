@@ -14,19 +14,269 @@
 
     <style>
 
-        .card-img-top {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        /* General styling */
+        * {
+            box-sizing: border-box;
         }
 
         body {
-            background-image: url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg");
+            background-image:
+                linear-gradient(rgba(8, 18, 35, 0.45),
+                                rgba(8, 18, 35, 0.65)),
+                url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg");
+
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Animated background glow */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at 15% 20%,
+                    rgba(0, 200, 255, 0.15), transparent 35%),
+                radial-gradient(circle at 85% 75%,
+                    rgba(150, 80, 255, 0.18), transparent 35%);
+            animation: backgroundGlow 8s ease-in-out infinite alternate;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes backgroundGlow {
+            from {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.12);
+            }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -30px;
+            width: 7px;
+            height: 7px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+            animation: floatUp linear infinite;
+        }
+
+        .particle:nth-child(1) {
+            left: 10%;
+            animation-duration: 12s;
+        }
+
+        .particle:nth-child(2) {
+            left: 25%;
+            animation-duration: 16s;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(3) {
+            left: 45%;
+            animation-duration: 13s;
+            animation-delay: 4s;
+        }
+
+        .particle:nth-child(4) {
+            left: 65%;
+            animation-duration: 17s;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(5) {
+            left: 85%;
+            animation-duration: 14s;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(-110vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Main container */
+        .main-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Main heading */
+        .main-heading {
+            color: white;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            animation: headingEntrance 1.2s ease forwards;
+        }
+
+        @keyframes headingEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Heading underline */
+        .heading-line {
+            width: 100px;
+            height: 4px;
+            margin: 15px auto 40px;
+            background: linear-gradient(90deg, #00d4ff, #a855f7);
+            border-radius: 10px;
+            animation: lineExpand 1.5s ease forwards;
+        }
+
+        @keyframes lineExpand {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100px;
+            }
+        }
+
+        /* Subject cards */
+        .subject-card {
+            border: none;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+
+            opacity: 0;
+            transform: translateY(50px);
+
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease,
+                opacity 0.7s ease;
+        }
+
+        .subject-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-14px) scale(1.02);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Card images */
+        .card-img-top {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .subject-card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+
+        .image-container {
+            overflow: hidden;
+        }
+
+        /* Card titles */
+        .card-title {
+            font-weight: 700;
+            color: #172554;
+            transition: color 0.3s ease;
+        }
+
+        .subject-card:hover .card-title {
+            color: #6d28d9;
+        }
+
+        .card-body {
+            padding: 22px;
+        }
+
+        /* Footer */
+        .footer-text {
+            color: white;
+            text-align: center;
+            margin-top: 65px;
+            font-size: 14px;
+            opacity: 0.85;
+            text-shadow: 0 2px 8px black;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+
+            body {
+                background-attachment: scroll;
+            }
+
+            .card-img-top {
+                height: 200px;
+            }
+
+            .heading-line {
+                margin-bottom: 30px;
+            }
+
+        }
+
+        /* Accessibility: respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .subject-card {
+                opacity: 1;
+                transform: none;
+            }
         }
 
     </style>
@@ -35,26 +285,44 @@
 
 <body>
 
-    <div class="container py-4">
+    <!-- Floating particles -->
+    <div class="particles">
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+        <span class="particle"></span>
+    </div>
+
+
+    <div class="container py-5 main-container">
 
         <!-- Main Heading -->
-        <h1 class="text-center mb-4">
+        <h1 class="text-center main-heading">
             Alpha-2 Study Materials
         </h1>
 
-        <!-- Cards Row -->
+        <div class="heading-line"></div>
+
+
+        <!-- Subject Cards -->
         <div class="row g-4">
+
 
             <!-- Geography Card -->
             <div class="col-md-4">
 
-                <div class="card h-100">
+                <div class="card h-100 subject-card">
 
                     <a href="geography.html" target="_self">
-                        <img
-                            src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
-                            class="card-img-top"
-                            alt="Geography">
+
+                        <div class="image-container">
+                            <img
+                                src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
+                                class="card-img-top"
+                                alt="Geography">
+                        </div>
+
                     </a>
 
                     <div class="card-body text-center">
@@ -73,13 +341,17 @@
             <!-- Economy Card -->
             <div class="col-md-4">
 
-                <div class="card h-100">
+                <div class="card h-100 subject-card">
 
                     <a href="economy.html" target="_self">
-                        <img
-                            src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
-                            class="card-img-top"
-                            alt="Economy">
+
+                        <div class="image-container">
+                            <img
+                                src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
+                                class="card-img-top"
+                                alt="Economy">
+                        </div>
+
                     </a>
 
                     <div class="card-body text-center">
@@ -98,13 +370,17 @@
             <!-- Polity Card -->
             <div class="col-md-4">
 
-                <div class="card h-100">
+                <div class="card h-100 subject-card">
 
                     <a href="polity.html" target="_self">
-                        <img
-                            src="https://placehold.co/600x400?text=Polity"
-                            class="card-img-top"
-                            alt="Polity">
+
+                        <div class="image-container">
+                            <img
+                                src="https://placehold.co/600x400?text=Polity"
+                                class="card-img-top"
+                                alt="Polity">
+                        </div>
+
                     </a>
 
                     <div class="card-body text-center">
@@ -119,9 +395,52 @@
 
             </div>
 
+
+        </div>
+
+
+        <!-- Footer -->
+        <div class="footer-text">
+            Alpha-2 Study Materials | Learn • Prepare • Succeed
         </div>
 
     </div>
+
+
+    <!-- Scroll Animation JavaScript -->
+    <script>
+
+        const cards = document.querySelectorAll(".subject-card");
+
+        const observer = new IntersectionObserver((entries) => {
+
+            entries.forEach((entry) => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("visible");
+
+                    observer.unobserve(entry.target);
+
+                }
+
+            });
+
+        }, {
+            threshold: 0.15
+        });
+
+
+        cards.forEach((card, index) => {
+
+            card.style.transitionDelay = `${index * 150}ms`;
+
+            observer.observe(card);
+
+        });
+
+    </script>
+
 
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
