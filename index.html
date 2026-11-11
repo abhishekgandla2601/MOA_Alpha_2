@@ -8,29 +8,37 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --bg: #07111f;
-    --panel: rgba(16,29,51,0.78);
-    --text: #f8fafc;
-    --muted: #a8b6cc;
-    --accent: #9b8cff;
-    --accent2: #42d9f5;
-    --border: rgba(255,255,255,0.12);
-    --shadow: 0 20px 55px rgba(0,0,0,0.25);
+    --bg: #f8f5fc;
+    --surface: rgba(255,255,255,0.78);
+    --surface-solid: #ffffff;
+    --text: #302743;
+    --muted: #81768f;
+    --accent: #9273c8;
+    --accent-dark: #7452ac;
+    --accent-soft: #eee6fa;
+    --secondary: #dba8c9;
+    --border: rgba(125,95,165,0.15);
+    --shadow: 0 18px 55px rgba(82,55,112,0.09);
+    --hero-gradient: linear-gradient(120deg,#7452ac,#b58acb,#dfabc9);
 }
 
-body.light-mode {
-    --bg: #edf2ff;
-    --panel: rgba(255,255,255,0.82);
-    --text: #172554;
-    --muted: #52627a;
-    --accent: #7047e8;
-    --accent2: #0891b2;
-    --border: rgba(30,41,59,0.12);
-    --shadow: 0 20px 50px rgba(42,55,90,0.12);
+body.dark-mode {
+    --bg: #171321;
+    --surface: rgba(39,31,52,0.83);
+    --surface-solid: #292137;
+    --text: #f6efff;
+    --muted: #b6a9c5;
+    --accent: #c4a5ef;
+    --accent-dark: #a98bd5;
+    --accent-soft: rgba(174,139,220,0.15);
+    --secondary: #dfa9cb;
+    --border: rgba(220,195,255,0.13);
+    --shadow: 0 18px 55px rgba(0,0,0,0.25);
+    --hero-gradient: linear-gradient(120deg,#c4a5ef,#dfa9cb,#f0c2d9);
 }
 
 * {
@@ -45,31 +53,33 @@ body {
     margin: 0;
     min-height: 100vh;
     overflow-x: hidden;
-    font-family: 'Inter', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     color: var(--text);
     background: var(--bg);
     transition: background 0.4s, color 0.4s;
 }
 
-body::after {
+/* BACKGROUND */
+
+body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -3;
     background:
-        linear-gradient(rgba(5,12,27,0.86),rgba(5,12,27,0.92)),
+        linear-gradient(rgba(248,245,252,0.89),rgba(248,245,252,0.96)),
         url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
         center/cover no-repeat;
 }
 
-body.light-mode::after {
+body.dark-mode::before {
     background:
-        linear-gradient(rgba(226,235,255,0.88),rgba(238,243,255,0.94)),
+        linear-gradient(rgba(23,19,33,0.91),rgba(23,19,33,0.97)),
         url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
         center/cover no-repeat;
 }
 
-/* AURORA BACKGROUND */
+/* SOFT FLOATING BACKGROUND */
 
 .aurora {
     position: fixed;
@@ -81,29 +91,29 @@ body.light-mode::after {
 
 .aurora span {
     position: absolute;
-    width: 450px;
-    height: 450px;
+    width: 420px;
+    height: 420px;
     border-radius: 50%;
     filter: blur(110px);
-    opacity: 0.25;
-    animation: auroraMove 14s ease-in-out infinite alternate;
+    opacity: 0.22;
+    animation: auroraMove 16s ease-in-out infinite alternate;
 }
 
 .aurora span:nth-child(1) {
-    background: #6546ff;
+    background: #c5a8ed;
     top: -150px;
     left: -100px;
 }
 
 .aurora span:nth-child(2) {
-    background: #00c9e8;
+    background: #e9b6d4;
     right: -150px;
     top: 25%;
     animation-delay: -5s;
 }
 
 .aurora span:nth-child(3) {
-    background: #a43cff;
+    background: #b6c9e9;
     bottom: -200px;
     left: 35%;
     animation-delay: -8s;
@@ -111,7 +121,7 @@ body.light-mode::after {
 
 @keyframes auroraMove {
     from { transform: translate(0,0) scale(0.9); }
-    to { transform: translate(100px,70px) scale(1.25); }
+    to { transform: translate(80px,65px) scale(1.2); }
 }
 
 /* FLOATING PARTICLES */
@@ -126,12 +136,12 @@ body.light-mode::after {
 
 .particle {
     position: absolute;
-    width: 4px;
-    height: 4px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
-    background: #a5eaff;
-    box-shadow: 0 0 12px #42d9f5;
-    animation: particleFloat 15s linear infinite;
+    background: #c5a8ed;
+    box-shadow: 0 0 12px #d8bce9;
+    animation: particleFloat 17s linear infinite;
 }
 
 .particle:nth-child(1) { left: 8%; animation-duration: 17s; }
@@ -153,7 +163,7 @@ body.light-mode::after {
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #07111f;
+    background: #21182e;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -168,32 +178,29 @@ body.light-mode::after {
 }
 
 .loader-logo {
-    width: 75px;
-    height: 75px;
-    border-radius: 22px;
+    width: 76px;
+    height: 76px;
+    border-radius: 25px;
     display: grid;
     place-items: center;
-    font-size: 35px;
+    font-size: 32px;
     font-weight: 900;
     color: white;
-    background: linear-gradient(135deg,#7047e8,#00c9e8);
-    box-shadow: 0 0 40px rgba(112,71,232,0.6);
+    background: linear-gradient(135deg,#9273c8,#dba8c9);
+    box-shadow: 0 0 40px rgba(197,168,237,0.35);
     animation: logoPulse 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes logoPulse {
-    to {
-        transform: scale(1.1) rotate(5deg);
-        box-shadow: 0 0 65px rgba(0,201,232,0.6);
-    }
+    to { transform: scale(1.08) rotate(4deg); }
 }
 
 .loader-title {
     margin-top: 22px;
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 800;
     color: white;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .loader-line {
@@ -210,7 +217,7 @@ body.light-mode::after {
     display: block;
     height: 100%;
     width: 45%;
-    background: linear-gradient(90deg,#7047e8,#42d9f5);
+    background: linear-gradient(90deg,#c5a8ed,#e8b6d4);
     animation: loading 1.2s ease-in-out infinite;
 }
 
@@ -232,7 +239,7 @@ body.light-mode::after {
 .top-actions {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .theme-button {
@@ -240,61 +247,62 @@ body.light-mode::after {
     border-radius: 50px;
     padding: 11px 19px;
     color: var(--text);
-    background: var(--panel);
+    background: var(--surface);
     backdrop-filter: blur(15px);
     font-weight: 700;
     font-size: 13px;
+    box-shadow: var(--shadow);
     transition: 0.3s;
 }
 
 .theme-button:hover {
     transform: translateY(-3px);
     border-color: var(--accent);
-    box-shadow: 0 0 25px rgba(155,140,255,0.2);
 }
 
 /* HERO */
 
 .hero-section {
     text-align: center;
-    padding: 45px 15px 35px;
+    padding: 48px 15px 35px;
     animation: heroEntrance 1s ease both;
 }
 
 @keyframes heroEntrance {
-    from { opacity: 0; transform: translateY(35px); }
+    from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 .hero-tag {
     display: inline-block;
-    padding: 8px 17px;
-    margin-bottom: 22px;
-    border: 1px solid rgba(155,140,255,0.35);
+    padding: 9px 19px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
     border-radius: 50px;
-    background: rgba(155,140,255,0.1);
-    color: #c5baff;
-    font-size: 12px;
+    background: var(--accent-soft);
+    color: var(--accent-dark);
+    font-size: 11px;
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 .main-heading {
-    font-size: clamp(2.3rem,6vw,4.7rem);
-    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.7rem,7vw,5.2rem);
+    font-weight: 800;
     letter-spacing: -2px;
     line-height: 1.12;
     color: var(--text);
 }
 
 .gradient-text {
-    background: linear-gradient(90deg,#a78bfa,#42d9f5,#a78bfa);
+    background: var(--hero-gradient);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: gradientFlow 5s linear infinite;
+    animation: gradientFlow 6s linear infinite;
 }
 
 @keyframes gradientFlow {
@@ -303,19 +311,18 @@ body.light-mode::after {
 
 .hero-description {
     max-width: 620px;
-    margin: 20px auto 0;
+    margin: 22px auto 0;
     color: var(--muted);
     font-size: 15px;
-    line-height: 1.8;
+    line-height: 1.9;
 }
 
 .heading-line {
-    width: 90px;
+    width: 85px;
     height: 4px;
-    margin: 25px auto 0;
+    margin: 27px auto 0;
     border-radius: 20px;
-    background: linear-gradient(90deg,#a78bfa,#42d9f5);
-    box-shadow: 0 0 20px rgba(66,217,245,0.5);
+    background: var(--hero-gradient);
 }
 
 /* GLASS PANELS */
@@ -324,8 +331,8 @@ body.light-mode::after {
     position: relative;
     overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: 22px;
-    background: var(--panel);
+    border-radius: 25px;
+    background: var(--surface);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: var(--shadow);
@@ -339,36 +346,36 @@ body.light-mode::after {
     left: 10%;
     width: 80%;
     height: 1px;
-    background: linear-gradient(90deg,transparent,rgba(255,255,255,0.5),transparent);
+    background: linear-gradient(90deg,transparent,var(--accent),transparent);
+    opacity: 0.5;
 }
 
 /* CLOCK */
 
 .clock-panel {
     max-width: 650px;
-    margin: 15px auto 25px;
-    padding: 25px 15px;
+    margin: 20px auto 28px;
+    padding: 30px 15px;
     text-align: center;
 }
 
 .greeting {
-    color: var(--accent);
+    color: var(--accent-dark);
     font-size: 15px;
     font-weight: 800;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 #liveClock {
-    font-size: clamp(32px,7vw,49px);
-    font-weight: 900;
+    font-size: clamp(34px,7vw,52px);
+    font-weight: 800;
     letter-spacing: 3px;
     font-variant-numeric: tabular-nums;
     color: var(--text);
-    text-shadow: 0 0 25px rgba(155,140,255,0.2);
 }
 
 #liveDate {
-    margin-top: 8px;
+    margin-top: 9px;
     color: var(--muted);
     font-size: 13px;
 }
@@ -377,20 +384,24 @@ body.light-mode::after {
 
 .quote-panel {
     max-width: 850px;
-    margin: 0 auto 35px;
-    padding: 30px 25px;
+    margin: 0 auto 45px;
+    padding: 35px 25px;
     text-align: center;
-    border-color: rgba(155,140,255,0.25);
+    border-color: rgba(160,125,200,0.22);
+    background:
+        linear-gradient(135deg,rgba(222,204,244,0.20),rgba(239,211,229,0.20)),
+        var(--surface);
 }
 
 .quote-icon {
-    font-size: 28px;
+    font-size: 30px;
     margin-bottom: 10px;
+    color: var(--accent);
 }
 
 .quote-label {
-    color: var(--accent);
-    font-size: 12px;
+    color: var(--accent-dark);
+    font-size: 11px;
     font-weight: 900;
     letter-spacing: 3px;
     text-transform: uppercase;
@@ -398,9 +409,10 @@ body.light-mode::after {
 
 #dailyQuote {
     max-width: 700px;
-    margin: 17px auto 10px;
+    margin: 19px auto 12px;
     color: var(--text);
-    font-size: clamp(17px,3vw,22px);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px,3vw,24px);
     font-weight: 700;
     line-height: 1.6;
 }
@@ -408,44 +420,45 @@ body.light-mode::after {
 #quoteAuthor {
     color: var(--muted);
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* SUBJECT SECTION */
 
 .section-heading {
     text-align: center;
-    margin: 55px 0 28px;
+    margin: 65px 0 30px;
 }
 
 .section-heading h2 {
     color: var(--text);
-    font-size: clamp(25px,4vw,32px);
-    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(27px,4vw,36px);
+    font-weight: 800;
 }
 
 .section-heading p {
     color: var(--muted);
     font-size: 14px;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 /* SEARCH */
 
 .search-wrapper {
     max-width: 650px;
-    margin: 0 auto 35px;
+    margin: 0 auto 38px;
     position: relative;
 }
 
 .search-input {
     width: 100%;
-    padding: 17px 23px 17px 52px;
+    padding: 17px 23px 17px 53px;
     border: 1px solid var(--border);
     border-radius: 50px;
     outline: none;
     color: var(--text);
-    background: var(--panel);
+    background: var(--surface);
     backdrop-filter: blur(15px);
     font-size: 14px;
     box-shadow: var(--shadow);
@@ -454,7 +467,7 @@ body.light-mode::after {
 
 .search-input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(155,140,255,0.13);
+    box-shadow: 0 0 0 4px rgba(146,115,200,0.13);
 }
 
 .search-input::placeholder {
@@ -466,7 +479,8 @@ body.light-mode::after {
     left: 21px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 18px;
+    font-size: 20px;
+    color: var(--accent);
     pointer-events: none;
 }
 
@@ -480,12 +494,12 @@ body.light-mode::after {
     height: 100%;
     overflow: hidden;
     border: 1px solid var(--border);
-    border-radius: 23px;
-    background: var(--panel);
+    border-radius: 25px;
+    background: var(--surface);
     backdrop-filter: blur(15px);
     box-shadow: var(--shadow);
     opacity: 0;
-    transform: translateY(35px);
+    transform: translateY(30px);
     transition:
         opacity 0.7s ease,
         transform 0.4s ease,
@@ -499,11 +513,9 @@ body.light-mode::after {
 }
 
 .subject-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(155,140,255,0.65);
-    box-shadow:
-        0 25px 55px rgba(0,0,0,0.35),
-        0 0 25px rgba(112,71,232,0.15);
+    transform: translateY(-9px);
+    border-color: var(--accent);
+    box-shadow: 0 25px 55px rgba(100,70,130,0.17);
 }
 
 .subject-card a {
@@ -512,7 +524,7 @@ body.light-mode::after {
 }
 
 .image-container {
-    height: 230px;
+    height: 235px;
     overflow: hidden;
     position: relative;
 }
@@ -520,8 +532,8 @@ body.light-mode::after {
 .image-container::after {
     content: "";
     position: absolute;
-    inset: 40% 0 0;
-    background: linear-gradient(transparent,rgba(5,12,27,0.5));
+    inset: 45% 0 0;
+    background: linear-gradient(transparent,rgba(35,22,48,0.35));
     pointer-events: none;
 }
 
@@ -533,142 +545,65 @@ body.light-mode::after {
 }
 
 .subject-card:hover .card-img-top {
-    transform: scale(1.12);
+    transform: scale(1.1);
 }
 
 .card-body {
-    padding: 23px 15px;
+    padding: 25px 15px 28px;
     text-align: center;
 }
 
 .card-title {
     margin: 0;
     color: var(--text);
-    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
     font-weight: 800;
     transition: color 0.3s;
 }
 
 .subject-card:hover .card-title {
-    color: var(--accent);
+    color: var(--accent-dark);
 }
 
 .card-subtitle {
     color: var(--muted);
     font-size: 12px;
-    margin-top: 8px;
+    margin-top: 10px;
+    line-height: 1.7;
 }
 
 /* EMPTY SEARCH */
 
 #noResults {
     display: none;
-    padding: 35px 15px;
+    padding: 40px 15px;
     text-align: center;
     color: var(--muted);
     font-weight: 700;
-}
-
-/* POMODORO TIMER */
-
-.timer-panel {
-    max-width: 650px;
-    margin: 75px auto 0;
-    padding: 35px 20px;
-    text-align: center;
-}
-
-.timer-icon {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-.timer-heading {
-    color: var(--text);
-    font-size: 23px;
-    font-weight: 900;
-}
-
-.timer-description {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 8px;
-}
-
-#timerDisplay {
-    margin: 25px 0 10px;
-    color: var(--accent);
-    font-size: clamp(48px,10vw,70px);
-    font-weight: 900;
-    letter-spacing: 3px;
-    font-variant-numeric: tabular-nums;
-}
-
-.timer-status {
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.timer-buttons {
-    margin-top: 22px;
-}
-
-.timer-btn {
-    border: none;
-    border-radius: 50px;
-    padding: 12px 22px;
-    margin: 5px;
-    color: white;
-    font-size: 13px;
-    font-weight: 800;
-    background: linear-gradient(135deg,#7047e8,#9b8cff);
-    box-shadow: 0 7px 20px rgba(112,71,232,0.25);
-    transition: 0.3s;
-}
-
-.timer-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 25px rgba(112,71,232,0.35);
-}
-
-.timer-btn.pause {
-    background: linear-gradient(135deg,#0891b2,#42d9f5);
-}
-
-.timer-btn.reset {
-    background: #475569;
-}
-
-/* TIMER COMPLETION MESSAGE */
-
-#timerMessage {
-    min-height: 22px;
-    color: var(--accent2);
-    font-size: 13px;
-    font-weight: 700;
-    margin-top: 15px;
 }
 
 /* FOOTER */
 
 .footer {
-    margin-top: 65px;
-    padding: 25px 10px;
+    margin-top: 85px;
+    padding: 30px 10px;
     border-top: 1px solid var(--border);
     text-align: center;
 }
 
 .footer-title {
     color: var(--text);
-    font-size: 16px;
-    font-weight: 900;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .footer-subtitle {
     color: var(--muted);
     font-size: 12px;
-    margin-top: 7px;
+    margin-top: 9px;
 }
 
 /* BACK TO TOP */
@@ -684,14 +619,14 @@ body.light-mode::after {
     border-radius: 50%;
     display: none;
     color: white;
-    background: linear-gradient(135deg,#7047e8,#42d9f5);
+    background: linear-gradient(135deg,#9273c8,#dba8c9);
     font-size: 22px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 25px rgba(80,55,110,0.2);
     transition: 0.3s;
 }
 
 #backToTop:hover {
-    transform: translateY(-6px) rotate(5deg);
+    transform: translateY(-5px);
 }
 
 /* SCROLL PROGRESS */
@@ -703,8 +638,16 @@ body.light-mode::after {
     height: 3px;
     width: 0;
     z-index: 10000;
-    background: linear-gradient(90deg,#9b8cff,#42d9f5);
-    box-shadow: 0 0 12px #42d9f5;
+    background: linear-gradient(90deg,#9273c8,#dba8c9,#b6c9e9);
+}
+
+/* FOCUS ACCESSIBILITY */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
 }
 
 /* RESPONSIVE */
@@ -719,7 +662,7 @@ body.light-mode::after {
     }
 
     .image-container {
-        height: 210px;
+        height: 215px;
     }
 
     .top-actions {
@@ -727,21 +670,26 @@ body.light-mode::after {
     }
 
     .quote-panel {
-        padding: 25px 17px;
+        padding: 27px 17px;
     }
 
-    .timer-panel {
-        padding: 28px 13px;
+    .section-heading {
+        margin-top: 50px;
     }
 }
 
 @media(max-width:400px) {
     .image-container {
-        height: 185px;
+        height: 190px;
     }
 
     .card-title {
-        font-size: 18px;
+        font-size: 20px;
+    }
+
+    .hero-tag {
+        font-size: 10px;
+        letter-spacing: 1px;
     }
 }
 
@@ -797,7 +745,7 @@ body.light-mode::after {
     <!-- THEME BUTTON -->
     <div class="top-actions">
         <button class="theme-button" id="themeToggle" type="button">
-            ☀️ Light Mode
+            🌙 Dark Mode
         </button>
     </div>
 
@@ -886,7 +834,7 @@ body.light-mode::after {
 
             <div class="subject-card">
 
-                <a href="geography.html" target="_self"
+                <a href="geography.html"
                    class="text-decoration-none">
 
                     <div class="image-container">
@@ -916,7 +864,7 @@ body.light-mode::after {
 
             <div class="subject-card">
 
-                <a href="economy.html" target="_self"
+                <a href="economy.html"
                    class="text-decoration-none">
 
                     <div class="image-container">
@@ -946,7 +894,7 @@ body.light-mode::after {
 
             <div class="subject-card">
 
-                <a href="polity.html" target="_self"
+                <a href="polity.html"
                    class="text-decoration-none">
 
                     <div class="image-container">
@@ -977,49 +925,6 @@ body.light-mode::after {
         <div style="font-size:35px;">🔎</div>
         <div class="mt-2">No matching subject found.</div>
         <small>Try searching with another keyword.</small>
-    </div>
-
-    <!-- POMODORO TIMER -->
-    <div class="glass-panel timer-panel">
-
-        <div class="timer-icon">⏳</div>
-
-        <h4 class="timer-heading">
-            Focus & Achieve
-        </h4>
-
-        <div class="timer-description">
-            Pomodoro Study Timer
-        </div>
-
-        <div class="timer-status mt-3" id="timerStatus">
-            Focus Session – 25 Minutes
-        </div>
-
-        <div id="timerDisplay">25:00</div>
-
-        <div class="timer-buttons">
-
-            <button class="timer-btn" id="startTimer" type="button">
-                ▶ Start
-            </button>
-
-            <button class="timer-btn pause" id="pauseTimer" type="button">
-                ⏸ Pause
-            </button>
-
-            <button class="timer-btn reset" id="resetTimer" type="button">
-                ↻ Reset
-            </button>
-
-        </div>
-
-        <div id="timerMessage" aria-live="polite"></div>
-
-        <div class="timer-description mt-3">
-            Stay focused. Small efforts every day create great results.
-        </div>
-
     </div>
 
     <!-- FOOTER -->
@@ -1055,6 +960,11 @@ window.addEventListener("load", function() {
         document.getElementById("loader").classList.add("hide");
     }, 500);
 });
+
+/* LOADER FALLBACK */
+setTimeout(function() {
+    document.getElementById("loader").classList.add("hide");
+}, 5000);
 
 /* LIVE CLOCK */
 function updateClock() {
@@ -1094,25 +1004,25 @@ const themeToggle = document.getElementById("themeToggle");
 
 const savedTheme = localStorage.getItem("alpha2-theme");
 
-if (savedTheme === "light") {
-    document.body.classList.add("light-mode");
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
 }
 
 function updateThemeButton() {
     themeToggle.textContent =
-        document.body.classList.contains("light-mode")
-            ? "🌙 Dark Mode"
-            : "☀️ Light Mode";
+        document.body.classList.contains("dark-mode")
+            ? "☀️ Light Mode"
+            : "🌙 Dark Mode";
 }
 
 updateThemeButton();
 
 themeToggle.addEventListener("click", function() {
-    document.body.classList.toggle("light-mode");
+    document.body.classList.toggle("dark-mode");
 
-    const theme = document.body.classList.contains("light-mode")
-        ? "light"
-        : "dark";
+    const theme = document.body.classList.contains("dark-mode")
+        ? "dark"
+        : "light";
 
     localStorage.setItem("alpha2-theme", theme);
 
@@ -1192,86 +1102,6 @@ searchInput.addEventListener("input", function() {
     noResults.style.display =
         visibleCount === 0 ? "block" : "none";
 });
-
-/* POMODORO TIMER */
-let totalSeconds = 25 * 60;
-let timerInterval = null;
-let isRunning = false;
-let isBreak = false;
-
-const timerDisplay = document.getElementById("timerDisplay");
-const timerStatus = document.getElementById("timerStatus");
-const timerMessage = document.getElementById("timerMessage");
-
-function updateTimerDisplay() {
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-
-    timerDisplay.textContent =
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
-}
-
-function startTimer() {
-    if (isRunning || totalSeconds <= 0) return;
-
-    isRunning = true;
-    timerMessage.textContent = "Stay focused. You've got this!";
-
-    timerInterval = setInterval(function() {
-        totalSeconds--;
-        updateTimerDisplay();
-
-        if (totalSeconds <= 0) {
-            clearInterval(timerInterval);
-            isRunning = false;
-
-            if (!isBreak) {
-                isBreak = true;
-                totalSeconds = 5 * 60;
-                timerStatus.textContent = "Break Time – 5 Minutes";
-                timerMessage.textContent =
-                    "🎉 Great work! Your focus session is complete. Enjoy your break.";
-            } else {
-                isBreak = false;
-                totalSeconds = 25 * 60;
-                timerStatus.textContent = "Focus Session – 25 Minutes";
-                timerMessage.textContent =
-                    "✨ Break finished! You're ready for another focus session.";
-            }
-
-            updateTimerDisplay();
-        }
-    }, 1000);
-}
-
-function pauseTimer() {
-    clearInterval(timerInterval);
-    isRunning = false;
-    timerMessage.textContent = "Timer paused. Resume when you're ready.";
-}
-
-function resetTimer() {
-    clearInterval(timerInterval);
-
-    isRunning = false;
-    isBreak = false;
-    totalSeconds = 25 * 60;
-
-    timerStatus.textContent = "Focus Session – 25 Minutes";
-    timerMessage.textContent = "Ready for a fresh focus session.";
-
-    updateTimerDisplay();
-}
-
-document.getElementById("startTimer")
-    .addEventListener("click", startTimer);
-
-document.getElementById("pauseTimer")
-    .addEventListener("click", pauseTimer);
-
-document.getElementById("resetTimer")
-    .addEventListener("click", resetTimer);
 
 /* CARD REVEAL ANIMATION */
 const cards = document.querySelectorAll(".subject-card");
