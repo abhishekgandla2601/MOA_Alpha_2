@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PDF Reader | Alpha-2</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #101923;
+            --panel: #1b2836;
+            --text: #f1f5f9;
+            --muted: #bdc8d5;
+            --primary: #5bc0be;
+            --border: rgba(255,255,255,0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: rgba(8,25,40,0.96);
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand {
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .reader-heading {
+            padding: 22px 15px;
+            background: var(--panel);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reader-heading h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .reader-heading p {
+            color: var(--muted);
+            font-size: 12px;
+            margin: 6px 0 0;
+        }
+
+        .reader-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 13px 18px;
+            background: #152330;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .reader-btn {
+            border: 1px solid rgba(91,192,190,0.5);
+            color: white;
+            background: transparent;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 12px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .reader-btn:hover {
+            background: var(--primary);
+            color: #102c3a;
+        }
+
+        .reader-container {
+            width: 100%;
+            height: calc(100vh - 190px);
+            min-height: 450px;
+            padding: 12px;
+        }
+
+        #pdfFrame {
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: white;
+        }
+
+        #errorMessage {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--muted);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            padding: 15px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 576px) {
+            .brand {
+                font-size: 17px;
+            }
+
+            .reader-heading h1 {
+                font-size: 16px;
+            }
+
+            .reader-container {
+                height: calc(100vh - 220px);
+                min-height: 400px;
+                padding: 5px;
+            }
+
+            .reader-controls {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="topbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a href="index.html" class="brand">ALPHA-2</a>
+
+            <a href="geography.html" class="reader-btn">
+                ← Back to Geography
+            </a>
+        </div>
+    </header>
+
+    <!-- PDF Title -->
+    <section class="reader-heading">
+        <div class="container">
+            <h1 id="pdfTitle">Study Material</h1>
+            <p>Geography Study Materials | Alpha-2 Learning Platform</p>
+        </div>
+    </section>
+
+    <!-- Reader Controls -->
+    <div class="reader-controls">
+        <span class="text-white small">
+            📖 Reading Mode
+        </span>
+
+        <button class="reader-btn" id="fullscreenBtn" type="button">
+            ⛶ Full Screen
+        </button>
+    </div>
+
+    <!-- PDF Viewer -->
+    <main class="reader-container" id="readerContainer">
+        <iframe
+            id="pdfFrame"
+            title="Geography PDF Study Material"
+            loading="eager">
+        </iframe>
+    </main>
+
+    <div id="errorMessage">
+        <h4>PDF could not be opened</h4>
+        <p>Please return to Geography and select another topic.</p>
+        <a href="geography.html" class="reader-btn">
+            Back to Geography
+        </a>
+    </div>
+
+    <footer>
+        Alpha-2 Study Materials · Learn · Explore · Understand
+    </footer>
+
+    <script>
+        // Only allow the Geography PDFs listed here
+        const allowedPDFs = [
+            "Continental Drifting.pdf",
+            "India Geography.pdf",
+            "Geological Time Scale or period.pdf",
+            "The Himalayas.pdf",
+            "Drainage System of India.pdf",
+            "Peninsular Rivers.pdf",
+            "Climate of india.pdf",
+            "Classification of rocks and rock cycle.pdf",
+            "Soils of india.pdf",
+            "Indian Minerals.pdf",
+            "India-Agriculture.pdf",
+            "Natural Vegetation.pdf",
+            "India Major Crops.pdf",
+            "India- Industries -Geographical Perspective.pdf",
+            "India Transport Geography.pdf",
+            "India Population -Cultural Geography.pdf",
+            "The Origin of the Earth.pdf"
+        ];
+
+        const params = new URLSearchParams(window.location.search);
+
+        const file = params.get("file");
+        const title = params.get("title");
+
+        const pdfFrame = document.getElementById("pdfFrame");
+        const errorMessage = document.getElementById("errorMessage");
+        const readerContainer = document.getElementById("readerContainer");
+
+        if (file && allowedPDFs.includes(file)) {
+            document.getElementById("pdfTitle").textContent =
+                title || "Geography Study Material";
+
+            pdfFrame.src =
+                encodeURIComponent(file) +
+                "#toolbar=0&navpanes=0&scrollbar=1";
+        } else {
+            readerContainer.style.display = "none";
+            errorMessage.style.display = "block";
+        }
+
+        // Full-screen reading
+        document.getElementById("fullscreenBtn")
+            .addEventListener("click", async function () {
+
+                try {
+                    if (!document.fullscreenElement) {
+                        await readerContainer.requestFullscreen();
+                    } else {
+                        await document.exitFullscreen();
+                    }
+                } catch (error) {
+                    alert("Full-screen mode is not available in this browser.");
+                }
+            });
+    </script>
+
+</body>
+</html>
