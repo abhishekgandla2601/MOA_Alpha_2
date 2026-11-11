@@ -3,448 +3,1332 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Alpha-2 Study Materials</title>
+<title>Alpha-2 Study Materials</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
+<style>
 
-        /* General styling */
-        * {
-            box-sizing: border-box;
-        }
+/* =========================
+   THEME VARIABLES
+========================= */
 
-        body {
-            background-image:
-                linear-gradient(rgba(8, 18, 35, 0.45),
-                                rgba(8, 18, 35, 0.65)),
-                url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg");
+:root {
+    --bg-card: rgba(255,255,255,0.94);
+    --text-main: #172554;
+    --text-body: #334155;
+    --accent: #7c3aed;
+    --panel: rgba(255,255,255,0.90);
+    --border: rgba(255,255,255,0.3);
+}
 
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            min-height: 100vh;
-            overflow-x: hidden;
-            font-family: Arial, sans-serif;
-        }
+body.dark-mode {
+    --bg-card: rgba(20,27,45,0.95);
+    --text-main: #f1f5f9;
+    --text-body: #cbd5e1;
+    --accent: #a78bfa;
+    --panel: rgba(15,23,42,0.94);
+    --border: rgba(255,255,255,0.12);
+}
 
-        /* Animated background glow */
-        body::before {
-            content: "";
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(circle at 15% 20%,
-                    rgba(0, 200, 255, 0.15), transparent 35%),
-                radial-gradient(circle at 85% 75%,
-                    rgba(150, 80, 255, 0.18), transparent 35%);
-            animation: backgroundGlow 8s ease-in-out infinite alternate;
-            pointer-events: none;
-            z-index: -1;
-        }
+/* =========================
+   GENERAL
+========================= */
 
-        @keyframes backgroundGlow {
-            from {
-                opacity: 0.5;
-                transform: scale(1);
-            }
+* {
+    box-sizing: border-box;
+}
 
-            to {
-                opacity: 1;
-                transform: scale(1.12);
-            }
-        }
+body {
+    background-image:
+        linear-gradient(rgba(8,18,35,0.48),
+                        rgba(8,18,35,0.68)),
+        url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg");
 
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
-        }
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 
-        .particle {
-            position: absolute;
-            bottom: -30px;
-            width: 7px;
-            height: 7px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 50%;
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-            animation: floatUp linear infinite;
-        }
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: Arial, sans-serif;
+    color: white;
 
-        .particle:nth-child(1) {
-            left: 10%;
-            animation-duration: 12s;
-        }
+    transition: background-color 0.3s ease;
+}
 
-        .particle:nth-child(2) {
-            left: 25%;
-            animation-duration: 16s;
-            animation-delay: 2s;
-        }
+/* =========================
+   LOADING SCREEN
+========================= */
 
-        .particle:nth-child(3) {
-            left: 45%;
-            animation-duration: 13s;
-            animation-delay: 4s;
-        }
+#loader {
+    position: fixed;
+    inset: 0;
+    background: #10172a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
 
-        .particle:nth-child(4) {
-            left: 65%;
-            animation-duration: 17s;
-            animation-delay: 1s;
-        }
+#loader.hide {
+    opacity: 0;
+    visibility: hidden;
+}
 
-        .particle:nth-child(5) {
-            left: 85%;
-            animation-duration: 14s;
-            animation-delay: 3s;
-        }
+.loader-ring {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255,255,255,0.2);
+    border-top-color: #a78bfa;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
 
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(0.5);
-                opacity: 0;
-            }
+.loader-title {
+    margin-top: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
 
-            20% {
-                opacity: 0.8;
-            }
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
 
-            80% {
-                opacity: 0.6;
-            }
+/* =========================
+   BACKGROUND GLOW
+========================= */
 
-            100% {
-                transform: translateY(-110vh) scale(1.5);
-                opacity: 0;
-            }
-        }
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
 
-        /* Main container */
-        .main-container {
-            position: relative;
-            z-index: 1;
-        }
+    background:
+        radial-gradient(circle at 15% 20%,
+            rgba(0,200,255,0.15), transparent 35%),
+        radial-gradient(circle at 85% 75%,
+            rgba(150,80,255,0.18), transparent 35%);
 
-        /* Main heading */
-        .main-heading {
-            color: white;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 800;
-            letter-spacing: 1px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-            animation: headingEntrance 1.2s ease forwards;
-        }
+    animation: backgroundGlow 8s ease-in-out infinite alternate;
+    pointer-events: none;
+    z-index: -1;
+}
 
-        @keyframes headingEntrance {
-            from {
-                opacity: 0;
-                transform: translateY(-40px);
-            }
+@keyframes backgroundGlow {
+    from { opacity: 0.5; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.12); }
+}
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+/* =========================
+   FLOATING PARTICLES
+========================= */
 
-        /* Heading underline */
-        .heading-line {
-            width: 100px;
-            height: 4px;
-            margin: 15px auto 40px;
-            background: linear-gradient(90deg, #00d4ff, #a855f7);
-            border-radius: 10px;
-            animation: lineExpand 1.5s ease forwards;
-        }
+.particles {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
 
-        @keyframes lineExpand {
-            from {
-                width: 0;
-            }
+.particle {
+    position: absolute;
+    bottom: -30px;
+    width: 7px;
+    height: 7px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    box-shadow: 0 0 12px white;
+    animation: floatUp linear infinite;
+}
 
-            to {
-                width: 100px;
-            }
-        }
+.particle:nth-child(1) { left:10%; animation-duration:12s; }
+.particle:nth-child(2) { left:25%; animation-duration:16s; animation-delay:2s; }
+.particle:nth-child(3) { left:45%; animation-duration:13s; animation-delay:4s; }
+.particle:nth-child(4) { left:65%; animation-duration:17s; animation-delay:1s; }
+.particle:nth-child(5) { left:85%; animation-duration:14s; animation-delay:3s; }
 
-        /* Subject cards */
-        .subject-card {
-            border: none;
-            border-radius: 18px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+@keyframes floatUp {
+    0% { transform:translateY(0) scale(0.5); opacity:0; }
+    20% { opacity:0.8; }
+    80% { opacity:0.6; }
+    100% { transform:translateY(-110vh) scale(1.5); opacity:0; }
+}
 
-            opacity: 0;
-            transform: translateY(50px);
+/* =========================
+   MOUSE GLOW
+========================= */
 
-            transition:
-                transform 0.4s ease,
-                box-shadow 0.4s ease,
-                opacity 0.7s ease;
-        }
+.mouse-glow {
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle,
+        rgba(125,211,252,0.13), transparent 70%);
+    transform: translate(-50%,-50%);
+    z-index: 0;
+    left: 50%;
+    top: 50%;
+}
 
-        .subject-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+/* =========================
+   MAIN CONTENT
+========================= */
 
-        .subject-card:hover {
-            transform: translateY(-14px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
-        }
+.main-container {
+    position: relative;
+    z-index: 1;
+}
 
-        /* Card images */
-        .card-img-top {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            transition: transform 0.6s ease;
-        }
+.main-heading {
+    color: white;
+    font-size: clamp(2rem,5vw,3.5rem);
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    animation: headingEntrance 1.2s ease forwards;
+}
 
-        .subject-card:hover .card-img-top {
-            transform: scale(1.1);
-        }
+@keyframes headingEntrance {
+    from { opacity:0; transform:translateY(-40px); }
+    to { opacity:1; transform:translateY(0); }
+}
 
-        .image-container {
-            overflow: hidden;
-        }
+.heading-line {
+    width: 100px;
+    height: 4px;
+    margin: 15px auto 35px;
+    background: linear-gradient(90deg,#00d4ff,#a855f7);
+    border-radius: 10px;
+    animation: lineExpand 1.5s ease forwards;
+}
 
-        /* Card titles */
-        .card-title {
-            font-weight: 700;
-            color: #172554;
-            transition: color 0.3s ease;
-        }
+@keyframes lineExpand {
+    from { width:0; }
+    to { width:100px; }
+}
 
-        .subject-card:hover .card-title {
-            color: #6d28d9;
-        }
+/* =========================
+   GENERAL PANELS
+========================= */
 
-        .card-body {
-            padding: 22px;
-        }
+.glass-panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--text-body);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+}
 
-        /* Footer */
-        .footer-text {
-            color: white;
-            text-align: center;
-            margin-top: 65px;
-            font-size: 14px;
-            opacity: 0.85;
-            text-shadow: 0 2px 8px black;
-        }
+/* =========================
+   CLOCK
+========================= */
 
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
+.clock-panel {
+    text-align: center;
+    padding: 18px;
+    margin-bottom: 25px;
+}
 
-            body {
-                background-attachment: scroll;
-            }
+#liveClock {
+    font-size: clamp(26px,5vw,38px);
+    font-weight: bold;
+    color: var(--text-main);
+    letter-spacing: 2px;
+}
 
-            .card-img-top {
-                height: 200px;
-            }
+#liveDate {
+    color: var(--text-body);
+    font-size: 15px;
+}
 
-            .heading-line {
-                margin-bottom: 30px;
-            }
+.greeting {
+    font-size: 17px;
+    color: var(--accent);
+    font-weight: bold;
+}
 
-        }
+/* =========================
+   TOP ACTIONS
+========================= */
 
-        /* Accessibility: respect reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
+.top-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
 
-            .subject-card {
-                opacity: 1;
-                transform: none;
-            }
-        }
+.theme-button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 30px;
+    background: var(--panel);
+    color: var(--text-main);
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-    </style>
+.theme-button:hover {
+    transform: scale(1.06);
+}
 
+/* =========================
+   SEARCH
+========================= */
+
+.search-wrapper {
+    max-width: 600px;
+    margin: 0 auto 25px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 2px solid rgba(255,255,255,0.5);
+    background: var(--panel);
+    color: var(--text-main);
+    outline: none;
+    font-size: 16px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.search-input:focus {
+    border-color: #a78bfa;
+    box-shadow: 0 0 15px rgba(167,139,250,0.5);
+}
+
+.search-input::placeholder {
+    color: var(--text-body);
+    opacity: 0.8;
+}
+
+/* =========================
+   QUOTE
+========================= */
+
+.quote-panel {
+    padding: 22px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.quote-label {
+    color: var(--accent);
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+#dailyQuote {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-main);
+    margin-top: 10px;
+}
+
+#quoteAuthor {
+    font-size: 14px;
+    color: var(--text-body);
+    margin-top: 8px;
+}
+
+/* =========================
+   STATISTICS
+========================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    padding: 18px 10px;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.stat-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-body);
+}
+
+/* =========================
+   SUBJECT CARDS
+========================= */
+
+.subject-card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--bg-card);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+
+    opacity: 0;
+    transform: translateY(50px);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        opacity 0.7s ease,
+        background 0.3s ease;
+}
+
+.subject-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.subject-card:hover {
+    transform: translateY(-14px) scale(1.02);
+    box-shadow: 0 20px 45px rgba(0,0,0,0.4);
+}
+
+.card-img-top {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.image-container {
+    overflow: hidden;
+}
+
+.subject-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.card-title {
+    font-weight: 700;
+    color: var(--text-main);
+    transition: color 0.3s ease;
+}
+
+.subject-card:hover .card-title {
+    color: var(--accent);
+}
+
+.card-body {
+    padding: 22px;
+}
+
+/* Search empty message */
+
+#noResults {
+    display: none;
+    text-align: center;
+    padding: 25px;
+    color: white;
+    font-weight: bold;
+}
+
+/* =========================
+   POMODORO TIMER
+========================= */
+
+.timer-panel {
+    padding: 25px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.timer-heading {
+    color: var(--text-main);
+    font-weight: bold;
+}
+
+#timerDisplay {
+    font-size: clamp(42px,8vw,60px);
+    font-weight: 800;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    margin: 15px 0;
+}
+
+.timer-status {
+    color: var(--text-body);
+    font-size: 14px;
+}
+
+.timer-btn {
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 5px;
+    color: white;
+    background: #7c3aed;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.timer-btn:hover {
+    background: #5b21b6;
+    transform: translateY(-3px);
+}
+
+.timer-btn.reset {
+    background: #64748b;
+}
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+#backToTop {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: #7c3aed;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+#backToTop:hover {
+    transform: translateY(-5px);
+    background: #5b21b6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer-text {
+    color: white;
+    text-align: center;
+    margin-top: 55px;
+    font-size: 14px;
+    opacity: 0.9;
+    text-shadow: 0 2px 8px black;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px) {
+
+    body {
+        background-attachment: scroll;
+    }
+
+    .card-img-top {
+        height: 200px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(3,1fr);
+        gap: 8px;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+    .stat-label {
+        font-size: 11px;
+    }
+
+    .mouse-glow {
+        display: none;
+    }
+
+    .top-actions {
+        justify-content: center;
+    }
+}
+
+/* =========================
+   ACCESSIBILITY
+========================= */
+
+@media(prefers-reduced-motion:reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .subject-card {
+        opacity: 1;
+        transform: none;
+    }
+
+    .mouse-glow {
+        display: none;
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-    <!-- Floating particles -->
-    <div class="particles">
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
-        <span class="particle"></span>
+<!-- LOADING SCREEN -->
+
+<div id="loader">
+    <div class="loader-ring"></div>
+    <div class="loader-title">Alpha-2 Study Materials</div>
+    <small class="text-white mt-2">Preparing your study space...</small>
+</div>
+
+
+<!-- FLOATING PARTICLES -->
+
+<div class="particles">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+</div>
+
+
+<!-- MOUSE GLOW -->
+
+<div class="mouse-glow" id="mouseGlow"></div>
+
+
+<div class="container py-4 main-container">
+
+
+    <!-- THEME BUTTON -->
+
+    <div class="top-actions">
+        <button class="theme-button" id="themeToggle">
+            🌙 Dark Mode
+        </button>
     </div>
 
 
-    <div class="container py-5 main-container">
+    <!-- MAIN HEADING -->
 
-        <!-- Main Heading -->
-        <h1 class="text-center main-heading">
-            Alpha-2 Study Materials
-        </h1>
+    <h1 class="text-center main-heading">
+        Alpha-2 Study Materials
+    </h1>
 
-        <div class="heading-line"></div>
-
-
-        <!-- Subject Cards -->
-        <div class="row g-4">
+    <div class="heading-line"></div>
 
 
-            <!-- Geography Card -->
-            <div class="col-md-4">
+    <!-- LIVE CLOCK -->
 
-                <div class="card h-100 subject-card">
+    <div class="glass-panel clock-panel">
 
-                    <a href="geography.html" target="_self">
-
-                        <div class="image-container">
-                            <img
-                                src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
-                                class="card-img-top"
-                                alt="Geography">
-                        </div>
-
-                    </a>
-
-                    <div class="card-body text-center">
-
-                        <h4 class="card-title">
-                            Geography
-                        </h4>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- Economy Card -->
-            <div class="col-md-4">
-
-                <div class="card h-100 subject-card">
-
-                    <a href="economy.html" target="_self">
-
-                        <div class="image-container">
-                            <img
-                                src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
-                                class="card-img-top"
-                                alt="Economy">
-                        </div>
-
-                    </a>
-
-                    <div class="card-body text-center">
-
-                        <h4 class="card-title">
-                            Economy
-                        </h4>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- Polity Card -->
-            <div class="col-md-4">
-
-                <div class="card h-100 subject-card">
-
-                    <a href="polity.html" target="_self">
-
-                        <div class="image-container">
-                            <img
-                                src="https://placehold.co/600x400?text=Polity"
-                                class="card-img-top"
-                                alt="Polity">
-                        </div>
-
-                    </a>
-
-                    <div class="card-body text-center">
-
-                        <h4 class="card-title">
-                            Polity
-                        </h4>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
+        <div class="greeting" id="greeting">
+            Welcome, Student!
         </div>
 
+        <div id="liveClock">00:00:00</div>
 
-        <!-- Footer -->
-        <div class="footer-text">
-            Alpha-2 Study Materials | Learn • Prepare • Succeed
+        <div id="liveDate"></div>
+
+    </div>
+
+
+    <!-- MOTIVATIONAL QUOTE -->
+
+    <div class="glass-panel quote-panel">
+
+        <div class="quote-label">
+            ✨ Daily Motivation
+        </div>
+
+        <div id="dailyQuote">
+            Loading inspiration...
+        </div>
+
+        <div id="quoteAuthor"></div>
+
+    </div>
+
+
+    <!-- ANIMATED STATISTICS -->
+
+    <div class="stats-grid">
+
+        <div class="glass-panel stat-box">
+            <div class="stat-number" data-target="3">0</div>
+            <div class="stat-label">Subjects</div>
+        </div>
+
+        <div class="glass-panel stat-box">
+            <div class="stat-number" data-target="3">0</div>
+            <div class="stat-label">Study Areas</div>
+        </div>
+
+        <div class="glass-panel stat-box">
+            <div class="stat-number" data-target="100">0</div>
+            <div class="stat-label">Learning Goals</div>
         </div>
 
     </div>
 
 
-    <!-- Scroll Animation JavaScript -->
-    <script>
+    <!-- SEARCH BAR -->
 
-        const cards = document.querySelectorAll(".subject-card");
+    <div class="search-wrapper">
 
-        const observer = new IntersectionObserver((entries) => {
+        <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="🔍 Search Geography, Economy, Polity..."
+            aria-label="Search study subjects">
 
-            entries.forEach((entry) => {
+    </div>
 
-                if (entry.isIntersecting) {
 
-                    entry.target.classList.add("visible");
+    <!-- SUBJECT CARDS -->
 
-                    observer.unobserve(entry.target);
+    <div class="row g-4" id="subjectContainer">
 
-                }
+
+        <!-- GEOGRAPHY -->
+
+        <div class="col-md-4 subject-column"
+             data-search="geography">
+
+            <div class="card h-100 subject-card">
+
+                <a href="geography.html" target="_self">
+
+                    <div class="image-container">
+                        <img
+                            src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
+                            class="card-img-top"
+                            alt="Geography">
+                    </div>
+
+                </a>
+
+                <div class="card-body text-center">
+
+                    <h4 class="card-title">Geography</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ECONOMY -->
+
+        <div class="col-md-4 subject-column"
+             data-search="economy">
+
+            <div class="card h-100 subject-card">
+
+                <a href="economy.html" target="_self">
+
+                    <div class="image-container">
+                        <img
+                            src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
+                            class="card-img-top"
+                            alt="Economy">
+                    </div>
+
+                </a>
+
+                <div class="card-body text-center">
+
+                    <h4 class="card-title">Economy</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- POLITY -->
+
+        <div class="col-md-4 subject-column"
+             data-search="polity">
+
+            <div class="card h-100 subject-card">
+
+                <a href="polity.html" target="_self">
+
+                    <div class="image-container">
+                        <img
+                            src="https://placehold.co/600x400?text=Polity"
+                            class="card-img-top"
+                            alt="Polity">
+                    </div>
+
+                </a>
+
+                <div class="card-body text-center">
+
+                    <h4 class="card-title">Polity</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <div id="noResults">
+        No matching subject found.
+    </div>
+
+
+    <!-- POMODORO TIMER -->
+
+    <div class="glass-panel timer-panel">
+
+        <h4 class="timer-heading">
+            ⏳ Pomodoro Study Timer
+        </h4>
+
+        <div class="timer-status" id="timerStatus">
+            Focus Session – 25 Minutes
+        </div>
+
+        <div id="timerDisplay">25:00</div>
+
+        <button class="timer-btn" id="startTimer">
+            ▶ Start
+        </button>
+
+        <button class="timer-btn" id="pauseTimer">
+            ⏸ Pause
+        </button>
+
+        <button class="timer-btn reset" id="resetTimer">
+            ↻ Reset
+        </button>
+
+        <div class="timer-status mt-3">
+            Focus on your studies. Take a short break after each session!
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="footer-text">
+        Alpha-2 Study Materials
+        <br>
+        Learn • Prepare • Succeed
+    </div>
+
+
+</div>
+
+
+<!-- BACK TO TOP -->
+
+<button id="backToTop" aria-label="Back to top" title="Back to top">
+    ↑
+</button>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+/* =========================
+   PAGE LOADER
+========================= */
+
+window.addEventListener("load", function() {
+
+    const loader = document.getElementById("loader");
+
+    setTimeout(() => {
+        loader.classList.add("hide");
+    }, 500);
+
+});
+
+
+/* =========================
+   LIVE CLOCK AND DATE
+========================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    document.getElementById("liveClock").textContent =
+        now.toLocaleTimeString("en-IN");
+
+    document.getElementById("liveDate").textContent =
+        now.toLocaleDateString("en-IN", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+            year: "numeric"
+        });
+
+    const hour = now.getHours();
+
+    let greeting = "Welcome, Student!";
+
+    if (hour < 12) {
+        greeting = "🌅 Good Morning, Student!";
+    }
+    else if (hour < 17) {
+        greeting = "☀️ Good Afternoon, Student!";
+    }
+    else {
+        greeting = "🌙 Good Evening, Student!";
+    }
+
+    document.getElementById("greeting").textContent = greeting;
+
+}
+
+updateClock();
+
+setInterval(updateClock, 1000);
+
+
+/* =========================
+   DARK / LIGHT MODE
+========================= */
+
+const themeToggle = document.getElementById("themeToggle");
+
+const savedTheme = localStorage.getItem("alpha2-theme");
+
+if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+}
+
+function updateThemeButton() {
+
+    if (document.body.classList.contains("dark-mode")) {
+        themeToggle.textContent = "☀️ Light Mode";
+    }
+    else {
+        themeToggle.textContent = "🌙 Dark Mode";
+    }
+
+}
+
+updateThemeButton();
+
+themeToggle.addEventListener("click", function() {
+
+    document.body.classList.toggle("dark-mode");
+
+    const theme = document.body.classList.contains("dark-mode")
+        ? "dark"
+        : "light";
+
+    localStorage.setItem("alpha2-theme", theme);
+
+    updateThemeButton();
+
+});
+
+
+/* =========================
+   DAILY MOTIVATIONAL QUOTE
+========================= */
+
+const quotes = [
+
+    {
+        text: "The secret of getting ahead is getting started.",
+        author: "Mark Twain"
+    },
+
+    {
+        text: "It always seems impossible until it's done.",
+        author: "Nelson Mandela"
+    },
+
+    {
+        text: "Success is the sum of small efforts repeated day in and day out.",
+        author: "Robert Collier"
+    },
+
+    {
+        text: "Dream big. Start small. Act now.",
+        author: "Robin Sharma"
+    },
+
+    {
+        text: "Education is the most powerful weapon which you can use to change the world.",
+        author: "Nelson Mandela"
+    },
+
+    {
+        text: "Great things are done by a series of small things brought together.",
+        author: "Vincent van Gogh"
+    },
+
+    {
+        text: "The future depends on what you do today.",
+        author: "Mahatma Gandhi"
+    }
+
+];
+
+const today = new Date();
+
+const dayNumber = Math.floor(
+    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())
+    / 86400000
+);
+
+const quote = quotes[
+    ((dayNumber % quotes.length) + quotes.length) % quotes.length
+];
+
+document.getElementById("dailyQuote").textContent =
+    '"' + quote.text + '"';
+
+document.getElementById("quoteAuthor").textContent =
+    "— " + quote.author;
+
+
+/* =========================
+   SEARCH SUBJECTS
+========================= */
+
+const searchInput = document.getElementById("searchInput");
+
+const subjectColumns =
+    document.querySelectorAll(".subject-column");
+
+const noResults = document.getElementById("noResults");
+
+searchInput.addEventListener("input", function() {
+
+    const searchValue = this.value.toLowerCase().trim();
+
+    let visibleCount = 0;
+
+    subjectColumns.forEach(column => {
+
+        const subject = column.dataset.search;
+
+        const match = subject.includes(searchValue);
+
+        column.style.display = match ? "" : "none";
+
+        if (match) {
+            visibleCount++;
+        }
+
+    });
+
+    noResults.style.display =
+        visibleCount === 0 ? "block" : "none";
+
+});
+
+
+/* =========================
+   POMODORO TIMER
+========================= */
+
+let totalSeconds = 25 * 60;
+
+let timerInterval = null;
+
+let isRunning = false;
+
+let isBreak = false;
+
+const timerDisplay =
+    document.getElementById("timerDisplay");
+
+const timerStatus =
+    document.getElementById("timerStatus");
+
+function updateTimerDisplay() {
+
+    const minutes = Math.floor(totalSeconds / 60);
+
+    const seconds = totalSeconds % 60;
+
+    timerDisplay.textContent =
+        String(minutes).padStart(2, "0") + ":" +
+        String(seconds).padStart(2, "0");
+
+}
+
+function startTimer() {
+
+    if (isRunning) return;
+
+    if (totalSeconds <= 0) return;
+
+    isRunning = true;
+
+    timerInterval = setInterval(() => {
+
+        totalSeconds--;
+
+        updateTimerDisplay();
+
+        if (totalSeconds <= 0) {
+
+            clearInterval(timerInterval);
+
+            isRunning = false;
+
+            if (!isBreak) {
+
+                alert("Great work! Your study session is complete. Take a 5-minute break.");
+
+                isBreak = true;
+
+                totalSeconds = 5 * 60;
+
+                timerStatus.textContent = "Break Time – 5 Minutes";
+
+            }
+            else {
+
+                alert("Break finished! Time to study again.");
+
+                isBreak = false;
+
+                totalSeconds = 25 * 60;
+
+                timerStatus.textContent =
+                    "Focus Session – 25 Minutes";
+
+            }
+
+            updateTimerDisplay();
+
+        }
+
+    }, 1000);
+
+}
+
+function pauseTimer() {
+
+    clearInterval(timerInterval);
+
+    isRunning = false;
+
+}
+
+function resetTimer() {
+
+    clearInterval(timerInterval);
+
+    isRunning = false;
+
+    isBreak = false;
+
+    totalSeconds = 25 * 60;
+
+    timerStatus.textContent =
+        "Focus Session – 25 Minutes";
+
+    updateTimerDisplay();
+
+}
+
+document.getElementById("startTimer")
+    .addEventListener("click", startTimer);
+
+document.getElementById("pauseTimer")
+    .addEventListener("click", pauseTimer);
+
+document.getElementById("resetTimer")
+    .addEventListener("click", resetTimer);
+
+
+/* =========================
+   ANIMATED STATISTICS
+========================= */
+
+const statNumbers =
+    document.querySelectorAll(".stat-number");
+
+let statsStarted = false;
+
+const statsObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting && !statsStarted) {
+
+            statsStarted = true;
+
+            statNumbers.forEach(counter => {
+
+                const target = Number(counter.dataset.target);
+
+                let current = 0;
+
+                const increment = Math.max(
+                    1,
+                    Math.ceil(target / 60)
+                );
+
+                const animation = setInterval(() => {
+
+                    current += increment;
+
+                    if (current >= target) {
+
+                        current = target;
+
+                        clearInterval(animation);
+
+                    }
+
+                    counter.textContent = current + "+";
+
+                }, 25);
 
             });
 
-        }, {
-            threshold: 0.15
-        });
+        }
+
+    });
+
+}, { threshold: 0.3 });
+
+const statsSection =
+    document.querySelector(".stats-grid");
+
+statsObserver.observe(statsSection);
 
 
-        cards.forEach((card, index) => {
+/* =========================
+   CARD SCROLL ANIMATION
+========================= */
 
-            card.style.transitionDelay = `${index * 150}ms`;
+const cards =
+    document.querySelectorAll(".subject-card");
 
-            observer.observe(card);
+const cardObserver = new IntersectionObserver(entries => {
 
-        });
+    entries.forEach(entry => {
 
-    </script>
+        if (entry.isIntersecting) {
+
+            entry.target.classList.add("visible");
+
+            cardObserver.unobserve(entry.target);
+
+        }
+
+    });
+
+}, {
+    threshold: 0.15
+});
+
+cards.forEach((card, index) => {
+
+    card.style.transitionDelay = `${index * 150}ms`;
+
+    cardObserver.observe(card);
+
+});
 
 
-    <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+/* =========================
+   MOUSE FOLLOWING GLOW
+========================= */
+
+const mouseGlow = document.getElementById("mouseGlow");
+
+if (window.matchMedia("(pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+
+    document.addEventListener("mousemove", function(event) {
+
+        mouseGlow.style.left = event.clientX + "px";
+
+        mouseGlow.style.top = event.clientY + "px";
+
+    });
+
+}
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+const backToTop =
+    document.getElementById("backToTop");
+
+window.addEventListener("scroll", function() {
+
+    if (window.scrollY > 300) {
+
+        backToTop.style.display = "block";
+
+    }
+    else {
+
+        backToTop.style.display = "none";
+
+    }
+
+});
+
+backToTop.addEventListener("click", function() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+</script>
+
+
+<!-- BOOTSTRAP JAVASCRIPT -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
-
 </html>
