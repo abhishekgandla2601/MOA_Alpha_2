@@ -1,26 +1,34 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>PDF Reader | Alpha-2</title>
+    <title>PDF Viewer | Alpha-2</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
           rel="stylesheet">
 
     <style>
         :root {
-            --bg: #101923;
-            --panel: #1b2836;
-            --text: #f1f5f9;
-            --muted: #bdc8d5;
-            --primary: #5bc0be;
-            --border: rgba(255,255,255,0.12);
+            --bg: #f5f7fa;
+            --surface: #ffffff;
+            --text: #172d42;
+            --muted: #718092;
+            --accent: #e87524;
+            --border: rgba(23, 45, 66, .12);
+        }
+
+        body.dark-mode {
+            --bg: #101d29;
+            --surface: #1b2b39;
+            --text: #f5f7fa;
+            --muted: #b2bfca;
+            --accent: #ffad64;
+            --border: rgba(255, 255, 255, .13);
         }
 
         * {
@@ -29,117 +37,177 @@
 
         body {
             margin: 0;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
         }
 
-        .topbar {
-            background: rgba(8,25,40,0.96);
-            padding: 15px 0;
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--surface);
             border-bottom: 1px solid var(--border);
+            padding: 12px 18px;
+        }
+
+        .topbar {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
         }
 
         .brand {
-            color: white;
-            font-size: 20px;
-            font-weight: 800;
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .reader-heading {
-            padding: 22px 15px;
-            background: var(--panel);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .reader-heading h1 {
-            font-size: 20px;
             font-weight: 700;
-            margin: 0;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-decoration: none;
+            white-space: nowrap;
         }
 
-        .reader-heading p {
-            color: var(--muted);
-            font-size: 12px;
-            margin: 6px 0 0;
+        .theme-btn,
+        .tool-btn {
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            border-radius: 9px;
+            padding: 8px 13px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
-        .reader-controls {
+        .page-title {
+            max-width: 1200px;
+            margin: 18px auto 12px;
+            padding: 0 16px;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(20px, 4vw, 28px);
+            overflow-wrap: anywhere;
+        }
+
+        .toolbar {
+            max-width: 1200px;
+            margin: 0 auto 14px;
+            padding: 0 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
-            padding: 13px 18px;
-            background: #152330;
-            border-bottom: 1px solid var(--border);
+            gap: 10px;
         }
 
-        .reader-btn {
-            border: 1px solid rgba(91,192,190,0.5);
-            color: white;
-            background: transparent;
-            padding: 8px 15px;
-            border-radius: 25px;
-            font-size: 12px;
-            text-decoration: none;
-            transition: 0.3s;
+        .toolbar-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .reader-btn:hover {
-            background: var(--primary);
-            color: #102c3a;
+        .tool-btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
         }
 
-        .reader-container {
+        .page-info {
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        #reader {
             width: 100%;
-            height: calc(100vh - 190px);
-            min-height: 450px;
-            padding: 12px;
+            padding: 0 12px 30px;
+            overflow: auto;
         }
 
-        #pdfFrame {
-            width: 100%;
-            height: 100%;
-            border: 1px solid var(--border);
-            border-radius: 10px;
+        #pdfCanvas {
+            display: block;
+            margin: 0 auto;
             background: white;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, .13);
+            max-width: 100%;
+            height: auto;
         }
 
-        #errorMessage {
+        #loading {
+            min-height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 14px;
+            color: var(--muted);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner-border {
+            color: var(--accent);
+        }
+
+        #error {
             display: none;
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 25px;
             text-align: center;
-            padding: 50px 20px;
-            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
         }
 
-        footer {
-            text-align: center;
-            color: var(--muted);
-            padding: 15px;
-            font-size: 12px;
+        #error h3 {
+            color: var(--accent);
         }
 
-        @media (max-width: 576px) {
-            .brand {
-                font-size: 17px;
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 10px 12px;
             }
 
-            .reader-heading h1 {
-                font-size: 16px;
+            .page-title {
+                margin-top: 14px;
             }
 
-            .reader-container {
-                height: calc(100vh - 220px);
-                min-height: 400px;
-                padding: 5px;
+            .toolbar {
+                justify-content: center;
             }
 
-            .reader-controls {
-                padding: 10px;
+            .toolbar-group {
+                justify-content: center;
+            }
+
+            .tool-btn {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+            #reader {
+                padding: 0 5px 20px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important;
             }
         }
     </style>
@@ -147,115 +215,298 @@
 
 <body>
 
-    <!-- Header -->
-    <header class="topbar">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a href="index.html" class="brand">ALPHA-2</a>
-
-            <a href="geography.html" class="reader-btn">
-                ← Back to Geography
-            </a>
-        </div>
-    </header>
-
-    <!-- PDF Title -->
-    <section class="reader-heading">
-        <div class="container">
-            <h1 id="pdfTitle">Study Material</h1>
-            <p>Geography Study Materials | Alpha-2 Learning Platform</p>
-        </div>
-    </section>
-
-    <!-- Reader Controls -->
-    <div class="reader-controls">
-        <span class="text-white small">
-            📖 Reading Mode
-        </span>
-
-        <button class="reader-btn" id="fullscreenBtn" type="button">
-            ⛶ Full Screen
-        </button>
+<header>
+    <div class="topbar">
+        <a href="index.html" class="brand">ALPHA-2</a>
+        <button class="theme-btn" id="themeToggle">🌙 Theme</button>
     </div>
+</header>
 
-    <!-- PDF Viewer -->
-    <main class="reader-container" id="readerContainer">
-        <iframe
-            id="pdfFrame"
-            title="Geography PDF Study Material"
-            loading="eager">
-        </iframe>
-    </main>
+<h1 class="page-title" id="documentTitle">Study Material</h1>
 
-    <div id="errorMessage">
-        <h4>PDF could not be opened</h4>
-        <p>Please return to Geography and select another topic.</p>
-        <a href="geography.html" class="reader-btn">
-            Back to Geography
+<div class="toolbar">
+
+    <div class="toolbar-group">
+        <a href="geography.html" class="back-link" id="backLink">
+            ← Back to Subjects
         </a>
     </div>
 
-    <footer>
-        Alpha-2 Study Materials · Learn · Explore · Understand
-    </footer>
+    <div class="toolbar-group">
+        <button class="tool-btn" id="prevBtn" disabled>← Previous</button>
+        <span class="page-info" id="pageInfo">Page 0 of 0</span>
+        <button class="tool-btn" id="nextBtn" disabled>Next →</button>
+    </div>
 
-    <script>
-        // Only allow the Geography PDFs listed here
-        const allowedPDFs = [
-            "Continental Drifting.pdf",
-            "India Geography.pdf",
-            "Geological Time Scale or period.pdf",
-            "The Himalayas.pdf",
-            "Drainage System of India.pdf",
-            "Peninsular Rivers.pdf",
-            "Climate of india.pdf",
-            "Classification of rocks and rock cycle.pdf",
-            "Soils of india.pdf",
-            "Indian Minerals.pdf",
-            "India-Agriculture.pdf",
-            "Natural Vegetation.pdf",
-            "India Major Crops.pdf",
-            "India- Industries -Geographical Perspective.pdf",
-            "India Transport Geography.pdf",
-            "India Population -Cultural Geography.pdf",
-            "The Origin of the Earth.pdf"
-        ];
+    <div class="toolbar-group">
+        <button class="tool-btn" id="zoomOut">−</button>
+        <span class="page-info" id="zoomLevel">100%</span>
+        <button class="tool-btn" id="zoomIn">+</button>
+        <button class="tool-btn" id="fullscreenBtn">⛶ Fullscreen</button>
+    </div>
 
-        const params = new URLSearchParams(window.location.search);
+</div>
 
-        const file = params.get("file");
-        const title = params.get("title");
+<div id="loading">
+    <div class="spinner-border" role="status"></div>
+    <strong>Loading your study material...</strong>
+    <span>Please wait.</span>
+</div>
 
-        const pdfFrame = document.getElementById("pdfFrame");
-        const errorMessage = document.getElementById("errorMessage");
-        const readerContainer = document.getElementById("readerContainer");
+<div id="error">
+    <h3>Unable to open PDF</h3>
+    <p id="errorMessage">
+        The requested PDF could not be loaded.
+    </p>
+    <p>Please check that the PDF file exists in the same folder as this page.</p>
+    <a href="geography.html" class="back-link" id="errorBackLink">
+        Return to study materials
+    </a>
+</div>
 
-        if (file && allowedPDFs.includes(file)) {
-            document.getElementById("pdfTitle").textContent =
-                title || "Geography Study Material";
+<div id="reader" style="display:none;">
+    <canvas id="pdfCanvas"></canvas>
+</div>
 
-            pdfFrame.src =
-                encodeURIComponent(file) +
-                "#toolbar=0&navpanes=0&scrollbar=1";
-        } else {
-            readerContainer.style.display = "none";
-            errorMessage.style.display = "block";
+<script type="module">
+    import * as pdfjsLib from
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs';
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+
+    const params = new URLSearchParams(window.location.search);
+
+    const file = params.get('file');
+    const title = params.get('title');
+
+    const allowedFiles = [
+        'Continental Drifting.pdf',
+        'India Geography.pdf',
+        'Geological Time Scale or period.pdf',
+        'The Himalayas.pdf',
+        'Drainage System of India.pdf',
+        'Peninsular Rivers.pdf',
+        'Climate of india.pdf',
+        'Classification of rocks and rock cycle.pdf',
+        'Soils of india.pdf',
+        'Indian Minerals.pdf',
+        'India-Agriculture.pdf',
+        'Natural Vegetation.pdf',
+        'India Major Crops.pdf',
+        'India- Industries -Geographical Perspective.pdf',
+        'India Transport Geography.pdf',
+        'India Population -Cultural Geography.pdf',
+        'The Origin of the Earth.pdf',
+        'Economy Syllabus@Civils@Sarvan sir.pdf',
+        'National Income Accounting.pdf'
+    ];
+
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const reader = document.getElementById('reader');
+    const canvas = document.getElementById('pdfCanvas');
+    const context = canvas.getContext('2d');
+
+    const pageInfo = document.getElementById('pageInfo');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const zoomLevel = document.getElementById('zoomLevel');
+
+    let pdfDoc = null;
+    let currentPage = 1;
+    let zoom = 1;
+    let rendering = false;
+    let renderTask = null;
+
+    const isEconomy = file && (
+        file === 'Economy Syllabus@Civils@Sarvan sir.pdf' ||
+        file === 'National Income Accounting.pdf'
+    );
+
+    const backPage = isEconomy ? 'economy.html' : 'geography.html';
+
+    document.getElementById('backLink').href = backPage;
+    document.getElementById('errorBackLink').href = backPage;
+
+    document.getElementById('documentTitle').textContent =
+        title || 'Study Material';
+
+    document.title = (title || 'PDF Viewer') + ' | Alpha-2';
+
+    function showError(message) {
+        loading.style.display = 'none';
+        reader.style.display = 'none';
+        error.style.display = 'block';
+        document.getElementById('errorMessage').textContent = message;
+    }
+
+    async function renderPage(pageNumber) {
+        if (!pdfDoc || rendering) return;
+
+        rendering = true;
+
+        try {
+            if (renderTask) {
+                renderTask.cancel();
+            }
+
+            const page = await pdfDoc.getPage(pageNumber);
+
+            const baseViewport = page.getViewport({ scale: 1 });
+
+            const availableWidth = Math.max(
+                280,
+                reader.clientWidth - 24
+            );
+
+            const fitScale = availableWidth / baseViewport.width;
+
+            const scale = Math.min(fitScale * zoom, 3);
+
+            const viewport = page.getViewport({ scale });
+
+            const pixelRatio = Math.min(
+                window.devicePixelRatio || 1,
+                2
+            );
+
+            canvas.width = Math.floor(viewport.width * pixelRatio);
+            canvas.height = Math.floor(viewport.height * pixelRatio);
+
+            canvas.style.width = viewport.width + 'px';
+            canvas.style.height = viewport.height + 'px';
+
+            context.setTransform(
+                pixelRatio, 0, 0,
+                pixelRatio, 0, 0
+            );
+
+            renderTask = page.render({
+                canvasContext: context,
+                viewport: viewport
+            });
+
+            await renderTask.promise;
+
+            currentPage = pageNumber;
+
+            pageInfo.textContent =
+                `Page ${currentPage} of ${pdfDoc.numPages}`;
+
+            prevBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = currentPage >= pdfDoc.numPages;
+
+            zoomLevel.textContent = Math.round(zoom * 100) + '%';
+
+            reader.scrollTo({
+                top: 0,
+                behavior: 'auto'
+            });
+
+        } catch (err) {
+            if (err.name !== 'RenderingCancelledException') {
+                console.error(err);
+            }
+        } finally {
+            rendering = false;
+            renderTask = null;
+        }
+    }
+
+    async function loadPDF() {
+        if (!file || !allowedFiles.includes(file)) {
+            showError('Invalid PDF file requested. Please open the PDF from the subject page.');
+            return;
         }
 
-        // Full-screen reading
-        document.getElementById("fullscreenBtn")
-            .addEventListener("click", async function () {
-
-                try {
-                    if (!document.fullscreenElement) {
-                        await readerContainer.requestFullscreen();
-                    } else {
-                        await document.exitFullscreen();
-                    }
-                } catch (error) {
-                    alert("Full-screen mode is not available in this browser.");
-                }
+        try {
+            const pdfDocLoading = pdfjsLib.getDocument({
+                url: encodeURIComponent(file)
             });
-    </script>
+
+            pdfDoc = await pdfDocLoading.promise;
+
+            loading.style.display = 'none';
+            reader.style.display = 'block';
+
+            await renderPage(1);
+
+        } catch (err) {
+            console.error('PDF loading error:', err);
+
+            showError(
+                'The PDF could not be loaded. Check the filename, file location, and internet connection.'
+            );
+        }
+    }
+
+    prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+            renderPage(currentPage - 1);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (pdfDoc && currentPage < pdfDoc.numPages) {
+            renderPage(currentPage + 1);
+        }
+    });
+
+    document.getElementById('zoomIn').addEventListener('click', () => {
+        zoom = Math.min(zoom + 0.15, 2.5);
+        renderPage(currentPage);
+    });
+
+    document.getElementById('zoomOut').addEventListener('click', () => {
+        zoom = Math.max(zoom - 0.15, 0.5);
+        renderPage(currentPage);
+    });
+
+    document.getElementById('fullscreenBtn').addEventListener('click', async () => {
+        try {
+            if (!document.fullscreenElement) {
+                await reader.requestFullscreen();
+            } else {
+                await document.exitFullscreen();
+            }
+        } catch (err) {
+            console.error('Fullscreen unavailable:', err);
+        }
+    });
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+
+        const isDark = document.body.classList.contains('dark-mode');
+
+        localStorage.setItem('alpha2-theme', isDark ? 'dark' : 'light');
+
+        document.getElementById('themeToggle').textContent =
+            isDark ? '☀️ Theme' : '🌙 Theme';
+    });
+
+    const savedTheme = localStorage.getItem('alpha2-theme');
+
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        document.getElementById('themeToggle').textContent = '☀️ Theme';
+    }
+
+    let resizeTimer;
+
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+
+        resizeTimer = setTimeout(() => {
+            if (pdfDoc) {
+                renderPage(currentPage);
+            }
+        }, 200);
+    });
+
+    loadPDF();
+</script>
 
 </body>
 </html>
