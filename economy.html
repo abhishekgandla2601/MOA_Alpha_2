@@ -827,6 +827,22 @@
 
     });
 
+
+    // Open PDFs inside the Alpha-2 PDF reader
+    document.querySelectorAll(".study-item a").forEach(function (link) {
+        link.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const pdfFile = link.getAttribute("href");
+            const topicTitle = link.querySelector(".card-title").textContent.trim();
+
+            const viewerURL = new URL("pdf-viewer.html", window.location.href);
+            viewerURL.searchParams.set("file", pdfFile);
+            viewerURL.searchParams.set("title", topicTitle);
+
+            window.location.href = viewerURL.href;
+        });
+    });
 </script>
 
 </body>
