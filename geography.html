@@ -7,12 +7,10 @@
     <title>Geography Study Materials | Alpha-2</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -180,8 +178,7 @@
             height: 95px;
             border-radius: 50%;
             margin: 0 auto 22px;
-            background:
-                radial-gradient(circle at 30% 30%, #b7f3ec, #36a6a2 45%, #14506d 75%);
+            background: radial-gradient(circle at 30% 30%, #b7f3ec, #36a6a2 45%, #14506d 75%);
             box-shadow: 0 0 35px rgba(91,192,190,0.5);
             position: relative;
             animation: float 4s ease-in-out infinite;
@@ -264,12 +261,12 @@
             background: var(--card);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 13px 20px;
+            padding: 10px 18px;
             box-shadow: var(--shadow);
         }
 
         .topic-counter .number {
-            font-size: 27px;
+            font-size: 24px;
             font-weight: 800;
             color: var(--primary);
             line-height: 1;
@@ -391,6 +388,7 @@
             display: none;
             z-index: 1000;
             box-shadow: var(--shadow);
+            cursor: pointer;
         }
 
         footer {
@@ -452,36 +450,26 @@
 <!-- Header -->
 <header class="topbar">
     <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
-
         <a href="index.html" class="brand">ALPHA-2</a>
 
         <div class="d-flex gap-2">
             <a href="index.html" class="header-btn">← Home</a>
-
-            <button class="header-btn" id="themeToggle" type="button">
-                🌙 Dark Mode
-            </button>
+            <button class="header-btn" id="themeToggle" type="button">🌙 Dark Mode</button>
         </div>
-
     </div>
 </header>
 
 <!-- Hero -->
 <section class="hero">
-
     <div class="globe"></div>
-
     <h1>Geography Study Materials</h1>
-
     <p>
         Explore the Earth, physical features, climate, resources and Indian
         geography through these study materials.
     </p>
-
     <div class="clock-box">
         <span id="dateTime"></span>
     </div>
-
 </section>
 
 <!-- Main -->
@@ -496,19 +484,21 @@
 
         <!-- Search -->
         <div class="mb-4">
-            <input
-                type="text"
-                id="searchInput"
-                class="search-box"
-                placeholder="🔍 Search Geography topics..."
-                aria-label="Search Geography topics">
+            <input type="text" id="searchInput" class="search-box"
+                   placeholder="🔍 Search Geography topics..."
+                   aria-label="Search Geography topics">
         </div>
 
-        <!-- Section Heading -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="section-heading mb-0">
-                📚 Available Study Materials
-            </h4>
+        <!-- Section Heading + Counter -->
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <h4 class="section-heading mb-0">📚 Available Study Materials</h4>
+
+            <div class="topic-counter">
+                <div>
+                    <div class="number" id="resultCount">22</div>
+                    <div class="label">Topics</div>
+                </div>
+            </div>
         </div>
 
         <!-- Study Cards -->
@@ -517,7 +507,7 @@
             <!-- 1 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="continental drifting">
                 <div class="study-card">
-                    <a href="Continental Drifting.pdf" target="_blank" rel="noopener">
+                    <a href="Continental Drifting.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/9e/25/91/9e25915802d1197a2f69c02963fcfefc.jpg"
                                  alt="Continental Drifting" loading="lazy">
@@ -530,9 +520,9 @@
             </div>
 
             <!-- 2 -->
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="indian geography">
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="indian geography india geography">
                 <div class="study-card">
-                    <a href="India Geography.pdf" target="_blank" rel="noopener">
+                    <a href="India Geography.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/17/42/3f/17423fecdadb617e9b714cc94dd1dfd5.jpg"
                                  alt="Indian Geography" loading="lazy">
@@ -545,9 +535,9 @@
             </div>
 
             <!-- 3 -->
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="geological time scale">
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="geological time scale period">
                 <div class="study-card">
-                    <a href="Geological Time Scale or period.pdf" target="_blank" rel="noopener">
+                    <a href="Geological Time Scale or period.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/50/77/26/50772614269dd44b43e56f5bd128c264.jpg"
                                  alt="Geological Time Scale" loading="lazy">
@@ -562,7 +552,7 @@
             <!-- 4 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="the himalayas mountain building physiographic divisions">
                 <div class="study-card">
-                    <a href="The Himalayas.pdf" target="_blank" rel="noopener">
+                    <a href="The Himalayas.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/02/7a/04/027a04605aadeb156f56d1d8a50260fc.jpg"
                                  alt="The Himalayas" loading="lazy">
@@ -577,7 +567,7 @@
             <!-- 5 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="drainage system of india">
                 <div class="study-card">
-                    <a href="Drainage System of India.pdf" target="_blank" rel="noopener">
+                    <a href="Drainage System of India.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/81/7f/0e/817f0eec65771da4b43f9829f7fc84c7.jpg"
                                  alt="Drainage System of India" loading="lazy">
@@ -592,7 +582,7 @@
             <!-- 6 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="peninsular rivers of india">
                 <div class="study-card">
-                    <a href="Peninsular Rivers.pdf" target="_blank" rel="noopener">
+                    <a href="Peninsular Rivers.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/ab/d5/81/abd58179ea1fcb1063d0c8690cfcafb9.jpg"
                                  alt="Peninsular Rivers of India" loading="lazy">
@@ -607,7 +597,7 @@
             <!-- 7 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="climate of india">
                 <div class="study-card">
-                    <a href="Climate of india.pdf" target="_blank" rel="noopener">
+                    <a href="Climate of india.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/65/02/d6/6502d6e637d517de525b0798d694c382.jpg"
                                  alt="Climate of India" loading="lazy">
@@ -622,7 +612,7 @@
             <!-- 8 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="classification of rocks and rock cycle">
                 <div class="study-card">
-                    <a href="Classification of rocks and rock cycle.pdf" target="_blank" rel="noopener">
+                    <a href="Classification of rocks and rock cycle.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/8e/7e/da/8e7edad768bb57065493a7ca63ddb9c6.jpg"
                                  alt="Classification of Rocks and Rock Cycle" loading="lazy">
@@ -637,7 +627,7 @@
             <!-- 9 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="soils of india">
                 <div class="study-card">
-                    <a href="Soils of india.pdf" target="_blank" rel="noopener">
+                    <a href="Soils of india.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/fa/c2/d5/fac2d5a7ffef22c4dcdbac997926bcf9.jpg"
                                  alt="Soils of India" loading="lazy">
@@ -652,7 +642,7 @@
             <!-- 10 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="indian minerals">
                 <div class="study-card">
-                    <a href="Indian Minerals.pdf" target="_blank" rel="noopener">
+                    <a href="Indian Minerals.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/e4/3e/44/e43e443c31696b7f69a1219ce9139bcb.jpg"
                                  alt="Indian Minerals" loading="lazy">
@@ -667,7 +657,7 @@
             <!-- 11 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="agriculture of india">
                 <div class="study-card">
-                    <a href="India-Agriculture.pdf" target="_blank" rel="noopener">
+                    <a href="India-Agriculture.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/15/b4/3b/15b43bef4612fdda0bed9708dfa94451.jpg"
                                  alt="Agriculture of India" loading="lazy">
@@ -682,7 +672,7 @@
             <!-- 12 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="natural vegetation">
                 <div class="study-card">
-                    <a href="Natural Vegetation.pdf" target="_blank" rel="noopener">
+                    <a href="Natural Vegetation.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/3a/28/d8/3a28d8c0bf706966c338f1687ad74a9e.jpg"
                                  alt="Natural Vegetation" loading="lazy">
@@ -697,7 +687,7 @@
             <!-- 13 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="india major crops">
                 <div class="study-card">
-                    <a href="India Major Crops.pdf" target="_blank" rel="noopener">
+                    <a href="India Major Crops.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/d5/5e/14/d55e14db64130cac6845b00c606e6a73.jpg"
                                  alt="India Major Crops" loading="lazy">
@@ -712,7 +702,7 @@
             <!-- 14 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="india industries geographical perspective">
                 <div class="study-card">
-                    <a href="India- Industries -Geographical Perspective.pdf" target="_blank" rel="noopener">
+                    <a href="India- Industries -Geographical Perspective.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/ce/46/93/ce46937289f296b605f9acf6f697b8b0.jpg"
                                  alt="India Industries" loading="lazy">
@@ -727,7 +717,7 @@
             <!-- 15 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="india transport geography">
                 <div class="study-card">
-                    <a href="India Transport Geography.pdf" target="_blank" rel="noopener">
+                    <a href="India Transport Geography.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/6f/b5/b2/6fb5b2ef7b6c35ea853c7757cca7829f.jpg"
                                  alt="India Transport Geography" loading="lazy">
@@ -742,7 +732,7 @@
             <!-- 16 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="india population and cultural geography">
                 <div class="study-card">
-                    <a href="India Population -Cultural Geography.pdf" target="_blank" rel="noopener">
+                    <a href="India Population -Cultural Geography.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/5d/c9/6b/5dc96b5254e8f5b66b99f5f13b92b773.jpg"
                                  alt="India Population and Cultural Geography" loading="lazy">
@@ -757,7 +747,7 @@
             <!-- 17 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="origin of the earth">
                 <div class="study-card">
-                    <a href="The Origin of the Earth.pdf" target="_blank" rel="noopener">
+                    <a href="The Origin of the Earth.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/5c/6c/a2/5c6ca22fcf27643ffe34ef4ad82848a0.jpg"
                                  alt="The Origin of the Earth" loading="lazy">
@@ -770,12 +760,12 @@
             </div>
 
             <!-- 18 -->
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="origin of the earth">
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="formation of the earth">
                 <div class="study-card">
-                    <a href="The formation of the Earth.pdf" target="_blank" rel="noopener">
+                    <a href="The formation of the Earth.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/c4/e7/6b/c4e76b71df2045f97bd8e1dd701697f3.jpg"
-                                 alt="The Origin of the Earth" loading="lazy">
+                                 alt="The Formation of the Earth" loading="lazy">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">The Formation of the Earth</h5>
@@ -785,13 +775,12 @@
             </div>
 
             <!-- 19 -->
-
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="origin of the earth">
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="volcanoes volcano">
                 <div class="study-card">
-                    <a href="volcanoes.pdf" target="_blank" rel="noopener">
+                    <a href="volcanoes.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/1200x/ef/a1/ca/efa1ca44666088337bca64f1ed84c1db.jpg"
-                                 alt="The Origin of the Earth" loading="lazy">
+                                 alt="Volcanoes" loading="lazy">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Volcanoes</h5>
@@ -800,13 +789,13 @@
                 </div>
             </div>
 
-            <!--20 -->
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="origin of the earth">
+            <!-- 20 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="earthquake earth quakes">
                 <div class="study-card">
-                    <a href="EARTH QUAKES.pdf" target="_blank" rel="noopener">
+                    <a href="EARTH QUAKES.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/e4/33/3d/e4333df938b924b2439c50454f51ac08.jpg"
-                                 alt="The Origin of the Earth" loading="lazy">
+                                 alt="Earthquake" loading="lazy">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Earthquake</h5>
@@ -814,15 +803,14 @@
                     </a>
                 </div>
             </div>
-        </div>
 
-         <!--21 -->
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="origin of the earth">
+            <!-- 21 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="earths interior earth interior">
                 <div class="study-card">
-                    <a href="Earths Interior.pdf" target="_blank" rel="noopener">
+                    <a href="Earths Interior.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/236x/17/0c/7a/170c7a2f4dc922435cc830a336ce4edb.jpg"
-                                 alt="The Origin of the Earth" loading="lazy">
+                                 alt="Earth’s Interior" loading="lazy">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Earth’s Interior</h5>
@@ -830,23 +818,23 @@
                     </a>
                 </div>
             </div>
-        </div>
 
-         <!--22 -->
-            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="origin of the earth">
+            <!-- 22 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="earths internal structure earth internal structure">
                 <div class="study-card">
-                    <a href="Earths Internal structure.pdf" target="_blank" rel="noopener">
+                    <a href="Earths Internal structure.pdf">
                         <div class="image-wrap">
                             <img src="https://i.pinimg.com/736x/7e/8b/26/7e8b26ada4ffca6b71bb9eafc7905aaa.jpg"
-                                 alt="The Origin of the Earth" loading="lazy">
+                                 alt="Earth's Internal Structure" loading="lazy">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Earth's Internal structure</h5>
+                            <h5 class="card-title">Earth's Internal Structure</h5>
                         </div>
                     </a>
                 </div>
             </div>
-        </div>
+
+        </div> <!-- End of #studyGrid -->
 
         <!-- No Results -->
         <div id="noResults">
@@ -866,7 +854,7 @@
 <button id="backToTop" title="Back to top" aria-label="Back to top">↑</button>
 
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     // Loading screen
@@ -876,7 +864,7 @@
         }, 500);
     });
 
-    // Fallback in case the load event is delayed
+    // Fallback
     setTimeout(function () {
         document.getElementById("loader").classList.add("hide");
     }, 5000);
@@ -891,9 +879,7 @@
 
     themeToggle.addEventListener("click", function () {
         document.body.classList.toggle("dark-mode");
-
         const isDark = document.body.classList.contains("dark-mode");
-
         localStorage.setItem("alpha2-theme", isDark ? "dark" : "light");
         themeToggle.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
     });
@@ -901,7 +887,6 @@
     // Date and time
     function updateClock() {
         const now = new Date();
-
         document.getElementById("dateTime").textContent =
             now.toLocaleDateString("en-IN", {
                 weekday: "long",
@@ -929,14 +914,11 @@
         "The Amazon rainforest is the world's largest tropical rainforest."
     ];
 
-    const dayNumber = Math.floor(
-        new Date().setHours(0, 0, 0, 0) / 86400000
-    );
-
+    const dayNumber = Math.floor(new Date().setHours(0, 0, 0, 0) / 86400000);
     document.getElementById("dailyFact").textContent =
         facts[((dayNumber % facts.length) + facts.length) % facts.length];
 
-    // Search topics and update the available-topic counter
+    // Search + Counter
     const searchInput = document.getElementById("searchInput");
     const studyItems = document.querySelectorAll(".study-item");
     const noResults = document.getElementById("noResults");
@@ -949,18 +931,12 @@
         studyItems.forEach(function (item) {
             const title = item.dataset.title.toLowerCase();
             const show = title.includes(searchText);
-
             item.style.display = show ? "" : "none";
-
-            if (show) {
-                visibleCount++;
-            }
+            if (show) visibleCount++;
         });
 
         resultCount.textContent = visibleCount;
-
-        noResults.style.display =
-            visibleCount === 0 ? "block" : "none";
+        noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
 
     searchInput.addEventListener("input", filterCards);
@@ -973,9 +949,7 @@
                 cardObserver.unobserve(entry.target);
             }
         });
-    }, {
-        threshold: 0.08
-    });
+    }, { threshold: 0.08 });
 
     document.querySelectorAll(".study-card").forEach(function (card) {
         cardObserver.observe(card);
@@ -983,39 +957,29 @@
 
     // Mouse-following glow
     const mouseGlow = document.getElementById("mouseGlow");
-
     document.addEventListener("mousemove", function (event) {
         mouseGlow.style.left = event.clientX + "px";
         mouseGlow.style.top = event.clientY + "px";
     });
 
-    // Scroll progress and Back to top
+    // Scroll progress + Back to top
     const progress = document.getElementById("readingProgress");
     const backToTop = document.getElementById("backToTop");
 
     window.addEventListener("scroll", function () {
         const scrollTop = window.scrollY;
-        const scrollHeight =
-            document.documentElement.scrollHeight - window.innerHeight;
-
-        const percentage = scrollHeight > 0
-            ? (scrollTop / scrollHeight) * 100
-            : 0;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percentage = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
 
         progress.style.width = percentage + "%";
-
-        backToTop.style.display =
-            scrollTop > 350 ? "block" : "none";
+        backToTop.style.display = scrollTop > 350 ? "block" : "none";
     });
 
     backToTop.addEventListener("click", function () {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Open PDFs inside the Alpha-2 PDF reader
+    // Open PDFs inside the Alpha-2 PDF viewer
     document.querySelectorAll(".study-item a").forEach(function (link) {
         link.addEventListener("click", function (event) {
             event.preventDefault();
