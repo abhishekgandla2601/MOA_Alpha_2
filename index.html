@@ -8,15 +8,12 @@
     <title>Alpha-2 | Subjects</title>
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
     <style>
-
         :root {
             --bg: #fffaf3;
             --surface: rgba(255,255,255,.94);
@@ -50,34 +47,25 @@
         }
 
         /* Background */
-
         body::before {
             content: "";
             position: fixed;
             inset: 0;
             z-index: -1;
-
             background:
-                linear-gradient(
-                    rgba(255,250,243,.91),
-                    rgba(255,250,243,.95)
-                ),
+                linear-gradient(rgba(255,250,243,.91), rgba(255,250,243,.95)),
                 url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
                 center/cover no-repeat;
         }
 
         body.dark::before {
             background:
-                linear-gradient(
-                    rgba(16,29,41,.93),
-                    rgba(16,29,41,.97)
-                ),
+                linear-gradient(rgba(16,29,41,.93), rgba(16,29,41,.97)),
                 url("https://i.pinimg.com/736x/f4/cb/88/f4cb8885ef02ab58ade28359fc504d29.jpg")
                 center/cover no-repeat;
         }
 
         /* Navigation */
-
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -104,7 +92,6 @@
         }
 
         /* Hero Section */
-
         .hero {
             min-height: 390px;
             display: flex;
@@ -142,7 +129,6 @@
         }
 
         /* Static Subject Labels */
-
         .subject-labels {
             display: flex;
             flex-wrap: wrap;
@@ -163,7 +149,6 @@
         }
 
         /* Date and Greeting */
-
         .info-section {
             text-align: center;
             padding: 15px 20px 40px;
@@ -182,35 +167,7 @@
             margin-top: 8px;
         }
 
-        /* Daily Motivation */
-
-        .quote-box {
-            max-width: 800px;
-            margin: 0 auto 65px;
-            padding: 25px;
-            text-align: center;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-        }
-
-        .quote-label {
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .quote-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 21px;
-            margin: 12px 0 0;
-            font-weight: 700;
-        }
-
         /* Subjects Section */
-
         .section-heading {
             text-align: center;
             margin-bottom: 35px;
@@ -227,7 +184,6 @@
         }
 
         /* Search Box */
-
         .search-box {
             max-width: 450px;
             margin: 0 auto 35px;
@@ -248,7 +204,6 @@
         }
 
         /* Subject Cards */
-
         .subject-card {
             display: block;
             height: 100%;
@@ -258,27 +213,16 @@
             background: var(--surface);
             text-decoration: none;
             color: var(--text);
-
-            /* Card hover animation */
-            transition:
-                transform .3s ease,
-                box-shadow .3s ease,
-                border-color .3s ease;
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
         }
-
-        /* Card Image */
 
         .subject-card img {
             display: block;
             width: 100%;
             height: 210px;
             object-fit: cover;
-
-            /* Image zoom animation */
             transition: transform .45s ease;
         }
-
-        /* Card Content */
 
         .card-content {
             padding: 22px;
@@ -297,7 +241,6 @@
         }
 
         /* Card Hover Effects */
-
         .subject-card:hover {
             transform: translateY(-7px);
             border-color: var(--accent);
@@ -318,13 +261,11 @@
         }
 
         /* Card Entrance Animations */
-
         @keyframes cardAppear {
             from {
                 opacity: 0;
                 transform: translateY(25px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -336,20 +277,11 @@
             animation: cardAppear .65s ease forwards;
         }
 
-        .subject-column:nth-child(1) {
-            animation-delay: .1s;
-        }
-
-        .subject-column:nth-child(2) {
-            animation-delay: .25s;
-        }
-
-        .subject-column:nth-child(3) {
-            animation-delay: .4s;
-        }
+        .subject-column:nth-child(1) { animation-delay: .1s; }
+        .subject-column:nth-child(2) { animation-delay: .25s; }
+        .subject-column:nth-child(3) { animation-delay: .4s; }
 
         /* Footer */
-
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -366,9 +298,7 @@
         }
 
         /* Responsive Design */
-
         @media (max-width: 600px) {
-
             .hero {
                 min-height: 350px;
             }
@@ -382,25 +312,13 @@
                 font-size: 12px;
             }
 
-            .quote-box {
-                margin-left: 15px;
-                margin-right: 15px;
-            }
-
             .section-heading h2 {
                 font-size: 30px;
             }
-
-            .quote-text {
-                font-size: 18px;
-            }
-
         }
 
         /* Reduced Motion Accessibility */
-
         @media (prefers-reduced-motion: reduce) {
-
             *,
             *::before,
             *::after {
@@ -412,388 +330,182 @@
             .subject-column {
                 opacity: 1;
             }
-
         }
-
     </style>
 </head>
 
 <body>
 
     <!-- Navigation -->
-
     <nav class="topbar">
-
-        <div class="brand">
-            ALPHA-2
-        </div>
-
-        <button class="theme-btn" id="themeToggle">
-            🌙 Dark Mode
-        </button>
-
+        <div class="brand">ALPHA-2</div>
+        <button class="theme-btn" id="themeToggle">🌙 Dark Mode</button>
     </nav>
 
-
     <!-- Hero Section -->
-
     <header class="hero">
-
         <div class="hero-content">
-
             <h1>ALPHA-2</h1>
-
             <h2>Learn & Grow</h2>
-
             <p class="hero-description">
                 Build knowledge. Stay focused. Move forward.
             </p>
 
             <!-- UPSC Subjects -->
-
             <div class="subject-labels">
-
                 <span class="subject-label">Geography</span>
-
                 <span class="subject-label">History</span>
-
                 <span class="subject-label">Polity</span>
-
                 <span class="subject-label">Economy</span>
-
                 <span class="subject-label">Science</span>
-
                 <span class="subject-label">Environment</span>
-
                 <span class="subject-label">Current Affairs</span>
-
             </div>
-
         </div>
-
     </header>
 
-
     <!-- Date and Greeting -->
-
     <section class="info-section">
-
         <div class="date-time" id="dateTime"></div>
-
         <div class="greeting" id="greeting"></div>
-
     </section>
-
-
-    <!-- Daily Motivation -->
-
-    <section class="container">
-
-        <div class="quote-box">
-
-            <div class="quote-label">
-                Daily Motivation
-            </div>
-
-            <p class="quote-text" id="dailyQuote"></p>
-
-        </div>
-
-    </section>
-
 
     <!-- Explore Subjects -->
-
     <section class="container pb-5">
-
         <div class="section-heading">
-
             <h2>Explore Subjects</h2>
-
-            <p>
-                Choose a subject and continue your preparation.
-            </p>
-
+            <p>Choose a subject and continue your preparation.</p>
         </div>
-
 
         <!-- Search -->
-
         <div class="search-box">
-
-            <input
-                type="text"
-                id="subjectSearch"
-                placeholder="Search your subject..."
-                autocomplete="off"
-            >
-
+            <input type="text"
+                   id="subjectSearch"
+                   placeholder="Search your subject..."
+                   autocomplete="off">
         </div>
-
 
         <!-- Subject Cards -->
-
         <div class="row g-4" id="subjectCards">
 
-
             <!-- Geography Card -->
-
             <div class="col-md-6 col-lg-4 subject-column">
-
                 <a href="geography.html" class="subject-card">
-
-                    <img
-                        src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
-                        alt="Geography"
-                    >
-
+                    <img src="https://i.pinimg.com/736x/93/2b/55/932b55c69219f7414415ccb538a4b5c7.jpg"
+                         alt="Geography">
                     <div class="card-content">
-
                         <h3>Geography</h3>
-
-                        <p>
-                            Earth, environment and India
-                        </p>
-
+                        <p>Earth, environment and India</p>
                     </div>
-
                 </a>
-
             </div>
-
 
             <!-- Economy Card -->
-
             <div class="col-md-6 col-lg-4 subject-column">
-
                 <a href="economy.html" class="subject-card">
-
-                    <img
-                        src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
-                        alt="Economy"
-                    >
-
+                    <img src="https://i.pinimg.com/1200x/cf/1f/8f/cf1f8f90bf16d5a097ab54a228fcb493.jpg"
+                         alt="Economy">
                     <div class="card-content">
-
                         <h3>Economy</h3>
-
-                        <p>
-                            India's economy and development
-                        </p>
-
+                        <p>India's economy and development</p>
                     </div>
-
                 </a>
-
             </div>
 
-
-            <!-- Polity Card -->
-
+            <!-- Polity Card (placeholder - you can add more later) -->
 
         </div>
 
-
         <!-- No Search Results -->
-
-        <p
-            id="noResults"
-            class="text-center mt-4"
-            style="display: none;"
-        >
+        <p id="noResults" class="text-center mt-4" style="display: none;">
             No matching subject found.
         </p>
-
     </section>
 
-
     <!-- Footer -->
-
     <footer>
-
         <h3>ALPHA-2</h3>
-
-        <p>
-            Learn • Prepare • Succeed
-        </p>
-
+        <p>Learn • Prepare • Succeed</p>
     </footer>
 
-
     <!-- JavaScript -->
-
     <script>
-
         /* Dark and Light Mode */
-
-        const themeToggle =
-            document.getElementById("themeToggle");
+        const themeToggle = document.getElementById("themeToggle");
 
         if (localStorage.getItem("alpha2-theme") === "dark") {
-
             document.body.classList.add("dark");
-
         }
 
         function updateThemeButton() {
-
-            themeToggle.textContent =
-                document.body.classList.contains("dark")
+            themeToggle.textContent = document.body.classList.contains("dark")
                 ? "☀️ Light Mode"
                 : "🌙 Dark Mode";
-
         }
 
         updateThemeButton();
 
         themeToggle.addEventListener("click", function () {
-
             document.body.classList.toggle("dark");
-
-            const theme =
-                document.body.classList.contains("dark")
-                ? "dark"
-                : "light";
-
+            const theme = document.body.classList.contains("dark") ? "dark" : "light";
             localStorage.setItem("alpha2-theme", theme);
-
             updateThemeButton();
-
         });
 
-
         /* Date and Time */
-
         function updateDateTime() {
-
             const now = new Date();
 
             document.getElementById("dateTime").textContent =
-
                 now.toLocaleDateString("en-IN", {
-
                     weekday: "long",
                     day: "numeric",
                     month: "long",
                     year: "numeric"
-
                 }) + " | " +
-
                 now.toLocaleTimeString("en-IN", {
-
                     hour: "2-digit",
                     minute: "2-digit",
                     second: "2-digit"
-
                 });
 
-
             const hour = now.getHours();
-
             let greeting = "Good Evening";
 
             if (hour < 12) {
-
                 greeting = "Good Morning";
-
-            }
-
-            else if (hour < 17) {
-
+            } else if (hour < 17) {
                 greeting = "Good Afternoon";
-
             }
 
-            document.getElementById("greeting").textContent =
-                greeting;
-
+            document.getElementById("greeting").textContent = greeting;
         }
 
         updateDateTime();
-
         setInterval(updateDateTime, 1000);
 
-
-        /* Daily Motivation */
-
-        const quotes = [
-
-            "Great things are done by a series of small things brought together.",
-
-            "Success is the sum of small efforts repeated every day.",
-
-            "Don't watch the clock; do what it does. Keep going.",
-
-            "Your future is created by what you do today.",
-
-            "Dream big. Start small. Act now.",
-
-            "Discipline is the bridge between goals and accomplishment.",
-
-            "The secret of getting ahead is getting started."
-
-        ];
-
-        const today = new Date();
-
-        const dayNumber = Math.floor(
-
-            new Date(
-
-                today.getFullYear(),
-                today.getMonth(),
-                today.getDate()
-
-            ).getTime() / 86400000
-
-        );
-
-        document.getElementById("dailyQuote").textContent =
-            quotes[dayNumber % quotes.length];
-
-
         /* Subject Search */
-
-        const subjectSearch =
-            document.getElementById("subjectSearch");
-
-        const subjectColumns =
-            document.querySelectorAll(".subject-column");
-
-        const noResults =
-            document.getElementById("noResults");
+        const subjectSearch = document.getElementById("subjectSearch");
+        const subjectColumns = document.querySelectorAll(".subject-column");
+        const noResults = document.getElementById("noResults");
 
         subjectSearch.addEventListener("input", function () {
-
-            const searchValue =
-                this.value.toLowerCase().trim();
-
+            const searchValue = this.value.toLowerCase().trim();
             let visibleCount = 0;
 
             subjectColumns.forEach(function (column) {
-
-                const title =
-                    column.querySelector("h3").textContent.toLowerCase();
+                const title = column.querySelector("h3").textContent.toLowerCase();
 
                 if (title.includes(searchValue)) {
-
                     column.style.display = "";
-
                     visibleCount++;
-
                 } else {
-
                     column.style.display = "none";
-
                 }
-
             });
 
-            noResults.style.display =
-                visibleCount === 0 ? "block" : "none";
-
+            noResults.style.display = visibleCount === 0 ? "block" : "none";
         });
-
     </script>
 
 </body>
