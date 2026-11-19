@@ -233,50 +233,6 @@
             font-size: 14px;
         }
 
-        /* Daily fact */
-        .fact-box {
-            background: linear-gradient(120deg, #176b87, #39a9a1);
-            color: white;
-            padding: 20px 24px;
-            border-radius: 18px;
-            margin-bottom: 28px;
-            box-shadow: var(--shadow);
-        }
-
-        .fact-box h5 {
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .fact-box p {
-            margin: 0;
-            line-height: 1.7;
-        }
-
-        /* Topic counter */
-        .topic-counter {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 10px 18px;
-            box-shadow: var(--shadow);
-        }
-
-        .topic-counter .number {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-        }
-
-        .topic-counter .label {
-            font-size: 13px;
-            color: var(--muted);
-        }
-
         /* Search */
         .search-box {
             background: var(--card);
@@ -476,12 +432,6 @@
 <main class="main-content">
     <div class="container">
 
-        <!-- Daily Fact -->
-        <div class="fact-box">
-            <h5>🌍 Geography Fact of the Day</h5>
-            <p id="dailyFact"></p>
-        </div>
-
         <!-- Search -->
         <div class="mb-4">
             <input type="text" id="searchInput" class="search-box"
@@ -489,16 +439,9 @@
                    aria-label="Search Geography topics">
         </div>
 
-        <!-- Section Heading + Counter -->
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <!-- Section Heading -->
+        <div class="mb-4">
             <h4 class="section-heading mb-0">📚 Available Study Materials</h4>
-
-            <div class="topic-counter">
-                <div>
-                    <div class="number" id="resultCount">22</div>
-                    <div class="label">Topics</div>
-                </div>
-            </div>
         </div>
 
         <!-- Study Cards -->
@@ -818,6 +761,7 @@
                     </a>
                 </div>
             </div>
+
             <!-- 22 -->
             <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="earths internal structure earth internal structure">
                 <div class="study-card">
@@ -828,6 +772,36 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Earth's Internal Structure</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 23 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="classification of climate koppen climatic regions climate zones">
+                <div class="study-card">
+                    <a href="Classification of Climate.pdf">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/1200x/65/02/d6/6502d6e637d517de525b0798d694c382.jpg"
+                                 alt="Classification of Climate" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Classification of Climate</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 24 -->
+            <div class="col-12 col-sm-6 col-lg-4 study-item" data-title="composition and structure of atmosphere atmospheric pressure layers of atmosphere">
+                <div class="study-card">
+                    <a href="COMPOSITION AND STRUCTURE OF ATMOSPHERE.pdf">
+                        <div class="image-wrap">
+                            <img src="https://i.pinimg.com/736x/5c/6c/a2/5c6ca22fcf27643ffe34ef4ad82848a0.jpg"
+                                 alt="Composition and Structure of Atmosphere" loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Composition and Structure of Atmosphere</h5>
                         </div>
                     </a>
                 </div>
@@ -899,29 +873,10 @@
     updateClock();
     setInterval(updateClock, 1000);
 
-    // Daily Geography Fact
-    const facts = [
-        "The Pacific Ocean is the largest and deepest ocean on Earth.",
-        "The Sahara is the largest hot desert in the world.",
-        "Mount Everest is the highest mountain above sea level.",
-        "The Equator divides Earth into the Northern and Southern Hemispheres.",
-        "The Nile is traditionally regarded as the world's longest river.",
-        "The Indian Ocean is the only ocean named after a country.",
-        "The Himalayas are young fold mountains.",
-        "The Deccan Plateau is located in southern India.",
-        "The Earth's outermost solid layer is called the crust.",
-        "The Amazon rainforest is the world's largest tropical rainforest."
-    ];
-
-    const dayNumber = Math.floor(new Date().setHours(0, 0, 0, 0) / 86400000);
-    document.getElementById("dailyFact").textContent =
-        facts[((dayNumber % facts.length) + facts.length) % facts.length];
-
-    // Search + Counter
+    // Search
     const searchInput = document.getElementById("searchInput");
     const studyItems = document.querySelectorAll(".study-item");
     const noResults = document.getElementById("noResults");
-    const resultCount = document.getElementById("resultCount");
 
     function filterCards() {
         const searchText = searchInput.value.toLowerCase().trim();
@@ -934,7 +889,6 @@
             if (show) visibleCount++;
         });
 
-        resultCount.textContent = visibleCount;
         noResults.style.display = visibleCount === 0 ? "block" : "none";
     }
 
